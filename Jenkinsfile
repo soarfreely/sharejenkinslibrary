@@ -107,7 +107,7 @@ pipeline {
 				timeout(time:30, unit:"MINUTES") {
 					script { // 脚本式
 						println('代码扫描')
-						tool.printMsg("我的共享库")
+						tool.printMsg("我的共享库", 'green')
 				 	}
 				}
 			}
