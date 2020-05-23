@@ -3,6 +3,8 @@
 
 def tool = new org.devops.tools()
 
+abc()
+
 String workspace = "/opt/jenkins/workspace"
 
 pipeline {
