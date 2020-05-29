@@ -96,6 +96,19 @@ pipeline {
 				timeout(time:20, unit:"MINUTES") {
 					script { // 脚本式
 						println('应用打包')
+						sshagent(['jenkins--ssh-deepin']) {
+                           sh('ls -al')
+                           sh("tar zvf project.tar ./* --exclude=./git")
+                           sh '''
+                            ssh -o StrictHostKeyChecking=no -l root 172.17.0.5 uname -a
+                            echo 123
+                            scp project.tar 172.17.0.5:/home/www
+                            echo 456
+                            ssh root@172.17.0.5 -tt "ls -al && cd /home/www && tar zxvf project.tar -C /home/www"
+                           '''
+
+                        }
+                        println('sshagent应用打包')
 				 	}
 				}
 			}
