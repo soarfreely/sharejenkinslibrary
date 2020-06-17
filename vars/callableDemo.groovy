@@ -5,10 +5,11 @@
 
 def call(Closure callableBody) {
     println('1111111');
-println(callableBody.call();
+    callableBody.call();
 
     println('2222222');
 
+    println(callableBody);
 //     callableBody();
     println('33333333333');
     println(run_composer);
