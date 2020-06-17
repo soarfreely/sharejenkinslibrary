@@ -5,7 +5,7 @@
 
 def call(Closure callableBody) {
     println('1111111');
-println(callableBody);
+println(callableBody.call();
 
     println('2222222');
 
