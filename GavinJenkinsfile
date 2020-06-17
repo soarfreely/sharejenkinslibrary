@@ -4,6 +4,8 @@
 def tool = new org.devOps.Tools()
 
 gavin()
+callableDemo()
+
 
 String workspace = "/opt/jenkins/workspace"
 
