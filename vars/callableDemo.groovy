@@ -5,11 +5,11 @@
 
 def call(Closure callableBody) {
     println('1111111');
-//     println(run_composer);
-//     println(php_project_path);
+println(callableBody);
+
     println('2222222');
 
-    callableBody();
+//     callableBody();
     println('33333333333');
     println(run_composer);
     println(php_project_path);
