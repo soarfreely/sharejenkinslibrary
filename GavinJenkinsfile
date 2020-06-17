@@ -1,7 +1,7 @@
 #!groovy
 @Library('jenkinslib@master') _  // 加载共享库
 
-def tool = new org.devops.tools()
+def tool = new org.devOps.tools()
 
 gavin()
 
@@ -46,7 +46,7 @@ pipeline {
                  credentialsId = 'jenkins'
 
                  // 仓库地址
-                 srcUrl = "git@172.17.0.3:group-a/project-demo.git"
+                 srcUrl = "git@172.17.0.3:group-a/project-aa.git"
             }
 
 			steps {
