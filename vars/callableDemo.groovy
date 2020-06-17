@@ -1,5 +1,9 @@
 // 回调demo
-def call(Closure callableBody) {
+def call(name1, name2) {
+    println('1111111');
+}
+
+def call2(Closure callableBody) {
     println('1111111');
 //     println(run_composer);
 //     println(php_project_path);
