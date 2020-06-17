@@ -9,8 +9,7 @@ def Email(status, toEmail){
                 <meta charset="UTF-8">
             </head>
             <body leftmargin="8" marginwidth="0" topmargin="8" marginheight="4" offset="0">
-            <h3>追求质量无极限，强化安全至永远</h3>
-            <h2>尊重生产</h2>
+            <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1592038363060&di=4a0fe582c114a8d5afe4aef967e2ca2e&imgtype=0&src=http%3A%2F%2Fdownload.img.dns4.cn%2Fpic%2F192713%2Fp18%2F20171214154800_8834_zs_sy.jpeg">
             <table width="95%" cellpadding="0" cellspacing="0" style="font-size: 11pt; font-family: Tahoma, Arial, Helvetica, sans-serif">
                 <tr>
                     <td><br />
@@ -35,4 +34,45 @@ def Email(status, toEmail){
             subject: "Jenkins-${JOB_NAME}项目构建信息 ",
             to: toEmail
         
+}
+/**
+* currentBuild.changeSets{
+      items[{
+          msg //提交注释
+          commitId //提交hash值
+          author{ //提交用户相关信息
+              id
+              fullName
+          }
+          timestamp
+          affectedFiles[{ //受影响的文件列表
+              editType{
+                  name
+              }
+              path: "path"
+          }]
+          affectedPaths[// 受影响的目录，是个Collection<String>
+              "path-a","path-b"
+          ]
+      }]
+  }
+*/
+// 提交注释
+def getChangeString() {
+        def changeString = ""
+        def MAX_MSG_LEN = 20
+        def changeLogSets = currentBuild.changeSets
+        for (int i = 0; i < changeLogSets.size(); i++) {
+            def entries = changeLogSets[i].items
+            for (int j = 0; j < entries.length; j++) {
+                def entry = entries[j]
+                truncatedMsg = entry.msg.take(MAX_MSG_LEN)
+                commitTime = new Date(entry.timestamp).format("yyyy-MM-dd HH:mm:ss")
+                changeString += " - ${truncatedMsg} [${entry.author} ${commitTime}]\n"
+            }
+        }
+        if (!changeString) {
+            changeString = " - No new changes"
+        }
+        return (changeString)
 }
