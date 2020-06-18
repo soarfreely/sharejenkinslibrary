@@ -4,19 +4,13 @@
 // }
 
 def call(Closure callableBody) {
-    println('1111111');
-    callableBody.call();
 
     println('2222222');
 
-    println(callableBody);
-//     callableBody();
-    println('33333333333');
     println(run_composer);
-    println(php_project_path);
+    println('33333333333');
 
-//     callableBody();
-//     println('回调方法');
-//     println(run_composer);
-//     println(php_project_path);
+    println(php_project_path);
+    println('1111111');
+
 }

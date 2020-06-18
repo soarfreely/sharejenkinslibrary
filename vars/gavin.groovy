@@ -1,4 +1,4 @@
 // 此处没有包名，是全局的
 def call() {
-  println("gavin")
+  println("My name is Gavin")
 }

@@ -4,7 +4,13 @@
 def tool = new org.devOps.Tools()
 
 gavin()
-callableDemo()
+
+callableDemo {
+    run_composer = 'true'
+    php_project_path = 'trunk'
+}
+
+gavin()
 
 
 String workspace = "/opt/jenkins/workspace"
