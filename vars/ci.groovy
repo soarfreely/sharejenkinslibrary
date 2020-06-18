@@ -20,7 +20,7 @@ def call(Closure body) {
      tool.printMsg(env.params, 'blue')
      tool.printMsg("${params}", 'green')
      tool.printMsg('environment', 'green')
-//      tool.printMsg(runComposer, 'green')
+     tool.printMsg("${runComposer}", 'green')
 
     // jenkins 工作目录
     String workspace = "/opt/jenkins/workspace"
