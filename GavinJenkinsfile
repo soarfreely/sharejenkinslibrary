@@ -10,23 +10,6 @@ ci {
    php_project_path = 'trunk'
 }
 
-//callableDemo {
-//    run_composer = 'true'
-//    php_project_path = 'trunk'
-//}
-
-demo {
-    run_composer = 'true'
-    php_project_path = 'trunk'
-
-    log.info '22222222'
-    println("hello, erhuo")
-    log.warning '#########'
-}
-
-println(run_composer)
-
-
 gavin()
 
 
