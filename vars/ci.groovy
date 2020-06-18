@@ -1,23 +1,24 @@
 def call(Closure body) {
      body()
+     paramsMap = body
 
      def tool = new org.devOps.Tools()
      def getCode = new org.devOps.GetCode()
 
      tool.printMsg("my lib", 'green')
 
+     tool.printMsg(paramsMap, 'green')
+
      tool.printMsg(body.run_composer, 'green')
      tool.printMsg(body.php_project_path, 'green')
 
      //全局变量
      environment {
-//          params = 'params params'
          runComposer = body.run_composer
          projectPath = body.php_project_path
          repository = body.repository
      }
 
-     tool.printMsg(env.params, 'blue')
      tool.printMsg("${params}", 'green')
      tool.printMsg('environment', 'green')
      tool.printMsg(body.repository, 'green')
@@ -84,21 +85,8 @@ def call(Closure body) {
 
 
     						//Git,拉取代码
-    						getCode.GetCode(repository, credentialsId, "${branchName}")
+    						getCode.GetCode(body.repository, credentialsId, "${branchName}")
     						tool.printMsg('get code ok')
-//                             checkout([
-//                                 $class: 'GitSCM',
-//                                 branches: [[name: "${branchName}"]],
-//                                 doGenerateSubmoduleConfigurations: false,
-//                                 extensions: [],
-//                                 submoduleCfg: [],
-//                                 userRemoteConfigs: [
-//                                     [
-//                                         credentialsId: "${credentialsId}",
-//                                         url: "${srcUrl}"
-//                                     ]
-//                                 ]
-//                             ])
     				 	}
     				}
     			}
