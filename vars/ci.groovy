@@ -17,7 +17,7 @@ def call(Closure body) {
      }
 
      tool.printMsg('environment', 'green')
-     tool.printMsg(env.runComposer, 'green')
+     tool.printMsg(runComposer, 'green')
 
     // jenkins 工作目录
     String workspace = "/opt/jenkins/workspace"
@@ -55,7 +55,7 @@ def call(Closure body) {
                      credentialsId = 'jenkins'
 
                      // 仓库地址
-//                      repository = env.repository
+//                      repository = repository
                 }
 
     			steps {
@@ -81,7 +81,7 @@ def call(Closure body) {
 
 
     						//Git,拉取代码
-    						getCode.GetCode(env.repository, credentialsId, "${branchName}")
+    						getCode.GetCode(repository, credentialsId, "${branchName}")
     						tool.printMsg('get code ok')
 //                             checkout([
 //                                 $class: 'GitSCM',
