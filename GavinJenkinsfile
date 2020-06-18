@@ -12,7 +12,7 @@ gavin()
 
 demo {
     log.info '22222222'
-    sh "hello, erhuo"
+    println("hello, erhuo")
     log.warning '#########'
 }
 
