@@ -1,6 +1,5 @@
 def call(Closure body) {
      body()
-     paramsMap = body
 
      def tool = new org.devOps.Tools()
      def getCode = new org.devOps.GetCode()
@@ -57,36 +56,16 @@ def call(Closure body) {
     		    environment {
     		        // 凭证id
                      credentialsId = 'jenkins'
-
-                     // 仓库地址
-//                      repository = repository
                 }
 
     			steps {
     				timeout(time:5, unit:"MINUTES") {  // 步骤超时时间
     					script { // 脚本式
-    						println('获取代码')
-
-                            // 获取ssh 认证的凭证信息。(不同的凭证获取的方式不同)
-                            withCredentials([sshUserPrivateKey(credentialsId: "${credentialsId}", keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'userName')]) {
-                                println(identity)
-                                println(userName)
-                            }
-
-
-                            wrap([$class: 'BuildUser']){
-                                echo "full name is $BUILD_USER"
-                                echo "user id is $BUILD_USER_ID"
-                                echo "user email is $BUILD_USER_EMAIL"
-
-                                // 当前构建用户，赋值给 构建描述
-                                currentBuild.description = "$BUILD_USER"
-                            }
-
+    						println('fetch code')
 
     						//Git,拉取代码
     						getCode.GetCode(body.repository, credentialsId, "${branchName}")
-    						tool.printMsg('get code ok')
+    						println('get code ok')
     				 	}
     				}
     			}
@@ -97,7 +76,7 @@ def call(Closure body) {
     			steps {
     				timeout(time:20, unit:"MINUTES") {
     					script { // 脚本式
-    						println('应用打包')
+    						println('Build tar')
     						sshagent(['jenkins--ssh-deepin']) {
                                sh('ls -al')
                                sh("tar zvf project.tar ./* --exclude=./git")
