@@ -3,14 +3,14 @@
 //     println('1111111');
 // }
 
-def call(Closure callableBody) {
+def call(aa, bb) {
 
     println('2222222');
 
-    println(run_composer);
+    println(aa);
     println('33333333333');
 
-    println(php_project_path);
+    println(bb);
     println('1111111');
 
 }
