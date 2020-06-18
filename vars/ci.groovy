@@ -82,7 +82,7 @@ def call(Closure body) {
 
     						//Git,拉取代码
     						getCode.GetCode(env.repository, credentialsId, "${branchName}")
-    						tool.
+    						tool.printMsg('get code ok')
 //                             checkout([
 //                                 $class: 'GitSCM',
 //                                 branches: [[name: "${branchName}"]],
