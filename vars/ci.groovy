@@ -17,10 +17,10 @@ def call(Closure body) {
          repository = body.repository
      }
 
-     tool.printMsg(env.params, 'green')
+     tool.printMsg(env.params, 'blue')
      tool.printMsg("${params}", 'green')
      tool.printMsg('environment', 'green')
-     tool.printMsg(runComposer, 'green')
+//      tool.printMsg(runComposer, 'green')
 
     // jenkins 工作目录
     String workspace = "/opt/jenkins/workspace"
