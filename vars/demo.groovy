@@ -1,3 +1,5 @@
 def call(Closure body) {
-//     body()
+    node('demo') {
+       body()
+    }
 }
