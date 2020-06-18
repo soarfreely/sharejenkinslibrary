@@ -11,11 +11,14 @@ def call(Closure body) {
 
      //全局变量
      environment {
+         params = 'params params'
          runComposer = body.run_composer
          projectPath = body.php_project_path
          repository = body.repository
      }
 
+     tool.printMsg(env.params, 'green')
+     tool.printMsg("${params}", 'green')
      tool.printMsg('environment', 'green')
      tool.printMsg(runComposer, 'green')
 
