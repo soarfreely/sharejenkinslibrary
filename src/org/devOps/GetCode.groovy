@@ -13,7 +13,7 @@ def GetCode(srcUrl, credentialsId, branchName, tagName = null) {
         pathName = "refs/tags/${tagName}"
     }
 
-    checkout([$class: 'GitSCM', branches: [[name: "${pathName}"]],
+    checkout([$class: 'GitSCM', branches: [[name: "${branchName}"]],
         doGenerateSubmoduleConfigurations: false,
         extensions: [], submoduleCfg: [],
         userRemoteConfigs: [[credentialsId: "${credentialsId}",
