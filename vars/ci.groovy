@@ -2,6 +2,8 @@ def call(Closure body) {
      body()
 
      def tool = new org.devOps.Tools()
+     def getCode = new org.devOps.GetCode()
+
      tool.printMsg("my lib", 'green')
 
      tool.printMsg(body.run_composer, 'green')
@@ -11,7 +13,9 @@ def call(Closure body) {
      environment {
          runComposer = body.run_composer
          projectPath = body.php_project_path
+         repository = body.repository
      }
+
      tool.printMsg('environment', 'green')
      tool.printMsg(env.runComposer, 'green')
 
@@ -26,33 +30,32 @@ def call(Closure body) {
     		}
     	}
 
-    	options {
-    	// 指定运行选项（可选）
-//     		timestamps() // 日志会有日志
-//     		skipDefaultCheckout() // 删除隐藏checkout scm 语句
-//     		disableConcurrentBuilds() // 禁止并行（根据实际情况）
-//     		timeout(time:1, unit:"HOURS") // 流水线超时设置
-//     		// 表示保留6次构建历史
-//     		buildDiscarder(logRotator(daysToKeepStr:'1', numToKeepStr:'6', artifactDaysToKeepStr:'2', artifactNumToKeepStr:'5'))
+    	options {  // 指定运行选项（可选）
+    		timestamps() // 日志会有日志
+    		skipDefaultCheckout() // 删除隐藏checkout scm 语句
+    		disableConcurrentBuilds() // 禁止并行（根据实际情况）
+    		timeout(time:1, unit:"HOURS") // 流水线超时设置
+    		// 表示保留6次构建历史
+    		buildDiscarder(logRotator(daysToKeepStr:'1', numToKeepStr:'6', artifactDaysToKeepStr:'2', artifactNumToKeepStr:'5'))
     	}
 
         // 参数
         parameters {
-                string(name: 'branchName', defaultValue: 'master', description: '请输入将要构建的代码分支')
-                choice(name: 'mode', choices: ['deploy', 'rollback'], description: '选择方向！')
+            string(name: 'branchName', defaultValue: 'master', description: 'Please enter the code branch to be built')
+            string(name: 'versionNo', defaultValue: '', description: 'Please enter the version number to be published')
+            choice(name: 'mode', choices: ['deploy', 'rollback'], description: '选择方向！')
         }
 
     	stages {
     		// 下载代码
     		stage("GetCode") { // 阶段名称
-
     		    // 局部变量
     		    environment {
     		        // 凭证id
                      credentialsId = 'jenkins'
 
                      // 仓库地址
-                     srcUrl = "git@172.17.0.3:group-a/project-aa.git"
+//                      repository = env.repository
                 }
 
     			steps {
@@ -78,19 +81,21 @@ def call(Closure body) {
 
 
     						//Git,拉取代码
-                            checkout([
-                                $class: 'GitSCM',
-                                branches: [[name: "${branchName}"]],
-                                doGenerateSubmoduleConfigurations: false,
-                                extensions: [],
-                                submoduleCfg: [],
-                                userRemoteConfigs: [
-                                    [
-                                        credentialsId: "${credentialsId}",
-                                        url: "${srcUrl}"
-                                    ]
-                                ]
-                            ])
+    						getCode.GetCode(env.repository, credentialsId, "${branchName}")
+    						tool.
+//                             checkout([
+//                                 $class: 'GitSCM',
+//                                 branches: [[name: "${branchName}"]],
+//                                 doGenerateSubmoduleConfigurations: false,
+//                                 extensions: [],
+//                                 submoduleCfg: [],
+//                                 userRemoteConfigs: [
+//                                     [
+//                                         credentialsId: "${credentialsId}",
+//                                         url: "${srcUrl}"
+//                                     ]
+//                                 ]
+//                             ])
     				 	}
     				}
     			}
