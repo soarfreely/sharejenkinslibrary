@@ -1,4 +1,5 @@
 def call(Closure body) {
+     paramsMap = body
      body()
 
      def tool = new org.devOps.Tools()
