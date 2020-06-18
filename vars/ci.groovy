@@ -11,7 +11,7 @@ def call(Closure body) {
 
      //全局变量
      environment {
-         params = 'params params'
+//          params = 'params params'
          runComposer = body.run_composer
          projectPath = body.php_project_path
          repository = body.repository
@@ -20,7 +20,7 @@ def call(Closure body) {
      tool.printMsg(env.params, 'blue')
      tool.printMsg("${params}", 'green')
      tool.printMsg('environment', 'green')
-     tool.printMsg("${runComposer}", 'green')
+     tool.printMsg(body.repository, 'green')
 
     // jenkins 工作目录
     String workspace = "/opt/jenkins/workspace"
