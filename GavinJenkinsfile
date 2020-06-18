@@ -5,10 +5,17 @@ def tool = new org.devOps.Tools()
 
 gavin()
 
-callableDemo {
-    run_composer = 'true'
-    php_project_path = 'trunk'
+//callableDemo {
+//    run_composer = 'true'
+//    php_project_path = 'trunk'
+//}
+
+demo {
+    log.info '22222222'
+    sh "hello, erhuo"
+    log.warning '#########'
 }
+
 
 gavin()
 

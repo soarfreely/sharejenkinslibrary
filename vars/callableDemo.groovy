@@ -3,10 +3,9 @@
 //     println('1111111');
 // }
 
-def call(aa, bb) {
-
+def call(String aa, String bb) {
     println('2222222');
-
+    echo "AA, ${aa}";
     println(aa);
     println('33333333333');
 
