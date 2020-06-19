@@ -40,8 +40,8 @@ def call(Closure body) {
 
         // 参数
         parameters {
-            string(name: 'branchName', defaultValue: 'master', description: 'Please enter the code branch to be built')
-            string(name: 'versionNo.', defaultValue: '', description: 'Please enter the version number to be published')
+            string(name: 'branch', defaultValue: 'master', description: 'Please enter the code branch to be built')
+            string(name: 'version', defaultValue: '', description: 'Please enter the version number to be published')
             choice(name: 'mode', choices: ['deploy', 'rollback'], description: '选择方向！')
         }
 
@@ -54,12 +54,12 @@ def call(Closure body) {
     						println('fetch code')
 
     						//Git,拉取代码
-    						getCode.GetCode(body.repository, body.jenkins2repository, "${branchName}")
+    						getCode.GetCode(body.repository, body.jenkins2repository, "${branch}")
     						println('get code ok')
-    						tool.printMsg('get code finish', 'green')
     				 	}
     				}
     			}
+    			tool.printMsg('get code finish', 'green')
     		}
 
     		// 构建
