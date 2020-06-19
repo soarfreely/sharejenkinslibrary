@@ -18,3 +18,20 @@ def build() {
         """
     }
 }
+
+// 打包
+def tar(projectName, dir) {
+    dir = '/home/www'
+    echo 'start tar ............'
+    sshagent(['jenkins--ssh-deepin']) {
+        sh('ls -al')
+        sh("tar zvf ${projectName}.tar ./* --exclude=./git")
+        sh '''
+            ssh -o StrictHostKeyChecking=no -l root 172.17.0.5 uname -a
+            echo 123
+            scp ${projectName}.tar 172.17.0.5:/home/www
+            echo 456
+            ssh root@172.17.0.5 -tt "ls -al && cd /home/www && tar zxvf ${projectName} -C ${dir}"
+       '''
+    }
+}

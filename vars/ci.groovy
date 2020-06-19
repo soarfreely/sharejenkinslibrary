@@ -7,7 +7,7 @@ def call(Closure body) {
      def build = new org.devOps.Build()
 
      tool.printMsg("my lib", 'green')
-     tool.getProjectName(body.repository)
+     // tool.getProjectName(body.repository)
      tool.printMsg(paramsMap, 'green')
 
      tool.printMsg(body.run_composer, 'green')
@@ -73,7 +73,7 @@ def call(Closure body) {
     				timeout(time:20, unit:"MINUTES") {
     					script { // 脚本式
     						println('Build tar')
-                            build.tar()
+                            build.tar('project-name', '')
                             println('sshagent应用打包')
     				 	}
     				}
