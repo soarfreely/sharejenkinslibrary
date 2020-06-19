@@ -28,7 +28,8 @@ def call(Closure body) {
     		}
     	}
 
-    	options {  // 指定运行选项（可选）
+        // 指定运行选项（可选）
+    	options {
     		timestamps() // 日志会有日志
     		skipDefaultCheckout() // 删除隐藏checkout scm 语句
     		disableConcurrentBuilds() // 禁止并行（根据实际情况）

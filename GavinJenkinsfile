@@ -11,6 +11,6 @@ ci {
    php_project_path = 'trunk'
 
    // 仓库地址
-   repository = 'git@172.17.0.3:group-a/project-aa.git'
+   repository = 'ssh://git@172.17.0.3:group-a/project-aa.git'
 }
 
