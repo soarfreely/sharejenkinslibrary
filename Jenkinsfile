@@ -1,7 +1,5 @@
 #!groovy
-@Library('jenkinslib@master') _  // 加载共享库
-
-def tool = new org.devOps.Tools()
+@Library('jenkinslib@master') _
 
 ci {
    // 是否执行composer
