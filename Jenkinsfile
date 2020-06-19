@@ -11,6 +11,7 @@ ci {
    php_project_path = 'trunk'
 
    // 仓库地址
-   repository = 'ssh://git@github.com:soarfreely/lib-1.git'
+   // repository = 'ssh://git@github.com:soarfreely/lib-1.git'
+   repository = 'https://github.com/soarfreely/lib-1.git'
 }
 
