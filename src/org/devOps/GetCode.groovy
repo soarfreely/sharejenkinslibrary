@@ -17,9 +17,18 @@ def GetCode(srcUrl, credentialsId, branchName, tagName = null) {
     println("${branchName}")
     println("${srcUrl}")
 
-    checkout([$class: 'GitSCM', branches: [[name: "${branchName}"]],
+    checkout([
+        $class: 'GitSCM', branches: [
+            [name: "${branchName}"]
+        ],
         doGenerateSubmoduleConfigurations: false,
-        extensions: [], submoduleCfg: [],
-        userRemoteConfigs: [[credentialsId: "${credentialsId}",
-        url: "${srcUrl}"]]])
+        extensions: [],
+        submoduleCfg: [],
+        userRemoteConfigs: [
+            [
+                credentialsId: "${credentialsId}",
+                url: "${srcUrl}"
+            ]
+        ]
+    ])
 }
