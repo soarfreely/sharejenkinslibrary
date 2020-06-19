@@ -25,9 +25,9 @@ def tar(projectName, targetIp, credentialsId) {
     echo 'start tar ............'
     sshagent(["${credentialsId}"]) {
         sh('ls -al')
-        sh("tar zvf ${projectName}.tar ./* --exclude=./git")
+        sh("tar -zcvf ${projectName}.tar ./* --exclude=./git")
         sh '''
-            ssh -o StrictHostKeyChecking=no -l root 172.17.0.5 uname -a
+            ssh -o StrictHostKeyChecking=no -l root ${targetIp} uname -a
             echo 123
             scp ${projectName}.tar ${targetIp}:${dir}
             echo 456
