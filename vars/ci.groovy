@@ -51,7 +51,7 @@ def call(Closure body) {
     		    // 局部变量
     		    environment {
     		        // 凭证id
-                     credentialsId = 'jenkins'
+                     credentialsId = 'local-jenkins-github'
                 }
 
     			steps {
