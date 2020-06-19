@@ -27,7 +27,7 @@ def GetCode(srcUrl, credentialsId, branchName, tagName = null) {
         userRemoteConfigs: [
             [
                 credentialsId: "${credentialsId}",
-                url: 'https://github.com/soarfreely/lib-1.git'
+                url: "${srcUrl}"
             ]
         ]
     ])
