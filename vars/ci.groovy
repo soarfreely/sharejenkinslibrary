@@ -59,7 +59,6 @@ def call(Closure body) {
     				 	}
     				}
     			}
-    			tool.printMsg('get code finish', 'green')
     		}
 
     		// 构建
