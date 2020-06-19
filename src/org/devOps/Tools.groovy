@@ -27,3 +27,17 @@ def buildDir(workspace, moduleName) {
 
     return srcDir
 }
+
+// 通过仓库地址截取项目名称
+def getProjectName(repository) {
+    string proName = 'default'
+
+    int pos = repository.indexOf('/')
+    if (pos != -1) {
+        projectName(repository.subString(pos + 1))
+    } else {
+        string proName = repository.subString(pos + 1, indexOf('.git'))
+    }
+
+    println(proName)
+}

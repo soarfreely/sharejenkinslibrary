@@ -4,20 +4,14 @@ def call(Closure body) {
 
      def tool = new org.devOps.Tools()
      def getCode = new org.devOps.GetCode()
+     def build = new org.devOps.Build()
 
      tool.printMsg("my lib", 'green')
-
+     tool.getProjectName(body.repository)
      tool.printMsg(paramsMap, 'green')
 
      tool.printMsg(body.run_composer, 'green')
      tool.printMsg(body.php_project_path, 'green')
-
-     //全局变量
-     environment {
-         runComposer = body.run_composer
-         projectPath = body.php_project_path
-         repository = body.repository
-     }
 
      tool.printMsg("${params}", 'green')
      tool.printMsg('environment', 'green')
@@ -67,6 +61,7 @@ def call(Closure body) {
     						//Git,拉取代码
     						getCode.GetCode(body.repository, credentialsId, "${branchName}")
     						println('get code ok')
+    						tool.printMsg('get code finish', 'green')
     				 	}
     				}
     			}
@@ -78,18 +73,7 @@ def call(Closure body) {
     				timeout(time:20, unit:"MINUTES") {
     					script { // 脚本式
     						println('Build tar')
-    						sshagent(['jenkins--ssh-deepin']) {
-                               sh('ls -al')
-                               sh("tar zvf project.tar ./* --exclude=./git")
-                               sh '''
-                                ssh -o StrictHostKeyChecking=no -l root 172.17.0.5 uname -a
-                                echo 123
-                                scp project.tar 172.17.0.5:/home/www
-                                echo 456
-                                ssh root@172.17.0.5 -tt "ls -al && cd /home/www && tar zxvf project.tar -C /home/www"
-                               '''
-
-                            }
+                            build.tar()
                             println('sshagent应用打包')
     				 	}
     				}
