@@ -41,7 +41,7 @@ def call(Closure body) {
         // 参数
         parameters {
             string(name: 'branchName', defaultValue: 'master', description: 'Please enter the code branch to be built')
-            string(name: 'versionNo', defaultValue: '', description: 'Please enter the version number to be published')
+            string(name: 'versionNo.', defaultValue: '', description: 'Please enter the version number to be published')
             choice(name: 'mode', choices: ['deploy', 'rollback'], description: '选择方向！')
         }
 
