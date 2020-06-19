@@ -18,7 +18,7 @@ def call(Closure body) {
      tool.printMsg(body.repository, 'green')
 
     // jenkins 工作目录
-    String workspace = "/opt/jenkins/workspace"
+    String workspace = "/home/soar/app/nginx-php-fpm/www/jenkins/workspace"
 
     pipeline {
     	agent {
