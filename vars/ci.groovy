@@ -24,7 +24,7 @@ def call(Closure body) {
     	agent {
     		node {
     			label "master" // 指定运行节点的标签或者名称
-    			customWorkspace "${workspace}" // 指定运行工作目录（可选）
+    			customWorkspace "projectName/${workspace}" // 指定运行工作目录（可选）
     		}
     	}
 
@@ -48,19 +48,13 @@ def call(Closure body) {
     	stages {
     		// 下载代码
     		stage("GetCode") { // 阶段名称
-    		    // 局部变量
-    		    environment {
-    		        // 凭证id
-                     credentialsId = 'local-jenkins-github'
-                }
-
     			steps {
     				timeout(time:5, unit:"MINUTES") {  // 步骤超时时间
     					script { // 脚本式
     						println('fetch code')
 
     						//Git,拉取代码
-    						getCode.GetCode(body.repository, credentialsId, "${branchName}")
+    						getCode.GetCode(body.repository, body.jenkins2repository, "${branchName}")
     						println('get code ok')
     						tool.printMsg('get code finish', 'green')
     				 	}
@@ -74,7 +68,7 @@ def call(Closure body) {
     				timeout(time:20, unit:"MINUTES") {
     					script { // 脚本式
     						println('Build tar')
-                            build.tar('project-name', '')
+                            build.tar('project-name', body.targetIp, body.jenkins2server)
                             println('sshagent应用打包')
     				 	}
     				}
