@@ -48,7 +48,7 @@ def tar(projectName, targetIp, credentialsId) {
                mkdir ${projectName}
             fi
 
-            ssh "ls -al && tar zxvf ${tarName} -C ${projectName}"
+            ssh "tar zxvf ${tarName} -C ${projectName}"
         """
     }
 }
