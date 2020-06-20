@@ -21,12 +21,12 @@ def build() {
 
 // 打包
 def tar(projectName, targetIp, credentialsId) {
-    dir = '/home/www'
+    def dir = '/home/www'
     echo 'start tar ............'
     echo "start tar1 ${projectName}"
     echo "start tar2 ${targetIp}"
     echo "start tar3 ${credentialsId}"
-
+    def tarName = ${projectName} + '.tar'
 
     sshagent(["${credentialsId}"]) {
         sh('ls -al')
@@ -35,7 +35,7 @@ def tar(projectName, targetIp, credentialsId) {
         sh '''
             ssh -o StrictHostKeyChecking=no -l root 172.17.0.3 uname -a
             echo 123
-            scp ${projectName}.tar ${targetIp}:${dir}
+            scp ${tarName} ${targetIp}:${dir}
             echo 456
             ssh root@${targetIp} -tt "ls -al && cd ${dir} && tar zxvf ${projectName} -C ${projectName}"
        '''
