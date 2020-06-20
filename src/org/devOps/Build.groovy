@@ -26,6 +26,7 @@ def tar(projectName, targetIp, credentialsId) {
     sshagent(["${credentialsId}"]) {
         sh('ls -al')
         sh("tar -zcvf ${projectName}.tar ./* --exclude=./git")
+        sh('ls -al')
         sh '''
             sudo ssh -o StrictHostKeyChecking=no -l root ${targetIp} uname -a
             echo 123
