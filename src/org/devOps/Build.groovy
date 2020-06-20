@@ -26,7 +26,9 @@ def tar(projectName, targetIp, credentialsId) {
     echo "start tar1 ${projectName}"
     echo "start tar2 ${targetIp}"
     echo "start tar3 ${credentialsId}"
-    def tarName = ${projectName} + '.tar'
+    def tarName = "${projectName}.tar"
+
+    echo "start tar5 ${tarName}"
 
     sshagent(["${credentialsId}"]) {
         sh('ls -al')
