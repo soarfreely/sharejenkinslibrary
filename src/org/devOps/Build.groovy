@@ -21,7 +21,7 @@ def build() {
 
 // 打包
 def tar(projectName, targetIp, credentialsId) {
-    def dir = '/home/www'
+    def dir = '/root/www'
     echo 'start tar ............'
     echo "start tar1 ${projectName}"
     echo "start tar2 ${targetIp}"
