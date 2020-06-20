@@ -42,11 +42,13 @@ def tar(projectName, targetIp, credentialsId) {
             ls -al
             scp ${tarName} root@${targetIp}:${dir}
             echo 456
+            ssh "root@${targetIp} -tt && cd ${dir}"
+
             if [ ! -d ${projectName} ];then
                mkdir ${projectName}
             fi
 
-            ssh root@${targetIp} -tt "ls -al && cd ${dir} && tar zxvf ${tarName} -C ${projectName}"
+            ssh "ls -al && tar zxvf ${tarName} -C ${projectName}"
         """
     }
 }
