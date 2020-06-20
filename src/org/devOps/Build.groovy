@@ -23,12 +23,17 @@ def build() {
 def tar(projectName, targetIp, credentialsId) {
     dir = '/home/www'
     echo 'start tar ............'
+    echo "start tar1 ${projectName}"
+    echo "start tar2 ${targetIp}"
+    echo "start tar3 ${credentialsId}"
+
+
     sshagent(["${credentialsId}"]) {
         sh('ls -al')
         sh("tar -zcvf ${projectName}.tar ./* --exclude=./git")
         sh('ls -al')
         sh '''
-            ssh -o StrictHostKeyChecking=no -l root 172.17.0.3
+            ssh -o StrictHostKeyChecking=no -l root 172.17.0.3 uname -a
             echo 123
             scp ${projectName}.tar ${targetIp}:${dir}
             echo 456
