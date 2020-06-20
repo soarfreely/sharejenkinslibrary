@@ -26,13 +26,13 @@ def tar(projectName, targetIp, credentialsId) {
     echo "start tar1 ${projectName}"
     echo "start tar2 ${targetIp}"
     echo "start tar3 ${credentialsId}"
-    def tarName = "${projectName}.tar"
+    def tarName = "${projectName}.tar.gz"
 
     echo "start tar5 ${tarName}"
 
     sshagent(["${credentialsId}"]) {
         sh('ls -al')
-        sh("tar -zcvf ${projectName}.tar ./* --exclude=./git")
+        sh("tar -zcvf ${tarName} ./* --exclude=./git")
         sh('ls -al')
         sh """
             ssh -o StrictHostKeyChecking=no -l root ${targetIp} uname -a
