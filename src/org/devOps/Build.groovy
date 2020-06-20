@@ -37,6 +37,7 @@ def tar(projectName, targetIp, credentialsId) {
         sh """
             ssh -o StrictHostKeyChecking=no -l root 172.17.0.3 uname -a
             echo 123
+            ls -al
             scp ${tarName} ${targetIp}:${dir}
             echo 456
             ssh root@${targetIp} -tt "ls -al && cd ${dir} && tar zxvf ${projectName} -C ${projectName}"
