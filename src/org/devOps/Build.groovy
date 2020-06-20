@@ -35,14 +35,14 @@ def tar(projectName, targetIp, credentialsId) {
         sh("tar -zcvf ${projectName}.tar ./* --exclude=./git")
         sh('ls -al')
         sh """
-            ssh -o StrictHostKeyChecking=no -l root 172.17.0.3 uname -a
+            ssh -o StrictHostKeyChecking=no -l root ${targetIp} uname -a
             echo 123
             ls -al
-            ssh -o StrictHostKeyChecking=no -l root 172.17.0.3 uname -a && pwd
+            ssh -o StrictHostKeyChecking=no -l root ${targetIp} uname -a && pwd
             ls -al
             scp ${tarName} root@${targetIp}:${dir}
             echo 456
-            ssh root@${targetIp} -tt "ls -al && cd ${dir} && tar zxvf ${projectName} -C ${projectName}"
+            ssh root@${targetIp} -tt "ls -al && cd ${dir} && tar zxvf ${tarName} -C ${projectName}"
         """
     }
 }
