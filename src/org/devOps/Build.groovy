@@ -28,7 +28,7 @@ def tar(projectName, targetIp, credentialsId) {
         sh("tar -zcvf ${projectName}.tar ./* --exclude=./git")
         sh('ls -al')
         sh '''
-            ssh -o StrictHostKeyChecking=no -l root ${targetIp}
+            ssh -o StrictHostKeyChecking=no -l root 172.17.0.3
             echo 123
             scp ${projectName}.tar ${targetIp}:${dir}
             echo 456
