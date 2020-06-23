@@ -85,31 +85,30 @@ def call(Closure body) {
     			}
     		}
 
-    		stages{
-    		    stage ("Deploy") {
-                    steps {
-                        timeout(time:20, unit:"MINUTES") {
-                            script { // 脚本式
-                                println('upload tar')
-                                deploy.upload('project-name', body.targetIp, body.jenkins2server)
-                                println('释放压缩文件')
-                            }
-                        }
-                    }
-    		    }
-
-                stage ("Composer") {
-                    steps {
-                        when {
-                           expression body.runComposer
-                        }
-                        steps {
-                            echo ''composer install''
-                            // sh 'composer install'
+            stage ("Deploy") {
+                steps {
+                    timeout(time:20, unit:"MINUTES") {
+                        script { // 脚本式
+                            println('upload tar')
+                            deploy.upload('project-name', body.targetIp, body.jenkins2server)
+                            println('释放压缩文件')
                         }
                     }
                 }
             }
+
+            stage ("Composer") {
+                steps {
+                    when {
+                       expression body.runComposer
+                    }
+                    steps {
+                        echo ''composer install''
+                        // sh 'composer install'
+                    }
+                }
+            }
+
 
     		// 代码扫描
     		stage("CodeScan") {
