@@ -7,7 +7,7 @@ def call(Closure body) {
 //      gitlab.updateRepoFile(gitlabServer, body.jenkins2repository, 'PUT', "develop")
 
      paramsMap = body
-     body()
+//      body()
 
 
      def checkout = new org.devOps.Checkout()
