@@ -8,6 +8,7 @@ def call(Closure body) {
 
      body()
      println(body.phpSrc)
+     println(body.debug)
 
 
      def checkout = new org.devOps.Checkout()
@@ -20,7 +21,7 @@ def call(Closure body) {
      tool.printMsg(body, 'green')
 
      tool.printMsg(body.runComposer, 'green')
-     tool.printMsg(body.php_project_path, 'green')
+     tool.printMsg(body.phpSrc, 'green')
 
      tool.printMsg("${params}", 'green')
      tool.printMsg('environment', 'green')

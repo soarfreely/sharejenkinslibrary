@@ -19,4 +19,6 @@ ci {
 
    // 生产服务器ip
    targetIp = '172.17.0.3'
+
+   debug = 'debug'
 }
