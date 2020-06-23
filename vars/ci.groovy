@@ -6,7 +6,6 @@ def call(Closure body) {
      tool.printMsg(gitlabServer, 'green')
 //      gitlab.updateRepoFile(gitlabServer, body.jenkins2repository, 'PUT', "develop")
 
-     println(body.debug)
      paramsMap = body
      body()
      println(body.debug)
