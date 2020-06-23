@@ -102,7 +102,7 @@ def call(Closure body) {
                    expression {body.runComposer}
                 }
                 steps {
-                    echo ''composer install''
+                    println('composer install')
                     // sh 'composer install'
                 }
             }
