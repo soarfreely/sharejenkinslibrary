@@ -1,10 +1,17 @@
 def call(Closure body) {
+     tool.printMsg("first line", 'green')
+     def gitlabServer = 'http://172.17.0.3/group-a/lib-1/blob/master/'
+     tool.printMsg(gitlabServer, 'green')
+//      gitlab.updateRepoFile(gitlabServer, body.jenkins2repository, 'PUT', "develop")
+
      paramsMap = body
      body()
 
      def tool = new org.devOps.Tools()
-     def getCode = new org.devOps.GetCode()
+     def checkout = new org.devOps.Checkout()
      def build = new org.devOps.Build()
+     def deploy = new org.devOps.Deploy()
+     def gitlab = new org.devOps.GitlabApi()
 
      tool.printMsg("my lib", 'green')
      // tool.getProjectName(body.repository)
@@ -47,14 +54,14 @@ def call(Closure body) {
 
     	stages {
     		// 下载代码
-    		stage("GetCode") { // 阶段名称
+    		stage("Checkout") { // 阶段名称
     			steps {
     				timeout(time:5, unit:"MINUTES") {  // 步骤超时时间
     					script { // 脚本式
     						println('fetch code')
 
     						//Git,拉取代码
-    						getCode.GetCode(body.repository, body.jenkins2repository, "${branch}")
+    						checkout.checkout(body.repository, body.jenkins2repository, "${branch}")
     						println('get code ok')
     				 	}
     				}
@@ -73,6 +80,18 @@ def call(Closure body) {
     				}
     			}
     		}
+
+    		stage("Deploy") {
+                steps {
+                    timeout(time:20, unit:"MINUTES") {
+                        script { // 脚本式
+                            println('upload tar')
+                            deploy.upload('project-name', body.targetIp, body.jenkins2server)
+                            println('释放压缩文件')
+                        }
+                    }
+                }
+            }
 
     		// 代码扫描
     		stage("CodeScan") {

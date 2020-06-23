@@ -1,7 +1,7 @@
 package org.devOps
 
 //代码检出
-def GetCode(srcUrl, credentialsId, branchName, tagName = null) {
+def checkout(srcUrl, credentialsId, branchName, tagName = null) {
     //delete 'origin/'
     if (branchName.startsWith('origin/')){
         branchName=branchName.minus("origin/")
