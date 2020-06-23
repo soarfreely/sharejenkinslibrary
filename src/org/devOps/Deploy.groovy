@@ -13,8 +13,8 @@ def upload(projectName, targetIp, credentialsId, phpSrc, runComposer) {
             scp ${tarName} root@${targetIp}:${dir}
             echo 456
             ssh root@${targetIp} -tt "ls -al && cd ${dir} && mkdir -p ${projectName} && tar zxvf ${tarName} -C ${projectName}"
-            ls -al ${projectName}/${phpSrc}
-             cd ${projectName}/${phpSrc} && runComposer && composer install
+
+            ssh root@${targetIp} -tt "cd ${projectName}/${phpSrc} && pwd && ${runComposer} && composer install"
         """
     }
 }
