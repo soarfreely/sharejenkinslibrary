@@ -1,4 +1,6 @@
 def call(Closure body) {
+     def tool = new org.devOps.Tools()
+
      tool.printMsg("first line", 'green')
      def gitlabServer = 'http://172.17.0.3/group-a/lib-1/blob/master/'
      tool.printMsg(gitlabServer, 'green')
@@ -7,11 +9,11 @@ def call(Closure body) {
      paramsMap = body
      body()
 
-     def tool = new org.devOps.Tools()
+
      def checkout = new org.devOps.Checkout()
      def build = new org.devOps.Build()
      def deploy = new org.devOps.Deploy()
-     def gitlab = new org.devOps.GitlabApi()
+//      def gitlab = new org.devOps.GitlabApi()
 
      tool.printMsg("my lib", 'green')
      // tool.getProjectName(body.repository)
