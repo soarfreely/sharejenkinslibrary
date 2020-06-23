@@ -1,7 +1,7 @@
 package org.devOps
 
 // IDC上传
-def upload(projectName, targetIp, credentialsId) {
+def upload(projectName, targetIp, credentialsId, phpSrc, runComposer) {
     def dir = '/root/www'
     def tarName = "${projectName}.tar.gz"
 
@@ -13,6 +13,8 @@ def upload(projectName, targetIp, credentialsId) {
             scp ${tarName} root@${targetIp}:${dir}
             echo 456
             ssh root@${targetIp} -tt "ls -al && cd ${dir} && mkdir -p ${projectName} && tar zxvf ${tarName} -C ${projectName}"
+            ls -al ${projectName}/${phpSrc}
+             cd ${projectName}/${phpSrc} && runComposer && composer install
         """
     }
 }

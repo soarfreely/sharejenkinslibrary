@@ -6,7 +6,7 @@ ci {
    runComposer = 'true'
 
    // 源码目录
-   php_project_path = 'trunk'
+   phpSrc = 'src'
 
    // 仓库地址
    repository = 'https://github.com/soarfreely/lib-1.git'
@@ -19,6 +19,4 @@ ci {
 
    // 生产服务器ip
    targetIp = '172.17.0.3'
-
-   debug = 'debug'
 }

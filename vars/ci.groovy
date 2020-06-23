@@ -6,9 +6,8 @@ def call(Closure body) {
      tool.printMsg(gitlabServer, 'green')
 //      gitlab.updateRepoFile(gitlabServer, body.jenkins2repository, 'PUT', "develop")
 
-     paramsMap = body
      body()
-     println(body.debug)
+     println(body.phpSrc)
 
 
      def checkout = new org.devOps.Checkout()
@@ -18,7 +17,7 @@ def call(Closure body) {
 
      tool.printMsg("my lib", 'green')
      // tool.getProjectName(body.repository)
-     tool.printMsg(paramsMap, 'green')
+     tool.printMsg(body, 'green')
 
      tool.printMsg(body.runComposer, 'green')
      tool.printMsg(body.php_project_path, 'green')
@@ -89,23 +88,12 @@ def call(Closure body) {
                     timeout(time:20, unit:"MINUTES") {
                         script { // 脚本式
                             println('upload tar')
-                            deploy.upload('project-name', body.targetIp, body.jenkins2server)
+                            deploy.upload('project-name', body.targetIp, body.jenkins2server, body.phpSrc, body.runComposer)
                             println('释放压缩文件')
                         }
                     }
                 }
             }
-
-            stage ("Composer") {
-                when {
-                   expression {body.runComposer}
-                }
-                steps {
-                    println('composer install')
-                    // sh 'composer install'
-                }
-            }
-
 
     		// 代码扫描
     		stage("CodeScan") {
