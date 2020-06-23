@@ -98,14 +98,12 @@ def call(Closure body) {
             }
 
             stage ("Composer") {
+                when {
+                   expression {body.runComposer}
+                }
                 steps {
-                    when {
-                       expression body.runComposer
-                    }
-                    steps {
-                        echo ''composer install''
-                        // sh 'composer install'
-                    }
+                    echo ''composer install''
+                    // sh 'composer install'
                 }
             }
 
