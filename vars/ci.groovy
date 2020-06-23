@@ -6,8 +6,10 @@ def call(Closure body) {
      tool.printMsg(gitlabServer, 'green')
 //      gitlab.updateRepoFile(gitlabServer, body.jenkins2repository, 'PUT', "develop")
 
+     println(body.debug)
      paramsMap = body
-//      body()
+     body()
+     println(body.debug)
 
 
      def checkout = new org.devOps.Checkout()
@@ -19,7 +21,7 @@ def call(Closure body) {
      // tool.getProjectName(body.repository)
      tool.printMsg(paramsMap, 'green')
 
-     tool.printMsg(body.run_composer, 'green')
+     tool.printMsg(body.runComposer, 'green')
      tool.printMsg(body.php_project_path, 'green')
 
      tool.printMsg("${params}", 'green')
@@ -83,13 +85,27 @@ def call(Closure body) {
     			}
     		}
 
-    		stage("Deploy") {
-                steps {
-                    timeout(time:20, unit:"MINUTES") {
-                        script { // 脚本式
-                            println('upload tar')
-                            deploy.upload('project-name', body.targetIp, body.jenkins2server)
-                            println('释放压缩文件')
+    		stages{
+    		    stage ("Deploy") {
+                    steps {
+                        timeout(time:20, unit:"MINUTES") {
+                            script { // 脚本式
+                                println('upload tar')
+                                deploy.upload('project-name', body.targetIp, body.jenkins2server)
+                                println('释放压缩文件')
+                            }
+                        }
+                    }
+    		    }
+
+                stage ("Composer") {
+                    steps {
+                        when {
+                           expression body.runComposer
+                        }
+                        steps {
+                            echo ''composer install''
+                            // sh 'composer install'
                         }
                     }
                 }

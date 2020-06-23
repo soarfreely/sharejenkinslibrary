@@ -3,7 +3,7 @@
 
 ci {
    // 是否执行composer
-   run_composer = 'true'
+   runComposer = 'true'
 
    // 源码目录
    php_project_path = 'trunk'
@@ -19,4 +19,6 @@ ci {
 
    // 生产服务器ip
    targetIp = '172.17.0.3'
+
+   debug = 'debug'
 }
