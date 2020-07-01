@@ -1,6 +1,6 @@
 package org.devOps
 
-class {
+class GitlabApi {
     String gitServer
     String credentialsId
 
