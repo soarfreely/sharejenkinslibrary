@@ -1,9 +1,15 @@
 package org.devOps
 
+String gitServer
+
+
 //封装HTTP请求
 def HttpReq(gitServer, credentialsId, reqType, reqUrl, reqBody){
     println(credentialsId)
     println(gitServer)
+    this.gitServer = gitServer
+    println(this.gitServer)
+
     withCredentials([string(credentialsId: credentialsId, variable: 'gitlabToken')]) {
       println("gitlabToken=====")
       println("${gitlabToken}")
@@ -55,7 +61,9 @@ def changeCommitStatus(projectId,commitSha,status){
 def getProjectID(projectName){
     projectApi = "projects?search=${projectName}"
     println(projectApi)
-    response = this.HttpReq('GET',projectApi,'','123','abv')
+    println(this.gitServer)
+
+    response = HttpReq('GET',projectApi,'','123','abv')
     def result = readJSON text: """${response.content}"""
 
     for (repo in result){
@@ -127,4 +135,9 @@ def searchProjectBranches(projectId,searchKey){
 def acceptMr(projectId,mergeId){
     def apiUrl = "projects/${projectId}/merge_requests/${mergeId}/merge"
     httpReq('PUT',apiUrl,'')
+}
+
+def initVar(gitServer) {
+    this.gitServer = gitServer
+    println(this.gitServer)
 }
