@@ -9,7 +9,7 @@ def HttpReq(reqType, reqUrl, reqBody){
     gitServer = this.gitServer
     credentialsId = this.credentialsId
 
-    withCredentials([token(credentialsId: 'local-gitlab-api', variable: 'gitlabToken')]) {
+    withCredentials([stringCredentials(credentialsId: 'local-gitlab-api', variable: 'gitlabToken')]) {
       println("gitlabToken=====")
       println("${gitlabToken}")
       result = httpRequest customHeaders: [[maskValue: true, name: 'PRIVATE-TOKEN', value: "${gitlabToken}"]],
