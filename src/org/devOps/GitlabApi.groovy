@@ -2,7 +2,7 @@ package org.devOps
 
 class GitlabApi {
     String gitServer
-    String credentialsId
+    List credentialsId
 
     GitlabApi(gitServer, credentialsId) {
         this.gitServer = gitServer
