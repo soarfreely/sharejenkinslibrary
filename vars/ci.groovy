@@ -4,7 +4,8 @@ def call(Closure body) {
      def tool = new org.devOps.Tools()
      def gitlab = new org.devOps.GitlabApi()
 
-     gitlab.initVar(body.gitlabServer)
+     gitlab.initVariable(body.gitlabServer, body.gitlabApiCredentialsId)
+     println(body.gitlabApiCredentialsId)
 
      tool.printMsg("first line", 'green')
 

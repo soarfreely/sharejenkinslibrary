@@ -1,14 +1,13 @@
 package org.devOps
 
 String gitServer
+List credentialsId
 
 
 //封装HTTP请求
-def HttpReq(gitServer, credentialsId, reqType, reqUrl, reqBody){
-    println(credentialsId)
-    println(gitServer)
-    this.gitServer = gitServer
-    println(this.gitServer)
+def HttpReq(reqType, reqUrl, reqBody){
+    gitServer = this.gitServer
+    credentialsId = this.credentialsId
 
     withCredentials([string(credentialsId: credentialsId, variable: 'gitlabToken')]) {
       println("gitlabToken=====")
@@ -22,14 +21,15 @@ def HttpReq(gitServer, credentialsId, reqType, reqUrl, reqBody){
                 url: "${gitServer}/${reqUrl}"
                 //quiet: true
     }
+    println(result})
     return result
 }
 
-//提交
+//提交-更新文件内容
 def updateRepositoryFile(projectId, filePath, fileContent){
     apiUrl = "projects/${projectId}/repository/files/${filePath}"
     reqBody = """{"branch": "master","encoding":"base64", "content": "${fileContent}", "commit_message": "update a new file"}"""
-    response = HttpReq('PUT',apiUrl,reqBody)
+    response = HttpReq('PUT', apiUrl, reqBody)
     println(response)
 }
 
@@ -137,7 +137,10 @@ def acceptMr(projectId,mergeId){
     httpReq('PUT',apiUrl,'')
 }
 
-def initVar(gitServer) {
+// 初始化必要变量
+def initVariable(gitServer, credentialsId) {
     this.gitServer = gitServer
+    this.credentialsId = credentialsId
     println(this.gitServer)
+    println(this.credentialsId)
 }
