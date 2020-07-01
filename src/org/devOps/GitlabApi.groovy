@@ -3,7 +3,6 @@ package org.devOps
 //封装HTTP请求
 def httpReq(gitServer, credentialsId, reqType, reqUrl, reqBody){
     println(credentialsId)
-    def gitServer = "${gitServer}"
     println(gitServer)
     withCredentials([string(credentialsId: credentialsId, variable: 'gitlabToken')]) {
       println("gitlabToken=====")
