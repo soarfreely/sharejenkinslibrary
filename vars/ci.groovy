@@ -1,7 +1,8 @@
 def call(Closure body) {
+     body()
+
      def tool = new org.devOps.Tools()
      def gitlab = new org.devOps.GitlabApi(body.gitlabServer, body .gitlabApiCredentialsId)
-     body()
 
      tool.printMsg("first line", 'green')
 
