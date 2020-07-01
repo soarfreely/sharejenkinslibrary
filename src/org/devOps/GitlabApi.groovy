@@ -60,12 +60,11 @@ def changeCommitStatus(projectId,commitSha,status){
 //获取工程ID
 def getProjectID(projectName){
     projectApi = "projects?search=${projectName}"
-    println(projectApi)
-    println(this.gitServer)
 
-    response = HttpReq('GET',projectApi,'','123','abv')
+    response = HttpReq('GET', projectApi, '')
     def result = readJSON text: """${response.content}"""
 
+    println(result)
     for (repo in result){
        // println(repo['path_with_namespace'])
         if (repo['path'] == "${projectName}"){
