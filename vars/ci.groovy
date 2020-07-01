@@ -1,15 +1,23 @@
 def call(Closure body) {
      def tool = new org.devOps.Tools()
+     def gitlab = new org.devOps.GitlabApi()
 
      tool.printMsg("first line", 'green')
-     def gitlabServer = 'http://172.17.0.3/group-a/lib-1/blob/master/'
+     def gitlabServer = body.gitlabServer
+
      tool.printMsg(gitlabServer, 'green')
-//      gitlab.updateRepoFile(gitlabServer, body.jenkins2repository, 'PUT', "develop")
+     tool.printMsg('获取工程id', 'green')
+     tool.printMsg("获取工程id${body.projectName}", 'green')
+
+     def res = gitlabServer.getProjectID(body.projectName)
+     println("${res}")
+//      def res = gitlab.updateRepoFile(gitlabServer, body.jenkins2repositoryCredentialsId, 'PUT', "master")
+
+     println("${res}")
 
      body()
      println(body.phpSrc)
      println(body.debug)
-
 
      def checkout = new org.devOps.Checkout()
      def build = new org.devOps.Build()
@@ -64,7 +72,7 @@ def call(Closure body) {
     						println('fetch code')
 
     						//Git,拉取代码
-    						checkout.checkout(body.repository, body.jenkins2repository, "${branch}")
+    						checkout.checkout(body.repository, body.jenkins2repositoryCredentialsId, "${branch}")
     						println('get code ok')
     				 	}
     				}
@@ -77,7 +85,7 @@ def call(Closure body) {
     				timeout(time:20, unit:"MINUTES") {
     					script { // 脚本式
     						println('Build tar')
-                            build.tar('project-name', body.targetIp, body.jenkins2server)
+                            build.tar('project-name', body.targetIp, body.jenkins2serverCredentialsId)
                             println('sshagent应用打包')
     				 	}
     				}
@@ -89,7 +97,7 @@ def call(Closure body) {
                     timeout(time:20, unit:"MINUTES") {
                         script { // 脚本式
                             println('upload tar')
-                            deploy.upload('project-name', body.targetIp, body.jenkins2server, body.phpSrc, body.runComposer)
+                            deploy.upload('project-name', body.targetIp, body.jenkins2serverCredentialsId, body.phpSrc, body.runComposer)
                             println('释放压缩文件')
                         }
                     }
