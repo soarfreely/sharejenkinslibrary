@@ -1,7 +1,7 @@
 package org.devOps
 
 //封装HTTP请求
-def httpReq(gitServer, credentialsId, reqType, reqUrl, reqBody){
+def HttpReq(gitServer, credentialsId, reqType, reqUrl, reqBody){
     println(credentialsId)
     println(gitServer)
     withCredentials([string(credentialsId: credentialsId, variable: 'gitlabToken')]) {
@@ -23,7 +23,7 @@ def httpReq(gitServer, credentialsId, reqType, reqUrl, reqBody){
 def updateRepositoryFile(projectId, filePath, fileContent){
     apiUrl = "projects/${projectId}/repository/files/${filePath}"
     reqBody = """{"branch": "master","encoding":"base64", "content": "${fileContent}", "commit_message": "update a new file"}"""
-    response = httpReq('PUT',apiUrl,reqBody)
+    response = HttpReq('PUT',apiUrl,reqBody)
     println(response)
 }
 
@@ -54,7 +54,7 @@ def changeCommitStatus(projectId,commitSha,status){
 //获取工程ID
 def getProjectID(projectName){
     projectApi = "projects?search=${projectName}"
-    response = httpReq('GET',projectApi,'')
+    response = HttpReq('GET',projectApi,'')
     def result = readJSON text: """${response.content}"""
 
     for (repo in result){
