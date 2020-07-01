@@ -65,9 +65,11 @@ class GitlabApi {
 
     //获取工程ID
     def getProjectID(projectName){
-        projectApi = "projects?search=${projectName}"
-        response = this.HttpReq('GET',projectApi,'')
+        def projectApi = "projects?search=${projectName}"
+        def response = this.HttpReq('GET',projectApi,'')
         def result = readJSON text: """${response.content}"""
+
+        def repoId
 
         for (repo in result){
            // println(repo['path_with_namespace'])
