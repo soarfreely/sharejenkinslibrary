@@ -9,7 +9,14 @@ def HttpReq(reqType, reqUrl, reqBody){
     gitServer = this.gitServer
     credentialsId = this.credentialsId
 
-    withCredentials([stringCredentials(credentialsId: 'local-gitlab-api', variable: 'gitlabToken')]) {
+    import com.cloudbees.plugins.credentials.CredentialsProviderdef
+    credsList = com.cloudbees.plugins.credentials.CredentialsProvider.lookupCredentials(
+            com.cloudbees.plugins.credentials.Credentials.class,Jenkins.instance,null,null)
+
+    def creds = credsList.findResult { it.id == "local-gitlab-api" ? it : null }
+    println("apiToken: ${creds.apiToken}")
+
+    withCredentials([string(credentialsId: creds, variable: 'gitlabToken')]) {
       println("gitlabToken=====")
       println("${gitlabToken}")
       result = httpRequest customHeaders: [[maskValue: true, name: 'PRIVATE-TOKEN', value: "${gitlabToken}"]],
