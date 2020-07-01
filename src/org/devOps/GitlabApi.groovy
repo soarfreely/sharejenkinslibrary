@@ -21,7 +21,7 @@ def HttpReq(reqType, reqUrl, reqBody){
                 url: "${gitServer}/${reqUrl}"
                 //quiet: true
     }
-    println(result})
+    println(result)
     return result
 }
 
