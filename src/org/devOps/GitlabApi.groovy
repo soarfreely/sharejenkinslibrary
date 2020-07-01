@@ -54,7 +54,7 @@ def changeCommitStatus(projectId,commitSha,status){
 //获取工程ID
 def getProjectID(projectName){
     projectApi = "projects?search=${projectName}"
-    response = HttpReq('GET',projectApi,'')
+    response = this.HttpReq('GET',projectApi,'')
     def result = readJSON text: """${response.content}"""
 
     for (repo in result){
