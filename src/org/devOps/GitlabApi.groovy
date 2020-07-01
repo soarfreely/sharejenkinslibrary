@@ -1,4 +1,5 @@
 package org.devOps
+import com.cloudbees.plugins.credentials.CredentialsProvider
 
 String gitServer
 List credentialsId
@@ -9,10 +10,9 @@ def HttpReq(reqType, reqUrl, reqBody){
     gitServer = this.gitServer
     credentialsId = this.credentialsId
 
-    import com.cloudbees.plugins.credentials.CredentialsProviderdef
-    credsList = com.cloudbees.plugins.credentials.CredentialsProvider.lookupCredentials(
-            com.cloudbees.plugins.credentials.Credentials.class,Jenkins.instance,null,null)
 
+    def credsList = com.cloudbees.plugins.credentials.CredentialsProvider.lookupCredentials(
+                com.cloudbees.plugins.credentials.Credentials.class,Jenkins.instance,null,null)
     def creds = credsList.findResult { it.id == "local-gitlab-api" ? it : null }
     println("apiToken: ${creds.apiToken}")
 
