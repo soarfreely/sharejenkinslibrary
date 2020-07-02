@@ -1,25 +1,19 @@
 package org.devOps
-import com.cloudbees.plugins.credentials.CredentialsProvider
 
 String gitServer
 List credentialsId
 
 
 //封装HTTP请求
-def HttpReq(reqType, reqUrl, reqBody){
+def HttpReq(credentialsId, reqType, reqUrl, reqBody){
     gitServer = this.gitServer
-    credentialsId = this.credentialsId
+//     credentialsId = this.credentialsId
 
+    withCredentials([string(credentialsId: credentialsId, variable: 'gitlabToken')]) {
+    println('credentialsId:')
+    println(credentialsId)
 
-    def credsList = com.cloudbees.plugins.credentials.CredentialsProvider.lookupCredentials(
-                com.cloudbees.plugins.credentials.Credentials.class,Jenkins.instance,null,null)
-    def creds = credsList.findResult { it.id == "local-gitlab-api" ? it : null }
-    println("apiToken: ${creds.apiToken}")
-
-    withCredentials([string(credentialsId: creds, variable: 'gitlabToken')]) {
-      println("gitlabToken=====")
-      println("${gitlabToken}")
-      result = httpRequest customHeaders: [[maskValue: true, name: 'PRIVATE-TOKEN', value: "${gitlabToken}"]],
+      result = httpRequest customHeaders: [[maskValue: true, name: 'PRIVATE-TOKEN', value: "JYGwuuBfZopiCo3qk3nH"]],
                 httpMode: reqType,
                 contentType: "APPLICATION_JSON",
                 consoleLogResponseBody: true,
@@ -65,10 +59,11 @@ def changeCommitStatus(projectId,commitSha,status){
 }
 
 //获取工程ID
-def getProjectID(projectName){
+def getProjectID(credentialsId, projectName){
     projectApi = "projects?search=${projectName}"
+    println("projectApi:${projectApi}")
 
-    response = HttpReq('GET', projectApi, '')
+    response = HttpReq(credentialsId, 'GET', projectApi, '')
     def result = readJSON text: """${response.content}"""
 
     println(result)
