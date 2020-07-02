@@ -42,17 +42,12 @@ def call(Closure body) {
 //     String workspace = "/home/soar/app/nginx-php-fpm/www/jenkins/workspace"
 //     println(workspace)
     pipeline {
-        tool.printMsg("JOB_NAME:${JOB_NAME}")
-        tool.printMsg("WORKSPACE:${WORKSPACE}")
-        tool.printMsg("JENKINS_HOME:${JENKINS_HOME}")
-
     	agent {
     		node {
     			label "master" // 指定运行节点的标签或者名称
     			customWorkspace "projectName/${WORKSPACE}" // 指定运行工作目录（可选）
     		}
     	}
-        tool.printMsg("JENKINS_HOME:${customWorkspace}")
         // 指定运行选项（可选）
     	options {
     		timestamps() // 日志会有日志
@@ -133,6 +128,11 @@ def call(Closure body) {
     		always {
     			script {
     				println("always")
+    				tool.printMsg("JOB_NAME:${JOB_NAME}")
+                    tool.printMsg("WORKSPACE:${WORKSPACE}")
+                    tool.printMsg("JENKINS_HOME:${JENKINS_HOME}")
+                    tool.printMsg("JENKINS_HOME:${customWorkspace}")
+
     			}
     		}
 
