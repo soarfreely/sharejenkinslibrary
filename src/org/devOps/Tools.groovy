@@ -41,3 +41,31 @@ def getProjectName(repository) {
 
     println(proName)
 }
+
+// 获取文件内容
+def readFileContent(filePath) {
+    File file = new File(filePath)
+    // 以字符串方式全部读取
+    println(file.text)
+    println(file.bytes.encodeBase64().toString())
+
+    return file.text
+}
+
+encodeBase64File(path) {
+		File file = new File(path);
+		FileInputStream inputFile;
+		byte[] buffer = null;
+
+		try {
+			inputFile = new FileInputStream(file);
+			buffer = new byte[(int) file.length()];
+			inputFile.read(buffer);
+			inputFile.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return Base64.getEncoder().encodeToString(buffer);
+	}

@@ -1,12 +1,6 @@
 def call(Closure body) {
      body()
 
-     parameters {
-         string(name: 'branch', defaultValue: 'develop', description: 'Please enter the code branch to be built')
-         string(name: 'version', defaultValue: '', description: 'Please enter the version number to be published')
-         choice(name: 'mode', choices: ['deploy', 'rollback'], description: '选择方向！')
-     }
-
      def tool = new org.devOps.Tools()
      def gitlab = new org.devOps.GitlabApi()
 
@@ -24,7 +18,7 @@ def call(Closure body) {
 
      def projectId = gitlab.getProjectID(body.gitlabApiCredentialsId, body.projectName)
 
-     gitlab.updateRepositoryFile(projectId, 'readme.MD', "YWFhYWFhYWFh", "${branch}")
+//      gitlab.updateRepositoryFile(projectId, 'readme.MD', "YWFhYWFhYWFh", "${branch}")
 
      body()
      println(body.phpSrc)
@@ -47,8 +41,8 @@ def call(Closure body) {
      tool.printMsg(body.repository, 'green')
 
     // jenkins 工作目录
-    String workspace = "/home/soar/app/nginx-php-fpm/www/jenkins/workspace"
-
+    String workspace = "/home/soar/app/nginx-php-fpm/www/jenkins/workspace/${ITEM_FULL_NAME}"
+    println(workspace)
     pipeline {
     	agent {
     		node {
@@ -85,6 +79,12 @@ def call(Closure body) {
     						//Git,拉取代码
     						checkout.checkout(body.repository, body.jenkins2repositoryCredentialsId, "${branch}")
     						println('get code ok')
+    						// 1.获取jenkinsfile内容
+                            def content = tool.readFileContent("/home/soar/app/nginx-php-fpm/www/jenkins/workspace/README.md")
+    						println(111111111)
+    						println(content)
+    						// 2.更新共享库jenkinsfile
+    						gitlab.updateRepositoryFile(projectId, 'readme.MD', "PT1SM0p2YjNaNUlISnZZMnR6SVE9PQ==", "master")
     				 	}
     				}
     			}
