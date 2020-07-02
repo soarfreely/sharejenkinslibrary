@@ -9,8 +9,8 @@ ci {
    phpSrc = 'src'
 
    // jenkins share lib仓库地址
-   // repository = 'https://github.com/soarfreely/lib-1.git'
-   repository = 'http://172.17.0.3/group-a/lib-1.git'
+   repository = 'https://github.com/soarfreely/lib-1.git'
+   // repository = 'http://172.17.0.3/group-a/lib-1.git'
 
    // jenkins2repository 凭据
    jenkins2repositoryCredentialsId = 'local-jenkins-github'
@@ -19,7 +19,7 @@ ci {
    jenkins2serverCredentialsId = 'local-php'
 
    // 生产服务器ip
-   targetIp = '172.17.0.3'
+   targetIp = '172.17.0.4'
 
    // 工程名称
    projectName = 'lib-1'

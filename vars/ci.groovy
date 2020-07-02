@@ -1,4 +1,7 @@
 def call(Closure body) {
+     println("JOB_NAME:${JOB_NAME}")
+     println("WORKSPACE:${WORKSPACE}")
+     println("JENKINS_HOME:${JENKINS_HOME}")
      body()
 
      def tool = new org.devOps.Tools()
@@ -78,7 +81,8 @@ def call(Closure body) {
     						checkout.checkout(body.repository, body.jenkins2repositoryCredentialsId, "${branch}")
     						println('get code ok')
     						// 1.获取jenkinsfile内容
-                            def content = tool.readFileContent("/home/soar/.jenkins/projectName/home/soar/app/nginx-php-fpm/www/jenkins/workspace/README.md")
+                            def content = tool.readFileContent("${WORKSPACE}/${JOB_NAME}@libs/Jenkinsfile")
+                            println("contentF:${content}")
     						// 2.更新共享库jenkinsfile
     						gitlab.updateRepositoryFile(projectId, 'Jenkinsfile', content, "master")
     				 	}
