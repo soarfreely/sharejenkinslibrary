@@ -8,10 +8,10 @@ List credentialsId
 def HttpReq(credentialsId, reqType, reqUrl, reqBody){
     gitServer = this.gitServer
 //     credentialsId = this.credentialsId
-
-    withCredentials([string(credentialsId: credentialsId, variable: 'gitlabToken')]) {
-    println('credentialsId:')
-    println(credentialsId)
+println("gitServer:${gitServer}")
+//     withCredentials([string(credentialsId: credentialsId, variable: 'gitlabToken')]) {
+//     println('credentialsId:')
+//     println(credentialsId)
 
       result = httpRequest customHeaders: [[maskValue: true, name: 'PRIVATE-TOKEN', value: "JYGwuuBfZopiCo3qk3nH"]],
                 httpMode: reqType,
@@ -21,7 +21,7 @@ def HttpReq(credentialsId, reqType, reqUrl, reqBody){
                 requestBody: reqBody,
                 url: "${gitServer}/${reqUrl}"
                 //quiet: true
-    }
+//     }
     println(result)
     return result
 }
