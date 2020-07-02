@@ -18,7 +18,7 @@ def call(Closure body) {
 
      def projectId = gitlab.getProjectID(body.gitlabApiCredentialsId, body.projectName)
 
-     def res = gitlab.updateRepoFile(projectId, 'readme.md', "YWFhYWFhYWFh")
+     def res = gitlab.updateRepositoryFile(projectId, 'readme.md', "YWFhYWFhYWFh")
 
      println("${res}")
 
