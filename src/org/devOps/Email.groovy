@@ -11,7 +11,7 @@ def email(status, toEmail){
                 <meta charset="UTF-8">
             </head>
             <body leftmargin="8" marginwidth="0" topmargin="8" marginheight="4" offset="0">
-            <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1592038363060&di=4a0fe582c114a8d5afe4aef967e2ca2e&imgtype=0&src=http%3A%2F%2Fdownload.img.dns4.cn%2Fpic%2F192713%2Fp18%2F20171214154800_8834_zs_sy.jpeg">
+            <img src="https://pp.qn.img-space.com/202006/13/d530fd2b0c93178e668af0ef58383208.jpg?imageView2/2/w/200/q/75/ignore-error/1/">
             <table width="95%" cellpadding="0" cellspacing="0" style="font-size: 11pt; font-family: Tahoma, Arial, Helvetica, sans-serif">
                 <tr>
                     <td><br />
@@ -37,7 +37,7 @@ def email(status, toEmail){
                 <tr>
                     <td>
                         <ul>
-                            "${changeString}"
+                            ${changeString}
                         </ul>
                     </td>
                 </tr>
@@ -81,7 +81,7 @@ def getChangeString() {
                 def entry = entries[j]
                 truncatedMsg = entry.msg.take(MAX_MSG_LEN)
                 commitTime = new Date(entry.timestamp).format("yyyy-MM-dd HH:mm:ss")
-                changeString += " <li> - ${truncatedMsg} [${entry.author} ${commitTime}]</li> \n"
+                changeString += " <li> - ${truncatedMsg} [${entry.author} ${commitTime}]</li>"
             }
         }
         if (!changeString) {
