@@ -16,9 +16,9 @@ def call(Closure body) {
      tool.printMsg('获取工程id', 'green')
      tool.printMsg("工程名称${body.projectName}", 'green')
 
-     def res = gitlab.getProjectID(body.gitlabApiCredentialsId, body.projectName)
-     println("${res}")
-//      def res = gitlab.updateRepoFile(gitlabServer, body.jenkins2repositoryCredentialsId, 'PUT', "master")
+     def projectId = gitlab.getProjectID(body.gitlabApiCredentialsId, body.projectName)
+
+     def res = gitlab.updateRepoFile(projectId, 'readme.md', "YWFhYWFhYWFh")
 
      println("${res}")
 
