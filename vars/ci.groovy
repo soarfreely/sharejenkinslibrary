@@ -37,13 +37,15 @@ def call(Closure body) {
      tool.printMsg("${params}", 'green')
      tool.printMsg('environment', 'green')
      tool.printMsg(body.repository, 'green')
+     
+     def customWorkspace = "workspace/${body.projectName}"
 
     // jenkins 工作目录
     pipeline {
     	agent {
     		node {
     			label "master" // 指定运行节点的标签或者名称
-    			customWorkspace "workspace/${body.projectName}" // 指定运行工作目录（可选）
+    			customWorkspace "${customWorkspace}" // 指定运行工作目录（可选）
     		}
     	}
         // 指定运行选项（可选）
@@ -130,7 +132,6 @@ def call(Closure body) {
     				println("JOB_NAME:${JOB_NAME}")
                     println("BUILD_URL:${BUILD_URL}")
                     println("JENKINS_HOME:${JENKINS_HOME}")
-                    println("customWorkspace:${customWorkspace}")
 
     			}
     		}
