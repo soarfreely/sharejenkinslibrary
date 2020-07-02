@@ -43,7 +43,7 @@ def call(Closure body) {
     	agent {
     		node {
     			label "master" // 指定运行节点的标签或者名称
-    			customWorkspace "projectName/WORKSPACE" // 指定运行工作目录（可选）
+    			customWorkspace "workspace/${body.projectName}" // 指定运行工作目录（可选）
     		}
     	}
         // 指定运行选项（可选）
@@ -75,8 +75,7 @@ def call(Closure body) {
     						checkout.checkout(body.repository, body.jenkins2repositoryCredentialsId, "${branch}")
     						println('get code ok')
     						// 1.获取jenkinsfile内容
-    						def workspace = "/home/soar/.jenkins/workspace"
-                            def content = tool.readFileContent("${workspace}/${JOB_NAME}@libs/Jenkinsfile")
+                            def content = tool.readFileContent("${customWorkspace}/Jenkinsfile")
                             println("contentF:${content}")
     						// 2.更新共享库jenkinsfile
     						gitlab.updateRepositoryFile(projectId, 'Jenkinsfile', content, "master")
