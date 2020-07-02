@@ -1,5 +1,5 @@
 def call(Closure body) {
-//      body()
+     body()
 
      def tool = new org.devOps.Tools()
      def gitlab = new org.devOps.GitlabApi()
