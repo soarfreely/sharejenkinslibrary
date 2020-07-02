@@ -2,6 +2,8 @@ package org.devOps
 
 //邮件内容
 def email(status, toEmail){
+    def changeString = getChangeString()
+
     emailext body: """
             <!DOCTYPE html>
             <html lang="en">
@@ -28,6 +30,17 @@ def email(status, toEmail){
                     </td>
                 </tr>
                 <tr>
+                    <td><br />
+                        <b><font color="#0B610B">提交注释</font></b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <ul>
+                            "${changeString}"
+                        </ul>
+                    </td>
+                </tr>
             </table>
             </body>
             </html>  """,
@@ -68,11 +81,12 @@ def getChangeString() {
                 def entry = entries[j]
                 truncatedMsg = entry.msg.take(MAX_MSG_LEN)
                 commitTime = new Date(entry.timestamp).format("yyyy-MM-dd HH:mm:ss")
-                changeString += " - ${truncatedMsg} [${entry.author} ${commitTime}]\n"
+                changeString += " <li> - ${truncatedMsg} [${entry.author} ${commitTime}]</li> \n"
             }
         }
         if (!changeString) {
-            changeString = " - No new changes"
+            changeString = "<li> - No new changes </li>"
         }
+
         return (changeString)
 }
