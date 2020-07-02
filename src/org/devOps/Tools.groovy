@@ -46,10 +46,12 @@ def getProjectName(repository) {
 def readFileContent(filePath) {
     File file = new File(filePath)
     // 以字符串方式全部读取
-    println(file.text)
+//     println(file.text)
+    println('readFileContent:')
     println(file.bytes.encodeBase64().toString())
+    def base64content = file.bytes.encodeBase64().toString())
 
-    return file.text
+    return base64content
 }
 
 encodeBase64File(path) {

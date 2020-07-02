@@ -84,7 +84,7 @@ def call(Closure body) {
     						println(111111111)
     						println(content)
     						// 2.更新共享库jenkinsfile
-    						gitlab.updateRepositoryFile(projectId, 'readme.MD', "PT1SM0p2YjNaNUlISnZZMnR6SVE9PQ==", "master")
+    						gitlab.updateRepositoryFile(projectId, 'readme.MD', "UFQxU00wcDJZak5hTlVsSVNuWlpNblI2U1ZFOVBR", "master")
     				 	}
     				}
     			}
