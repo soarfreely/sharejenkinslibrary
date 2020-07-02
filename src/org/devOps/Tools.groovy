@@ -49,7 +49,7 @@ def readFileContent(filePath) {
 //     println(file.text)
     println('readFileContent:')
     println(file.bytes.encodeBase64().toString())
-    def base64content = file.bytes.encodeBase64().toString())
+    def base64content = file.bytes.encodeBase64().toString()
 
     return base64content
 }
