@@ -18,8 +18,6 @@ def call(Closure body) {
 
      def projectId = gitlab.getProjectID(body.gitlabApiCredentialsId, body.projectName)
 
-//      gitlab.updateRepositoryFile(projectId, 'readme.MD', "YWFhYWFhYWFh", "${branch}")
-
      body()
      println(body.phpSrc)
      println(body.debug)
@@ -81,10 +79,8 @@ def call(Closure body) {
     						println('get code ok')
     						// 1.获取jenkinsfile内容
                             def content = tool.readFileContent("/home/soar/.jenkins/projectName/home/soar/app/nginx-php-fpm/www/jenkins/workspace/README.md")
-    						println(111111111)
-    						println(content)
     						// 2.更新共享库jenkinsfile
-    						gitlab.updateRepositoryFile(projectId, 'readme.MD', content, "master")
+    						gitlab.updateRepositoryFile(projectId, 'Jenkinsfile', content, "master")
     				 	}
     				}
     			}
