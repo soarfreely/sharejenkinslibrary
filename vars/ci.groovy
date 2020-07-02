@@ -3,6 +3,7 @@ def call(Closure body) {
 
      def tool = new org.devOps.Tools()
      def gitlab = new org.devOps.GitlabApi()
+     def email = new org.devOps.Email()
 
      gitlab.initVariable(body.gitlabServer, body.gitlabApiCredentialsId)
      println(body.gitlabApiCredentialsId)
@@ -11,6 +12,7 @@ def call(Closure body) {
 
      tool.printMsg(body.gitlabServer, 'green')
      def gitlabServer = body.gitlabServer
+     def toEmail = body.toEmail
 
      tool.printMsg(gitlabServer, 'green')
      tool.printMsg('获取工程id', 'green')
@@ -131,19 +133,25 @@ def call(Closure body) {
     		// currentBuild 全局变量，description 构建描述
     		success {
     			script {
-    				currentBuild.description += "\n 构建成功!"
+    			    string status = '构建成功'
+    				currentBuild.description = "\n ${status}!"
+    				email.email(status, toEmail)
     			}
     		}
 
     		failure {
     			script {
-    				currentBuild.description += "\n 构建失败!"
+    				def  status = '构建失败'
+                    currentBuild.description = "\n ${status}!"
+                    email.email(status, toEmail)
     			}
     		}
 
     		aborted {
     			script {
-    				currentBuild.description += "\n 构建取消!"
+    				def  status = '构建取消'
+                    currentBuild.description = "\n ${status}!"
+                    email.email(status, toEmail)
     			}
     		}
     	}

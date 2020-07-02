@@ -1,7 +1,7 @@
 package org.devOps
 
 //邮件内容
-def Email(status, toEmail){
+def email(status, toEmail){
     emailext body: """
             <!DOCTYPE html>
             <html lang="en">
