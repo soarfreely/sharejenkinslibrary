@@ -1,5 +1,5 @@
 def call(Closure body) {
-     body()
+//      body()
 
      def tool = new org.devOps.Tools()
      def gitlab = new org.devOps.GitlabApi()
@@ -20,7 +20,6 @@ def call(Closure body) {
 
      def projectId = gitlab.getProjectID(body.gitlabApiCredentialsId, body.projectName)
 
-//      body()
      println(body.phpSrc)
      println(body.debug)
 
