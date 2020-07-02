@@ -7,13 +7,14 @@ List credentialsId
 //封装HTTP请求
 def httpReq(reqType, reqUrl, reqBody){
     gitServer = this.gitServer
-//     credentialsId = this.credentialsId
-println("gitServer:${gitServer}")
-//     withCredentials([string(credentialsId: credentialsId, variable: 'gitlabToken')]) {
-//     println('credentialsId:')
-//     println(credentialsId)
+    credentialsId = this.credentialsId
+    println("gitServer:${gitServer}")
+    withCredentials([string(credentialsId: credentialsId, variable: 'gitlabToken')]) {
+    println(credentialsId)
+    println("gitlabToken")
 
-      result = httpRequest customHeaders: [[maskValue: true, name: 'PRIVATE-TOKEN', value: "JYGwuuBfZopiCo3qk3nH"]],
+      result = httpRequest customHeaders: [[maskValue: true, name: 'PRIVATE-TOKEN', value: "${gitlabToken}"]],
+//       result = httpRequest customHeaders: [[maskValue: true, name: 'PRIVATE-TOKEN', value: "JYGwuuBfZopiCo3qk3nH"]],
                 httpMode: reqType,
                 contentType: "APPLICATION_JSON",
                 consoleLogResponseBody: true,
@@ -21,7 +22,7 @@ println("gitServer:${gitServer}")
                 requestBody: reqBody,
                 url: "${gitServer}/${reqUrl}"
                 //quiet: true
-//     }
+    }
     println(result)
     return result
 }
