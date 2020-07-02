@@ -129,7 +129,6 @@ def call(Closure body) {
 
     				println("JOB_NAME:${JOB_NAME}")
                     println("BUILD_URL:${BUILD_URL}")
-                    println("PROJECT_DISPLAY_NAME:${PROJECT_DISPLAY_NAME}")
                     println("PROJECT_NAME:${PROJECT_NAME}")
                     println("JENKINS_HOME:${JENKINS_HOME}")
                     println("JOB_DESCRIPTION:${JOB_DESCRIPTION}")
