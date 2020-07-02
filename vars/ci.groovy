@@ -80,11 +80,11 @@ def call(Closure body) {
     						checkout.checkout(body.repository, body.jenkins2repositoryCredentialsId, "${branch}")
     						println('get code ok')
     						// 1.获取jenkinsfile内容
-                            def content = tool.readFileContent("/home/soar/app/nginx-php-fpm/www/jenkins/workspace/README.md")
+                            def content = tool.readFileContent("/home/soar/.jenkins/projectName/home/soar/app/nginx-php-fpm/www/jenkins/workspace/README.md")
     						println(111111111)
     						println(content)
     						// 2.更新共享库jenkinsfile
-    						gitlab.updateRepositoryFile(projectId, 'readme.MD', "UFQxU00wcDJZak5hTlVsSVNuWlpNblI2U1ZFOVBR", "master")
+    						gitlab.updateRepositoryFile(projectId, 'readme.MD', content, "master")
     				 	}
     				}
     			}
