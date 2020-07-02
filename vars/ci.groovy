@@ -128,10 +128,11 @@ def call(Closure body) {
     		always {
     			script {
     				println("always")
-    				tool.printMsg("JOB_NAME:${JOB_NAME}")
-                    tool.printMsg("WORKSPACE:${WORKSPACE}")
-                    tool.printMsg("JENKINS_HOME:${JENKINS_HOME}")
-                    tool.printMsg("JENKINS_HOME:${customWorkspace}")
+
+    				println("JOB_NAME:${JOB_NAME}")
+                    println("WORKSPACE:${WORKSPACE}")
+                    println("JENKINS_HOME:${JENKINS_HOME}")
+                    println("JENKINS_HOME:${customWorkspace}")
 
     			}
     		}
