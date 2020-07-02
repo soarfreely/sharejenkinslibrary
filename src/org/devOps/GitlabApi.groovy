@@ -63,7 +63,7 @@ def getProjectID(credentialsId, projectName){
     projectApi = "projects?search=${projectName}"
     println("projectApi:${projectApi}")
 
-    response = httpReq(credentialsId, 'GET', projectApi, '')
+    response = httpReq('GET', projectApi, '')
     def result = readJSON text: """${response.content}"""
 
     println(result)
