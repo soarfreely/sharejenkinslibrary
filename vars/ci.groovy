@@ -52,7 +52,7 @@ def call(Closure body) {
     			customWorkspace "projectName/${WORKSPACE}" // 指定运行工作目录（可选）
     		}
     	}
-
+        tool.printMsg("JENKINS_HOME:${customWorkspace}")
         // 指定运行选项（可选）
     	options {
     		timestamps() // 日志会有日志
