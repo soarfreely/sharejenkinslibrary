@@ -42,9 +42,9 @@ def call(Closure body) {
 //     String workspace = "/home/soar/app/nginx-php-fpm/www/jenkins/workspace"
 //     println(workspace)
     pipeline {
-        println("JOB_NAME:${JOB_NAME}")
-        println("WORKSPACE:${WORKSPACE}")
-        println("JENKINS_HOME:${JENKINS_HOME}")
+        tool.printMsg("JOB_NAME:${JOB_NAME}")
+        tool.printMsg("WORKSPACE:${WORKSPACE}")
+        tool.printMsg("JENKINS_HOME:${JENKINS_HOME}")
 
     	agent {
     		node {
