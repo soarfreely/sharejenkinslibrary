@@ -5,7 +5,7 @@ List credentialsId
 
 
 //封装HTTP请求
-def HttpReq(credentialsId, reqType, reqUrl, reqBody){
+def httpReq(reqType, reqUrl, reqBody){
     gitServer = this.gitServer
 //     credentialsId = this.credentialsId
 println("gitServer:${gitServer}")
@@ -30,7 +30,7 @@ println("gitServer:${gitServer}")
 def updateRepositoryFile(projectId, filePath, fileContent){
     apiUrl = "projects/${projectId}/repository/files/${filePath}"
     reqBody = """{"branch": "master","encoding":"base64", "content": "${fileContent}", "commit_message": "update a new file"}"""
-    response = HttpReq('PUT', apiUrl, reqBody)
+    response = httpReq('PUT', apiUrl, reqBody)
     println(response)
 }
 
@@ -63,7 +63,7 @@ def getProjectID(credentialsId, projectName){
     projectApi = "projects?search=${projectName}"
     println("projectApi:${projectApi}")
 
-    response = HttpReq(credentialsId, 'GET', projectApi, '')
+    response = httpReq(credentialsId, 'GET', projectApi, '')
     def result = readJSON text: """${response.content}"""
 
     println(result)
