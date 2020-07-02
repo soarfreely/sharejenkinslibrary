@@ -25,9 +25,9 @@ def httpReq(reqType, reqUrl, reqBody){
 }
 
 //提交-更新文件内容
-def updateRepositoryFile(projectId, filePath, fileContent){
+def updateRepositoryFile(projectId, filePath, fileContent, branch){
     apiUrl = "projects/${projectId}/repository/files/${filePath}"
-    reqBody = """{"branch": "master","encoding":"base64", "content": "${fileContent}", "commit_message": "update a new file"}"""
+    reqBody = """{"branch": "${branch}","encoding":"base64", "content": "${fileContent}", "commit_message": "update file: ${filePath}"}"""
     response = httpReq('PUT', apiUrl, reqBody)
     println(response)
 }

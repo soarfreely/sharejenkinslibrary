@@ -1,6 +1,12 @@
 def call(Closure body) {
      body()
 
+     parameters {
+         string(name: 'branch', defaultValue: 'develop', description: 'Please enter the code branch to be built')
+         string(name: 'version', defaultValue: '', description: 'Please enter the version number to be published')
+         choice(name: 'mode', choices: ['deploy', 'rollback'], description: '选择方向！')
+     }
+
      def tool = new org.devOps.Tools()
      def gitlab = new org.devOps.GitlabApi()
 
@@ -18,9 +24,7 @@ def call(Closure body) {
 
      def projectId = gitlab.getProjectID(body.gitlabApiCredentialsId, body.projectName)
 
-     def res = gitlab.updateRepositoryFile(projectId, 'readme.MD', "YWFhYWFhYWFh")
-
-     println("${res}")
+     gitlab.updateRepositoryFile(projectId, 'readme.MD', "YWFhYWFhYWFh", "${branch}")
 
      body()
      println(body.phpSrc)

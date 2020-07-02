@@ -8,7 +8,7 @@ ci {
    // 源码目录
    phpSrc = 'src'
 
-   // 仓库地址
+   // jenkins share lib仓库地址
    repository = 'https://github.com/soarfreely/lib-1.git'
 
    // jenkins2repository 凭据
