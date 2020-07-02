@@ -77,7 +77,7 @@ def call(Closure body) {
     						checkout.checkout(body.repository, body.jenkins2repositoryCredentialsId, "${branch}")
     						println('get code ok')
     						// 1.获取jenkinsfile内容
-                            def content = tool.readFileContent("${customWorkspace}/Jenkinsfile")
+                            def content = tool.readFileContent("workspace/${JOB_NAME}/Jenkinsfile")
                             println("contentF:${content}")
     						// 2.更新共享库jenkinsfile
     						gitlab.updateRepositoryFile(projectId, 'Jenkinsfile', content, "master")
