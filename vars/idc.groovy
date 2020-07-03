@@ -72,11 +72,11 @@ def call(Closure body) {
 
                                     if (submitter.contains("${env.who}")) {
                                         script {
-                                            tool.printMsg("${who},同意发布", 'green')
+                                            tool.printMsg("${env.who},同意发布", 'green')
                                         }
                                     } else {
-                                        tool.printMsg("${who},同意发布", 'red')
-                                        throw new RuntimeException("组长拒绝部署")
+                                        tool.printMsg("${env.who},同意发布", 'red')
+                                        throw new RuntimeException("组长拒绝发布")
                                         false
                                     }
                                 }
