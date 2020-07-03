@@ -2,42 +2,29 @@ def call(Closure body) {
      body()
 
      def tool = new org.devOps.Tools()
-     def gitlab = new org.devOps.GitlabApi()
      def email = new org.devOps.Email()
-
-     gitlab.initVariable(body.gitlabServer, body.gitlabApiCredentialsId)
-     println(body.gitlabApiCredentialsId)
-
-     tool.printMsg("first line", 'green')
-
-     tool.printMsg(body.gitlabServer, 'green')
-     def gitlabServer = body.gitlabServer
-     def toEmail = body.toEmail
-
-     tool.printMsg(gitlabServer, 'green')
-     tool.printMsg('获取工程id', 'green')
-     tool.printMsg("工程名称${body.projectName}", 'green')
-
-     def projectId = gitlab.getProjectID(body.gitlabApiCredentialsId, body.projectName)
-
-     println(body.phpSrc)
-     println(body.debug)
-
      def checkout = new org.devOps.Checkout()
      def build = new org.devOps.Build()
      def deploy = new org.devOps.Deploy()
-//      def gitlab = new org.devOps.GitlabApi()
 
-     tool.printMsg("my lib", 'green')
-     // tool.getProjectName(body.repository)
-     tool.printMsg(body, 'green')
+     def toEmail = body.toEmail
+     def runComposer = body.runComposer
+     def phpSrc = body.phpSrc
+     def repository = body.repository
+     def jenkins2repositoryCredentialsId = body.jenkins2repositoryCredentialsId
+     def jenkins2serverCredentialsId = body.jenkins2serverCredentialsId
+     def targetIp = body.targetIp
 
-     tool.printMsg(body.runComposer, 'green')
-     tool.printMsg(body.phpSrc, 'green')
+     tool.printMsg("Gavin' jenkinsfile share library", 'green')
 
-     tool.printMsg("${params}", 'green')
-     tool.printMsg('environment', 'green')
-     tool.printMsg(body.repository, 'green')
+     tool.printMsg("是否执行composer:${runComposer}", 'green')
+     tool.printMsg("代码所在目录:${phpSrc}", 'green')
+     tool.printMsg("params:${params}", 'green')
+     tool.printMsg("代码仓库:${repository}", 'green')
+     tool.printMsg("jenkins2repository凭据:${jenkins2repositoryCredentialsId}", 'green')
+     tool.printMsg("jenkins2server凭据:${jenkins2serverCredentialsId}", 'green')
+     tool.printMsg("目标服务器:${targetIp}", 'green')
+     tool.printMsg("负责人邮箱:${toEmail}", 'green')
 
     // jenkins 工作目录
     pipeline {
@@ -72,13 +59,8 @@ def call(Closure body) {
     						println('fetch code')
 
     						//Git,拉取代码
-    						checkout.checkout(body.repository, body.jenkins2repositoryCredentialsId, "${branch}")
+    						checkout.checkout(repository, jenkins2repositoryCredentialsId, "${branch}")
     						println('get code ok')
-    						// 1.获取jenkinsfile内容
-//                             def content = tool.readFileContent("${JENKINS_HOME}/workspace/${JOB_NAME}/Jenkinsfile")
-//                             println("contentF:${content}")
-    						// 2.更新共享库jenkinsfile
-//     						gitlab.updateRepositoryFile(projectId, 'Jenkinsfile', content, "master")
     				 	}
     				}
     			}
@@ -90,7 +72,7 @@ def call(Closure body) {
     				timeout(time:20, unit:"MINUTES") {
     					script { // 脚本式
     						println('Build tar')
-                            build.tar('project-name', body.targetIp, body.jenkins2serverCredentialsId)
+                            build.tar('project-name', targetIp, jenkins2serverCredentialsId)
                             println('sshagent应用打包')
     				 	}
     				}
@@ -102,7 +84,7 @@ def call(Closure body) {
                     timeout(time:20, unit:"MINUTES") {
                         script { // 脚本式
                             println('upload tar')
-                            deploy.upload('project-name', body.targetIp, body.jenkins2serverCredentialsId, body.phpSrc, body.runComposer)
+                            deploy.upload('project-name', targetIp, jenkins2serverCredentialsId, phpSrc, runComposer)
                             println('释放压缩文件')
                         }
                     }
