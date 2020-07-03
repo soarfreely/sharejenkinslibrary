@@ -69,16 +69,17 @@ def call(Closure body) {
                                             string(name: 'who', defaultValue: 'gavin', description: 'Who are you?')
                                         ]
                                     )
-
+                                    tool.printMsg("${submitter},同意发布", 'green')
                                     if (submitter.contains("${env.who}")) {
                                         script {
                                             tool.printMsg("${env.who},同意发布", 'green')
                                         }
-                                    } else {
-                                        tool.printMsg("${env.who},同意发布", 'red')
-                                        throw new RuntimeException("组长拒绝发布")
-                                        false
                                     }
+//                                     else {
+//                                         tool.printMsg("${env.who},同意发布", 'red')
+//                                         throw new RuntimeException("组长拒绝发布")
+//                                         false
+//                                     }
                                 }
                             }
                         }
