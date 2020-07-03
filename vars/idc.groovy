@@ -70,7 +70,7 @@ def call(Closure body) {
                                         ]
                                     )
 
-                                    if (submitter.contains("${who}")) {
+                                    if (submitter.contains("${env.who}")) {
                                         script {
                                             tool.printMsg("${who},同意发布", 'green')
                                         }
