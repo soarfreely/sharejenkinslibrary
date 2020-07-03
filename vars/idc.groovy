@@ -71,7 +71,7 @@ def call(Closure body) {
     					script {
     						tool.printMsg('开始:应用打包', 'green')
                             build.tar('project-name', targetIp, jenkins2serverCredentialsId)
-                            tool.printMsg('开始:应用打包', 'green')
+                            tool.printMsg('结束:应用打包', 'green')
     				 	}
     				}
     			}
@@ -81,7 +81,7 @@ def call(Closure body) {
                 steps {
                     timeout(time:20, unit:"MINUTES") {
                         script { // 脚本式
-                            tool.printMsg('开始:上传＆解压')
+                            tool.printMsg('开始:上传＆解压', 'green'
                             deploy.upload('project-name', targetIp, jenkins2serverCredentialsId, phpSrc, runComposer)
                             tool.printMsg("结束:上传＆解压", 'green')
                         }
@@ -121,6 +121,7 @@ def call(Closure body) {
     			script {
     				def  status = '构建失败'
                     currentBuild.description = "\n ${status}!"
+                    tool.printMsg("构建失败", 'red')
                     email.email(status, toEmail)
     			}
     		}
