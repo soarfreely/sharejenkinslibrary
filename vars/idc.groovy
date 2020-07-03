@@ -59,28 +59,28 @@ def call(Closure body) {
     	    stage ("Authorization") {
                     steps {
                         script {
-                            if ('prod' == branch) {
-                                timeout(time:5, unit:"MINUTES") {
-                                    def who = input (
-                                        message: "Should we continue ?",
-                                        ok: "Yes, we should.",
-                                        submitter: submitter, // 指定允许提交的用户
-                                        parameters: [
-                                            string(name: 'who', defaultValue: 'gavin', description: 'Who are you?')
-                                        ]
-                                    )
-                                    tool.printMsg("${submitter},同意发布", 'green')
-                                    tool.printMsg("${env.who},同意发布", 'green')
-                                    tool.printMsg("${who},同意发布", 'green')
-                                    if (submitter.contains(who)) {
-                                        script {
+                            if ('master' == branch) {
+                                try {
+                                    timeout(time:5, unit:"MINUTES") {
+                                        def who = input (
+                                            message: "Should we continue ?",
+                                            ok: "Yes, we should.",
+                                            submitter: submitter, // 指定允许提交的用户
+                                            parameters: [
+                                                string(name: 'who', defaultValue: 'gavin', description: 'Who are you?')
+                                            ]
+                                        )
+                                        if (submitter.contains(who)) {
                                             tool.printMsg("${who},同意发布", 'green')
+                                        } else {
+                                            tool.printMsg("${who},拒绝发布", 'red')
+                                            throw new RuntimeException("拒绝发布")
+                                            false
                                         }
-                                    } else {
-                                        tool.printMsg("${who},同意发布", 'red')
-                                        throw new RuntimeException("组长拒绝发布")
-                                        false
                                     }
+                                } catch (error) {
+                                    tool.printMsg("发布异常", 'red')
+                                    echo error.toString()
                                 }
                             }
                         }
