@@ -81,7 +81,7 @@ def call(Closure body) {
                 steps {
                     timeout(time:20, unit:"MINUTES") {
                         script { // 脚本式
-                            tool.printMsg('开始:上传＆解压', 'green'
+                            tool.printMsg('开始:上传＆解压', 'green')
                             deploy.upload('project-name', targetIp, jenkins2serverCredentialsId, phpSrc, runComposer)
                             tool.printMsg("结束:上传＆解压", 'green')
                         }
