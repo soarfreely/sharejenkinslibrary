@@ -55,6 +55,28 @@ def call(Closure body) {
         }
 
     	stages {
+    	    stage ("Authorization") {
+    	        if ('prod' == branch) {
+                    steps {
+                        timeout(time:5, unit:"MINUTES") {
+                            input (
+                                message "Should we continue ?"
+                                ok "Yes, we should."
+                                submitter "gavin, admin" // 指定允许提交的用户
+                                parameters {
+                                    string(name: 'who', defaultValue: 'gavin', description: 'Who are you?')
+                                }
+                            )
+
+                            if (submitter.contains("${who}") {
+                                script {
+                                    tool.printMsg("${who},同意发布", 'green')
+                                }
+                            }
+                        }
+                    }
+    	        }
+    	    }
     		// 下载代码
     		stage("Checkout") { // 阶段名称
     			steps {
