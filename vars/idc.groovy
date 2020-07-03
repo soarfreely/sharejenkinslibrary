@@ -17,6 +17,7 @@ def call(Closure body) {
      def www = body.www
      def domain = body.domain
      def tarName = "${domain}_${BUILD_ID}.tar.gz"
+     def submitter = "gavin, admin"
 
 
      tool.printMsg("Gavin' jenkinsfile share library", 'green')
@@ -63,7 +64,7 @@ def call(Closure body) {
                                     input (
                                         message: "Should we continue ?",
                                         ok: "Yes, we should.",
-                                        submitter: "gavin, admin", // 指定允许提交的用户
+                                        submitter: submitter, // 指定允许提交的用户
                                         parameters:[
                                             string(name: 'who', defaultValue: 'gavin', description: 'Who are you?')
                                         ]
