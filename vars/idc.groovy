@@ -64,9 +64,9 @@ def call(Closure body) {
                                         message: "Should we continue ?",
                                         ok: "Yes, we should.",
                                         submitter: "gavin, admin", // 指定允许提交的用户
-                                        parameters:{
+                                        parameters:[
                                             string(name: 'who', defaultValue: 'gavin', description: 'Who are you?')
-                                        }
+                                        ]
                                     )
 
                                     if (submitter.contains("${who}")) {
