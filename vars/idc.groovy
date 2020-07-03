@@ -7,6 +7,7 @@ def call(Closure body) {
      def build = new org.devOps.Build()
      def deploy = new org.devOps.Deploy()
 
+     def targetIp = body.targetIp
      def toEmail = body.toEmail
      def runComposer = body.runComposer
      def phpSrc = body.phpSrc
