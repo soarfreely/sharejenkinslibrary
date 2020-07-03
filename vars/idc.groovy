@@ -65,9 +65,9 @@ def call(Closure body) {
                                         message: "Should we continue ?",
                                         ok: "Yes, we should.",
                                         submitter: submitter, // 指定允许提交的用户
-                                        parameters:[
+                                        parameters: {
                                             string(name: 'who', defaultValue: 'gavin', description: 'Who are you?')
-                                        ]
+                                        }
                                     )
                                     tool.printMsg("${submitter},同意发布", 'green')
                                     tool.printMsg("${env.who},同意发布", 'green')
