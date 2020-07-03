@@ -70,8 +70,9 @@ def call(Closure body) {
                                         ]
                                     )
                                     tool.printMsg("${submitter},同意发布", 'green')
-                                    tool.printMsg("${env.who},谁", 'green')
-                                    if (submitter.contains("${env.who}")) {
+                                    tool.printMsg("${env.who},同意发布", 'green')
+                                    tool.printMsg("${who},同意发布", 'green')
+                                    if (submitter.contains("${BUILD_USER}")) {
                                         script {
                                             tool.printMsg("${env.who},同意发布", 'green')
                                         }
