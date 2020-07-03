@@ -55,12 +55,10 @@ def call(Closure body) {
     		stage("Checkout") { // 阶段名称
     			steps {
     				timeout(time:5, unit:"MINUTES") {  // 步骤超时时间
-    					script { // 脚本式
-    						println('fetch code')
-
-    						//Git,拉取代码
+    					script {
+    						tool.printMsg('开始:拉取代码', 'green')
     						checkout.checkout(repository, jenkins2repositoryCredentialsId, "${branch}")
-    						println('get code ok')
+    						tool.printMsg('结束:拉取代码', 'green')
     				 	}
     				}
     			}
@@ -70,10 +68,10 @@ def call(Closure body) {
     		stage("Build") {
     			steps {
     				timeout(time:20, unit:"MINUTES") {
-    					script { // 脚本式
-    						println('Build tar')
+    					script {
+    						tool.printMsg('开始:应用打包', 'green')
                             build.tar('project-name', targetIp, jenkins2serverCredentialsId)
-                            println('sshagent应用打包')
+                            tool.printMsg('开始:应用打包', 'green')
     				 	}
     				}
     			}
@@ -83,9 +81,9 @@ def call(Closure body) {
                 steps {
                     timeout(time:20, unit:"MINUTES") {
                         script { // 脚本式
-                            println('upload tar')
+                            tool.printMsg('开始:上传＆解压')
                             deploy.upload('project-name', targetIp, jenkins2serverCredentialsId, phpSrc, runComposer)
-                            println('释放压缩文件')
+                            tool.printMsg("结束:上传＆解压", 'green')
                         }
                     }
                 }
@@ -96,8 +94,7 @@ def call(Closure body) {
     			steps {
     				timeout(time:30, unit:"MINUTES") {
     					script { // 脚本式
-    						println('代码扫描')
-    						tool.printMsg("我的共享库", 'green')
+    						tool.printMsg("代码扫描", 'green')
     				 	}
     				}
     			}
