@@ -11,7 +11,7 @@ def upload(domain, targetIp, credentialsId, phpSrc, runComposer, www, tarName) {
         sh """
             ssh -o StrictHostKeyChecking=no -l root ${targetIp} uname -a && pwd
             ls -al
-            ssh root@${targetIp} -tt  "mkdir -p ${targetDir} && ssh mkdir -p ${targetDirTmp}"
+            ssh root@${targetIp} -tt  "mkdir -p ${targetDir} && mkdir -p ${targetDirTmp}"
             scp ${tarName} root@${targetIp}:${targetDirTmp}
             ssh root@${targetIp} -tt "ls -al && cd ${targetDirTmp} && tar zxvf ${tarName} -C ${targetDir}"
 
