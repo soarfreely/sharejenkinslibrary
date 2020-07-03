@@ -11,7 +11,7 @@ def email(status, toEmail){
                 <meta charset="UTF-8">
             </head>
             <body leftmargin="8" marginwidth="0" topmargin="8" marginheight="4" offset="0">
-            <img src="https://pp.qn.img-space.com/202006/13/d530fd2b0c93178e668af0ef58383208.jpg?imageView2/2/w/200/q/75/ignore-error/1/">
+            <img src="https://t-rep.vchangyi.com/common/20200703/81DA82ED7F00000122416AA4E90D7411/12691CC57F000001375C41FF07F006EB.jpg?atId=12691CC57F000001375C41FF07F006EB">
             <table width="95%" cellpadding="0" cellspacing="0" style="font-size: 11pt; font-family: Tahoma, Arial, Helvetica, sans-serif">
                 <tr>
                     <td><br />
