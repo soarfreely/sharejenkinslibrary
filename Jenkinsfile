@@ -1,14 +1,14 @@
 #!groovy
 @Library('jenkinslib@master') _
 
-ci {
+idc {
    // 是否执行composer
    runComposer = 'true'
 
    // 源码目录
    phpSrc = 'src'
 
-   // jenkins share lib仓库地址
+   // 仓库地址
    repository = 'https://github.com/soarfreely/lib-1.git'
    // repository = 'http://172.17.0.3/group-a/lib-1.git'
 
