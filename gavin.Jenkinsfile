@@ -5,6 +5,10 @@ idc {
    // 是否执行composer
    runComposer = 'true'
 
+   www = '/root/www'
+
+   domain = 'localhost'
+
    // 源码目录
    phpSrc = 'src'
 

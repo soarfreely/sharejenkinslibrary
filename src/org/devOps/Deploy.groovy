@@ -1,20 +1,21 @@
 package org.devOps
 
 // IDC上传
-def upload(projectName, targetIp, credentialsId, phpSrc, runComposer) {
-    def dir = '/root/www'
-    def tarName = "${projectName}.tar.gz"
+def upload(domain, targetIp, credentialsId, phpSrc, runComposer, www, tarName) {
+    def targetDir = "${www}/${domain}"
+    def targetDirTmp = "${www}/${domain}_tmp"
+    def srcDir = "${targetDir}/${phpSrc}"
 
     sshagent(["${credentialsId}"]) {
         sh('ls -al')
         sh """
             ssh -o StrictHostKeyChecking=no -l root ${targetIp} uname -a && pwd
             ls -al
-            scp ${tarName} root@${targetIp}:${dir}
-            echo 456
-            ssh root@${targetIp} -tt "ls -al && cd ${dir} && mkdir -p ${projectName} && tar zxvf ${tarName} -C ${projectName}"
+            ssh mkdir -p ${targetDir} && ssh mkdir -p ${targetDirTmp}
+            scp ${tarName} root@${targetIp}:${targetDirTmp}
+            ssh root@${targetIp} -tt "ls -al && cd ${targetDirTmp} && tar zxvf ${tarName} -C ${targetDir}"
 
-            ssh root@${targetIp} -tt "cd ${dir}/${projectName}/${phpSrc} && pwd && ${runComposer} && composer install"
+            ssh root@${targetIp} -tt "cd ${srcDir} && pwd && rm -f *Jenkinsfile && ${runComposer} && composer install"
         """
     }
 }

@@ -13,7 +13,10 @@ def call(Closure body) {
      def repository = body.repository
      def jenkins2repositoryCredentialsId = body.jenkins2repositoryCredentialsId
      def jenkins2serverCredentialsId = body.jenkins2serverCredentialsId
-     def targetIp = body.targetIp
+     def www = body.www
+     def domain = body.domain
+     def tarName = "${domain}_${BUILD_ID}.tar.gz"
+
 
      tool.printMsg("Gavin' jenkinsfile share library", 'green')
 
@@ -70,7 +73,7 @@ def call(Closure body) {
     				timeout(time:20, unit:"MINUTES") {
     					script {
     						tool.printMsg('开始:应用打包', 'green')
-                            build.tar('project-name', targetIp, jenkins2serverCredentialsId)
+                            build.tar(domain, targetIp, jenkins2serverCredentialsId, tarName)
                             tool.printMsg('结束:应用打包', 'green')
     				 	}
     				}
@@ -80,9 +83,9 @@ def call(Closure body) {
             stage ("Deploy") {
                 steps {
                     timeout(time:20, unit:"MINUTES") {
-                        script { // 脚本式
+                        script {
                             tool.printMsg('开始:上传＆解压', 'green')
-                            deploy.upload('project-name', targetIp, jenkins2serverCredentialsId, phpSrc, runComposer)
+                            deploy.upload(domain, targetIp, jenkins2serverCredentialsId, phpSrc, runComposer, www, tarName)
                             tool.printMsg("结束:上传＆解压", 'green')
                         }
                     }
