@@ -14,8 +14,8 @@ def upload(domain, targetIp, credentialsId, phpSrc, runComposer, www, tarName) {
             ssh root@${targetIp} -tt  "mkdir -p ${targetDir} && mkdir -p ${targetDirTmp}"
             scp ${tarName} root@${targetIp}:${targetDirTmp}
             ssh root@${targetIp} -tt "ls -al && cd ${targetDirTmp} && tar zxvf ${tarName} -C ${targetDir}"
-
-            ssh root@${targetIp} -tt "cd ${srcDir} && pwd && rm -f *Jenkinsfile && ${runComposer} && composer install"
+            ssh root@${targetIp} -tt "cd ${targetDir} && rm -f *Jenkinsfile "
+            ssh root@${targetIp} -tt "cd ${srcDir} && pwd && ${runComposer} && composer install"
         """
     }
 }
