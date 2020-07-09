@@ -69,7 +69,7 @@ def call(Closure body) {
                                                 ok: "Yes, we should.",
                                                 submitter: submitter, // 指定允许提交的用户
                                                 parameters: [
-                                                    choice(name: 'res'，choices: ['Yes', 'No'], description: '确认是否发布？')
+                                                    choice(name: 'res', choices: ['Yes', 'No'], description: '确认是否发布？')
                                                 ]
                                             )
                                         } else {
