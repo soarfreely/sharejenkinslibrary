@@ -36,6 +36,9 @@ def call(Closure body) {
     	agent {
     		node {
     			label "master" // 指定运行节点的标签或者名称
+                wrap([$class: 'BuildUser']) {
+                   def userId = env.BUILD_USER_ID
+                }
     		}
     	}
         // 指定运行选项（可选）
@@ -63,7 +66,7 @@ def call(Closure body) {
                                 try {
                                     timeout(time:5, unit:"MINUTES") {
                                         def res = 'No'
-                                        if (submitter.contains("${BUILD_USER_ID}")) {
+                                        if (submitter.contains("${userId}")) {
                                             res = input (
                                                 message: "Should we continue ?",
                                                 ok: "Yes, we should.",
@@ -73,15 +76,15 @@ def call(Closure body) {
                                                 ]
                                             )
                                         } else {
-                                            tool.printMsg("${BUILD_USER_ID}, 没有发布权限", 'red')
-                                            throw new RuntimeException("${BUILD_USER_ID}, 没有发布权限")
+                                            tool.printMsg("${userId}, 没有发布权限", 'red')
+                                            throw new RuntimeException("${userId}, 没有发布权限")
                                             false
                                         }
 
                                         if (res.contains("Yes")) {
-                                            tool.printMsg("${BUILD_USER_ID},同意发布", 'green')
+                                            tool.printMsg("${userId},同意发布", 'green')
                                         } else {
-                                            tool.printMsg("${BUILD_USER_ID},拒绝发布", 'red')
+                                            tool.printMsg("${userId},拒绝发布", 'red')
                                             throw new RuntimeException("拒绝发布")
                                             false
                                         }
@@ -89,6 +92,7 @@ def call(Closure body) {
                                 } catch (error) {
                                     tool.printMsg("发布异常", 'red')
                                     echo error.toString()
+                                    false
                                 }
                             }
                         }
