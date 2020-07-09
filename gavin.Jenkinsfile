@@ -29,7 +29,7 @@ idc {
    toEmail = 'soarfreely.z@qq.com'
 
    // 工程名称
-   projectName = 'lib-1'
+   projectName = 'Gavin-project'
 
    // gitlab api 凭据
    gitlabApiCredentialsId = 'local-gitlab-api'
