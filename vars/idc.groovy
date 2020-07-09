@@ -36,9 +36,6 @@ def call(Closure body) {
     	agent {
     		node {
     			label "master" // 指定运行节点的标签或者名称
-                wrap([$class: 'BuildUser']) {
-                   def userId = env.BUILD_USER_ID
-                }
     		}
     	}
         // 指定运行选项（可选）
@@ -61,6 +58,11 @@ def call(Closure body) {
     	stages {
     	    stage ("Authorization") {
                     steps {
+                        def userId = ''
+                        wrap([$class: 'BuildUser']) {
+                           userId = env.BUILD_USER_ID
+                        }
+
                         script {
                             if ('master' == branch) {
                                 try {
