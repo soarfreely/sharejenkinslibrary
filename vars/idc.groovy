@@ -58,7 +58,6 @@ def call(Closure body) {
     	stages {
     	    stage ("Authorization") {
                     steps {
-                        def userId = ''
                         wrap([$class: 'BuildUser']) {
                            userId = env.BUILD_USER_ID
                         }
