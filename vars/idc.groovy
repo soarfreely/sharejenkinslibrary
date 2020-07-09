@@ -59,10 +59,8 @@ def call(Closure body) {
     	    stage ("Authorization") {
                     steps {
                         wrap([$class: 'BuildUser']) {
-                           userId = env.BUILD_USER_ID
-                        }
-
                         script {
+                            userId = "${env.BUILD_USER}"
                             if ('master' == branch) {
                                 try {
                                     timeout(time:5, unit:"MINUTES") {
@@ -96,6 +94,7 @@ def call(Closure body) {
                                     false
                                 }
                             }
+                        }
                         }
     	            }
     	    }
