@@ -62,18 +62,26 @@ def call(Closure body) {
                             if ('master' == branch) {
                                 try {
                                     timeout(time:5, unit:"MINUTES") {
-                                        def who = input (
-                                            message: "Should we continue ?",
-                                            ok: "Yes, we should.",
-                                            submitter: submitter, // 指定允许提交的用户
-                                            parameters: [
-                                                string(name: 'who', defaultValue: 'gavin', description: 'Who are you?')
-                                            ]
-                                        )
-                                        if (submitter.contains(who)) {
-                                            tool.printMsg("${who},同意发布", 'green')
+                                        def res = 'No'
+                                        if (submitter.contains("${BUILD_USER_ID}")) {
+                                            res = input (
+                                                message: "Should we continue ?",
+                                                ok: "Yes, we should.",
+                                                submitter: submitter, // 指定允许提交的用户
+                                                parameters: [
+                                                    choice(name: 'res'，choices: ['Yes', 'No'], description: '确认是否发布？')
+                                                ]
+                                            )
                                         } else {
-                                            tool.printMsg("${who},拒绝发布", 'red')
+                                            tool.printMsg("${BUILD_USER_ID}, 没有发布权限", 'red')
+                                            throw new RuntimeException("${BUILD_USER_ID}, 没有发布权限")
+                                            false
+                                        }
+
+                                        if (res.contains("Yes")) {
+                                            tool.printMsg("${BUILD_USER_ID},同意发布", 'green')
+                                        } else {
+                                            tool.printMsg("${BUILD_USER_ID},拒绝发布", 'red')
                                             throw new RuntimeException("拒绝发布")
                                             false
                                         }
