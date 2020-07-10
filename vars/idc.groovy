@@ -77,7 +77,7 @@ def call(Closure body) {
                                         } else {
                                             tool.printMsg("${userId}, 没有发布权限", 'red')
                                             throw new RuntimeException("${userId}, 没有发布权限")
-                                            false
+                                            exit
                                         }
 
                                         if (res.contains("Yes")) {
@@ -85,13 +85,13 @@ def call(Closure body) {
                                         } else {
                                             tool.printMsg("${userId},拒绝发布", 'red')
                                             throw new RuntimeException("拒绝发布")
-                                            false
+                                            exit
                                         }
                                     }
                                 } catch (error) {
                                     tool.printMsg("发布异常", 'red')
                                     echo error.toString()
-                                    false
+                                    exit
                                 }
                             }
                         }
