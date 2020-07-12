@@ -85,12 +85,14 @@ def call(Closure body) {
                                         } else {
                                             tool.printMsg("${userId},拒绝发布", 'red')
                                             throw new RuntimeException("拒绝发布")
+                                            System.exit(0)
                                             return false
                                         }
                                     }
                                 } catch (error) {
                                     tool.printMsg("发布异常", 'red')
                                     echo error.toString()
+                                    System.exit(0)
                                     return false
                                 }
                             }
