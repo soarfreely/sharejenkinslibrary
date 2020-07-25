@@ -1,9 +1,9 @@
 # share jenkins library
 >
-##　简介
+## 简介
     使用共享库，将“可变参数”与发布逻辑剥离，便于快速部署，及后期维护。
 
-##　使用
+## 使用
 1. 配置
     jenkins => 系统配置 => Global Pipeline Libraries
 2. jenkinsfile
