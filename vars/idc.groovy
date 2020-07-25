@@ -56,52 +56,10 @@ def call(Closure body) {
         }
 
     	stages {
-    	    stage ("Authorization") {
-                    steps {
-                        wrap([$class: 'BuildUser']) {
-                        script {
-                            userId = "${env.BUILD_USER}"
-                            if ('master' == branch) {
-                                try {
-                                    timeout(time:5, unit:"MINUTES") {
-                                        def res = 'No'
-                                        if (submitter.contains("${userId}")) {
-                                            res = input (
-                                                message: "Should we continue ?",
-                                                ok: "Yes, we should.",
-                                                submitter: submitter, // 指定允许提交的用户
-                                                parameters: [
-                                                    choice(name: 'res', choices: ['Yes', 'No'], description: '确认是否发布？')
-                                                ]
-                                            )
-                                        } else {
-                                            tool.printMsg("${userId}, 没有发布权限", 'red')
-                                            throw new RuntimeException("${userId}, 没有发布权限")
-                                            return "ABORTED"
-                                        }
-
-                                        if (res.contains("Yes")) {
-                                            tool.printMsg("${userId},同意发布", 'green')
-                                        } else {
-                                            tool.printMsg("${userId},拒绝发布", 'red')
-                                            throw new RuntimeException("拒绝发布")
-                                            return false
-                                        }
-                                    }
-                                } catch (error) {
-                                    tool.printMsg("发布异常", 'red')
-                                    echo error.toString()
-                                    return false
-                                }
-                            }
-                        }
-                        }
-    	            }
-    	    }
     		// 下载代码
-    		stage("Checkout") { // 阶段名称
+    		stage("Checkout") {
     			steps {
-    				timeout(time:5, unit:"MINUTES") {  // 步骤超时时间
+    				timeout(time:5, unit:"MINUTES") {
     					script {
     						tool.printMsg('开始:拉取代码', 'green')
     						checkout.checkout(repository, jenkins2repositoryCredentialsId, "${branch}")
