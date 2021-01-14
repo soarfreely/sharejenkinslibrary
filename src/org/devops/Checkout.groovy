@@ -32,7 +32,6 @@ def checkoutCode(srcUrl, credentialsId, branchName, tagName = null) {
                 credentialsId: "${credentialsId}",
                 url: "${srcUrl}"
             ]
-        ],
-        description: 'Select your branch or tag.'
+        ]
     ])
 }
