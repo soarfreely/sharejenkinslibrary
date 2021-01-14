@@ -1,7 +1,7 @@
 package org.devops
 
 // 格式化输出
-def printMsg(content, color) {
+def printMsg(content, color = "green") {
     colors = [
             'red'   : "\033[40;31m >>>>>>>>>>>Gavin Tips:${content}<<<<<<<<<<< \033[0m",
             'blue'  : "\033[47;34m Gavin Tips:${content} \033[0m",

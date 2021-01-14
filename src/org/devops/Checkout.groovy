@@ -2,19 +2,23 @@ package org.devops
 
 //代码检出
 def checkoutCode(srcUrl, credentialsId, branchName, tagName = null) {
+    def tool = new Tools();
+
     //delete 'origin/'
     if (branchName.startsWith('origin/')){
         branchName=branchName.minus("origin/")
     }
 
-    if(tagName == "null"){
+    if(tagName == null){
         pathName = "*/${branchName}"
-    }else{
+        tool.printMsg("branch_name:　${pathName}")
+
+    } else {
         pathName = "refs/tags/${tagName}"
+        tool.printMsg("tag_name:　${pathName}")
     }
 
-    println("code path name:　${pathName}")
-    println("${srcUrl}")
+    printMsg("${srcUrl}")
 
     checkout([
         $class: 'GitSCM', branches: [
