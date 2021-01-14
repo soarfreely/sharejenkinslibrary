@@ -9,7 +9,7 @@ def checkoutCode(srcUrl, credentialsId, branchName, tagName = null) {
         branchName=branchName.minus("origin/")
     }
 
-    if(tagName == null){
+    if (tagName?.trim()) {
         pathName = "*/${branchName}"
     } else {
         pathName = "refs/tags/${tagName}"
