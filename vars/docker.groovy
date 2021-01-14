@@ -1,14 +1,19 @@
-package vars
+import org.devops.Build
+import org.devops.Checkout
+import org.devops.Deploy
+import org.devops.Email
+import org.devops.Tools
+
 // 容器部署
 
 def call(Closure body) {
     body()
 
-    def tool = new org.devops.Tools()
-    def email = new org.devops.Email()
-    def checkout = new org.devops.Checkout()
-    def build = new org.devops.Build()
-    def deploy = new org.devops.Deploy()
+    def tool = new Tools()
+    def email = new Email()
+    def checkout = new Checkout()
+    def build = new Build()
+    def deploy = new Deploy()
 
     def targetIp = body.targetIp
     def toEmail = body.toEmail
@@ -65,7 +70,7 @@ def call(Closure body) {
                     timeout(time:5, unit:"MINUTES") {
                         script {
                             tool.printMsg('开始:拉取代码', 'green')
-                            checkout.checkout(repository, jenkins2repositoryCredentialsId, "${branch}")
+//                            checkout.checkout(repository, jenkins2repositoryCredentialsId, "${branch}")
                             tool.printMsg('结束:拉取代码', 'green')
                         }
                     }
@@ -78,7 +83,7 @@ def call(Closure body) {
                     timeout(time:20, unit:"MINUTES") {
                         script {
                             tool.printMsg('开始:应用打包', 'green')
-                            build.build()
+//                            build.build()
                             tool.printMsg('结束:应用打包', 'green')
                         }
                     }
@@ -90,7 +95,7 @@ def call(Closure body) {
                     timeout(time:20, unit:"MINUTES") {
                         script {
                             tool.printMsg('开始:上传&解压', 'green')
-                            deploy.deploy(domain, targetIp, jenkins2serverCredentialsId, phpSrc, runComposer, www, tarName)
+//                            deploy.deploy(domain, targetIp, jenkins2serverCredentialsId, phpSrc, runComposer, www, tarName)
                             tool.printMsg("结束:上传＆解压", 'green')
                         }
                     }
@@ -121,7 +126,7 @@ def call(Closure body) {
                 script {
                     string status = '构建成功'
                     currentBuild.description = "\n ${status}!"
-                    email.email(status, toEmail)
+//                    email.email(status, toEmail)
                 }
             }
 
@@ -130,7 +135,7 @@ def call(Closure body) {
                     def  status = '构建失败'
                     currentBuild.description = "\n ${status}!"
                     tool.printMsg("构建失败", 'red')
-                    email.email(status, toEmail)
+//                    email.email(status, toEmail)
                 }
             }
 
@@ -138,7 +143,7 @@ def call(Closure body) {
                 script {
                     def  status = '构建取消'
                     currentBuild.description = "\n ${status}!"
-                    email.email(status, toEmail)
+//                    email.email(status, toEmail)
                 }
             }
         }
