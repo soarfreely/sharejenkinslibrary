@@ -24,7 +24,7 @@ def checkoutCode(srcUrl, credentialsId, branchName, tagName = null) {
 
     checkout([
         $class: 'GitSCM', branches: [
-            [name: "${pathName}"]
+            [name: "${branchName}"]
         ],
         doGenerateSubmoduleConfigurations: false,
         extensions: [],
