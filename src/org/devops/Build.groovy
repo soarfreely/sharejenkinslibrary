@@ -5,10 +5,12 @@ def build() {
 //    env.dockerUrl = '39.100.108.229'
 //    env.newImageName = "nginx16phpfpm73/ali";
 
-    def newImageName = "shareLibs"
+    def newImageName = "share_libs"
     def tagName = "0104"
 
     sh """
+           echo '当前目录:'
+           pwd
            docker login -u admin -p ali229-Harbor  39.100.108.229
            echo '私有镜像仓库登录成功'
            docker build --no-cache -f docker/Dockerfile -t ${newImageName}:${tagName} .
