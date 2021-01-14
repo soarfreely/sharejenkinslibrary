@@ -68,9 +68,9 @@ def call(Closure body) {
                 steps {
                     timeout(time:5, unit:"MINUTES") {
                         script {
-                            tool.printMsg('开始:拉取代码,branchOrTag:${branchOrTag}', 'green')
+                            tool.printMsg("开始:拉取代码,branchOrTag:${branchOrTag}", 'green')
                             checkout.checkoutCode(repository, jenkins2repositoryCredentialsId, "${branchOrTag}")
-                            tool.printMsg('结束:拉取代码,branchOrTag:${branchOrTag}', 'green')
+                            tool.printMsg("结束:拉取代码,branchOrTag:${branchOrTag}", 'green')
                         }
                     }
                 }
