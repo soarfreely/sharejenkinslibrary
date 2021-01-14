@@ -6,16 +6,19 @@ def checkoutCode(srcUrl, credentialsId, branchName, tagName = null) {
 
     //delete 'origin/'
     if (branchName.startsWith('origin/')){
-        branchName=branchName.minus("origin/")
+        branchName = branchName.minus("origin/")
     }
 
+    tool.printMsg("branch or tag name:　${tagName}")
+
+    def pathName = '=='
     if (tagName?.trim()) {
         pathName = "*/${branchName}"
     } else {
         pathName = "refs/tags/${tagName}"
     }
 
-    tool.printMsg("branch or tag name:　${pathName}")
+    tool.printMsg("branch or tag name: ${pathName}")
 
     checkout([
         $class: 'GitSCM', branches: [
