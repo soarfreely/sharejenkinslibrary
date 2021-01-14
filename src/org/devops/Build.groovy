@@ -3,7 +3,7 @@ package org.devops
 def build(tagName) {
     def tools = new Tools();
 
-    tools.PrintMes("构建上传镜像-start","green")
+    tools.printMsg("构建上传镜像-start","green")
 //    env.serviceName = "${JOB_NAME}".split("_")[0]
 //    env.dockerUrl = '39.100.108.229'
 //    env.newImageName = "nginx16phpfpm73/ali";
