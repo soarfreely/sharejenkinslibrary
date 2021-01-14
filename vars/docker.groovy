@@ -83,7 +83,7 @@ def call(Closure body) {
                     timeout(time:20, unit:"MINUTES") {
                         script {
                             tool.printMsg('开始:应用打包', 'green')
-//                            build.build()
+                            build.build()
                             tool.printMsg('结束:应用打包', 'green')
                         }
                     }
