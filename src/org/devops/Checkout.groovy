@@ -11,14 +11,11 @@ def checkoutCode(srcUrl, credentialsId, branchName, tagName = null) {
 
     if(tagName == null){
         pathName = "*/${branchName}"
-        tool.printMsg("branch_name:　${pathName}")
-
     } else {
         pathName = "refs/tags/${tagName}"
-        tool.printMsg("tag_name:　${pathName}")
     }
 
-    tool.printMsg("${srcUrl}")
+    tool.printMsg("branch or tag name:　${pathName}")
 
     checkout([
         $class: 'GitSCM', branches: [
