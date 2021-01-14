@@ -18,7 +18,7 @@ def checkoutCode(srcUrl, credentialsId, branchName, tagName = null) {
         tool.printMsg("tag_name:　${pathName}")
     }
 
-    printMsg("${srcUrl}")
+    tool.printMsg("${srcUrl}")
 
     checkout([
         $class: 'GitSCM', branches: [
