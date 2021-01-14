@@ -58,8 +58,7 @@ def call(Closure body) {
 
         // 参数
         parameters {
-            string(name: 'branch', defaultValue: 'develop', description: 'Please enter the code branch to be built')
-            string(name: 'tag', defaultValue: '', description: 'Please enter the tag number to be published')
+            string(name: 'branchOrTag', defaultValue: 'develop', description: 'Please enter the code branch or tag to be built')
             choice(name: 'mode', choices: ['deploy', 'rollback'], description: '选择方向！')
         }
 
@@ -69,9 +68,9 @@ def call(Closure body) {
                 steps {
                     timeout(time:5, unit:"MINUTES") {
                         script {
-                            tool.printMsg('开始:拉取代码', 'green')
-                            checkout.checkoutCode(repository, jenkins2repositoryCredentialsId, "${branch}", "${tag}")
-                            tool.printMsg('结束:拉取代码', 'green')
+                            tool.printMsg('开始:拉取代码,branchOrTag:${branchOrTag}', 'green')
+                            checkout.checkoutCode(repository, jenkins2repositoryCredentialsId, "${branchOrTag}")
+                            tool.printMsg('结束:拉取代码,branchOrTag:${branchOrTag}', 'green')
                         }
                     }
                 }
