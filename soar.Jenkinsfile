@@ -7,13 +7,14 @@ docker {
 
    www = '/root/www'
 
-   domain = 'localhost'
+   domain = 'local.7fw'
 
    // 源码目录
    phpSrc = 'src'
 
    // 业务代码仓库地址
-   repository = 'https://github.com/soarfreely/lib-1.git'
+   repository = 'git@github.com:soarfreely/7fw.git'
+   // repository = 'https://github.com/soarfreely/lib-1.git'
    // repository = 'http://172.17.0.3/group-a/lib-1.git'
 
    // jenkins2repository 凭据 (业务代码仓库)
@@ -23,7 +24,8 @@ docker {
    jenkins2serverCredentialsId = 'local-php'
 
    // 生产服务器ip
-   targetIp = '172.17.0.5'
+   targetIp = '172.17.0.2'
+//   targetIp = '172.17.0.5'
 
    // toEmail
    toEmail = 'soarfreely.z@qq.com'
