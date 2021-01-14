@@ -5,11 +5,15 @@ def build() {
 //    env.dockerUrl = '39.100.108.229'
 //    env.newImageName = "nginx16phpfpm73/ali";
 
+    def newImageName = "shareLibs"
+    def tagName = "0104"
+
     sh """
            docker login -u admin -p ali229-Harbor  39.100.108.229
            echo '私有镜像仓库登录成功'
+           docker build --no-cache -f docker/Dockerfile -t ${newImageName}:${tagName} .
            sleep 1
-           docker push 39.100.108.229/library/nginx16phpfpm73:1.0
+           docker push 39.100.108.229/library/${newImageName}:${tagName}
            sleep 1
      """
 //    withCredentials([usernamePassword(credentialsId: 'aliyun-registry-admin', passwordVariable: 'password', usernameVariable: 'username')]) {
