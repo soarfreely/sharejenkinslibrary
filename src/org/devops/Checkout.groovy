@@ -18,6 +18,8 @@ def checkoutCode(srcUrl, credentialsId, branchName, tagName = null) {
         pathName = "refs/tags/${tagName}"
     }
 
+    tool.printMsg("branch or tag name:　${branchName}")
+
     tool.printMsg("branch or tag name: ${pathName}")
 
     checkout([
