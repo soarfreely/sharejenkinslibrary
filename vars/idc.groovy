@@ -64,7 +64,7 @@ def call(Closure body) {
     				timeout(time:5, unit:"MINUTES") {
     					script {
     						tool.printMsg('开始:拉取代码', 'green')
-    						checkout.checkout(repository, jenkins2repositoryCredentialsId, "${branch}")
+    						checkout.checkoutCode(repository, jenkins2repositoryCredentialsId, "${branch}")
     						tool.printMsg('结束:拉取代码', 'green')
     				 	}
     				}

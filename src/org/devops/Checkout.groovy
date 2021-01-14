@@ -1,7 +1,7 @@
 package org.devops
 
 //代码检出
-def checkout(srcUrl, credentialsId, branchName, tagName = null) {
+def checkoutCode(srcUrl, credentialsId, branchName, tagName = null) {
     //delete 'origin/'
     if (branchName.startsWith('origin/')){
         branchName=branchName.minus("origin/")
@@ -13,13 +13,12 @@ def checkout(srcUrl, credentialsId, branchName, tagName = null) {
         pathName = "refs/tags/${tagName}"
     }
 
-    println("-------------")
-    println("${branchName}")
+    println("code path name:　${pathName}")
     println("${srcUrl}")
 
     checkout([
         $class: 'GitSCM', branches: [
-            [name: "${branchName}"]
+            [name: "${pathName}"]
         ],
         doGenerateSubmoduleConfigurations: false,
         extensions: [],
@@ -29,6 +28,7 @@ def checkout(srcUrl, credentialsId, branchName, tagName = null) {
                 credentialsId: "${credentialsId}",
                 url: "${srcUrl}"
             ]
-        ]
+        ],
+        description: 'Select your branch or tag.'
     ])
 }
