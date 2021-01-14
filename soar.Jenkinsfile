@@ -5,7 +5,7 @@ docker {
    // 是否执行composer
    runComposer = 'true'
 
-   www = '/root/www'
+   www = '/home/soar/CICD/www'
 
    domain = 'local.7fw'
 
@@ -24,7 +24,7 @@ docker {
    jenkins2serverCredentialsId = 'local-php'
 
    // 生产服务器ip
-   targetIp = '172.17.0.2'
+   targetIp = '172.17.0.1'
 //   targetIp = '172.17.0.5'
 
    // toEmail
