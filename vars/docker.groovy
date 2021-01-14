@@ -81,9 +81,9 @@ def call(Closure body) {
                 steps {
                     timeout(time:20, unit:"MINUTES") {
                         script {
-                            tool.printMsg('开始:拉取镜像', 'green')
+                            tool.printMsg('开始:拉取基础镜像', 'green')
                             build.build()
-                            tool.printMsg('结束:拉取镜像', 'green')
+                            tool.printMsg('结束:拉取基础镜像', 'green')
                         }
                     }
                 }
