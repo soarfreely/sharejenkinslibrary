@@ -5,6 +5,9 @@ def build(newImageName, tagName) {
 //    env.dockerUrl = '39.100.108.229'
 //    env.newImageName = "nginx16phpfpm73/ali";
 
+    def tool = new Tools();
+    tool.printMsg("newImageName:${newImageName}--tagName:${tagName}")
+
     sh """
            echo '当前目录:'
            pwd
@@ -16,7 +19,7 @@ def build(newImageName, tagName) {
            sleep 1
            docker push 39.100.108.229/library/${newImageName}:${tagName}
            sleep 1
-        　 docker rmi ${newImageName}:${tagName}
+        　 docker rmi -f 39.100.108.229/library/${newImageName}:${tagName}
      """
 //    withCredentials([usernamePassword(credentialsId: 'aliyun-registry-admin', passwordVariable: 'password', usernameVariable: 'username')]) {
 //
