@@ -6,7 +6,7 @@ def build() {
 //    env.newImageName = "nginx16phpfpm73/ali";
 
     def newImageName = "share_libs"
-    def tagName = "0104"
+    def tagName = "v0104"
 
     sh """
            echo '当前目录:'
@@ -14,6 +14,8 @@ def build() {
            docker login -u admin -p ali229-Harbor  39.100.108.229
            echo '私有镜像仓库登录成功'
            docker build --no-cache -f docker/Dockerfile -t ${newImageName}:${tagName} .
+           sleep 1
+           docker tag ${newImageName}:${tagName} 39.100.108.229/library/${newImageName}:${tagName}
            sleep 1
            docker push 39.100.108.229/library/${newImageName}:${tagName}
            sleep 1
