@@ -136,7 +136,7 @@ def call(Closure body) {
                     currentBuild.description = "\n ${status}!"
 //                    email.email(status, toEmail)
 
-                    tool.printMsg("Version No:${generateTag}", 'vert')
+                    tool.printMsg("Version No:${generateTag}")
                 }
             }
 
