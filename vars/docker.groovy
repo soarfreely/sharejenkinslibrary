@@ -3,6 +3,7 @@ import org.devops.Checkout
 import org.devops.Deploy
 import org.devops.Email
 import org.devops.Tools
+import org.devops.harbor
 
 // 容器部署
 
@@ -14,6 +15,7 @@ def call(Closure body) {
     def checkout = new Checkout()
     def build = new Build()
     def deploy = new Deploy()
+    def harbor = new harbor()
 
     def targetIp = body.targetIp
     def toEmail = body.toEmail
@@ -38,6 +40,8 @@ def call(Closure body) {
     tool.printMsg("jenkins2server凭据:${jenkins2serverCredentialsId}", 'green')
     tool.printMsg("目标服务器:${targetIp}", 'green')
     tool.printMsg("负责人邮箱:${toEmail}", 'green')
+
+//    def tagExists = harbor.tagDetail()
 
     // jenkins 工作目录
     pipeline {
@@ -82,7 +86,7 @@ def call(Closure body) {
                     timeout(time:20, unit:"MINUTES") {
                         script {
                             tool.printMsg('开始:拉取基础镜像', 'green')
-                            build.build(domain='share_libs', tarName='v0104')
+                            build.build('share_libs', 'v0104')
                             tool.printMsg('结束:拉取基础镜像', 'green')
                         }
                     }
@@ -94,7 +98,7 @@ def call(Closure body) {
                     timeout(time:20, unit:"MINUTES") {
                         script {
                             tool.printMsg('开始:拉取业务镜像&部署', 'green')
-                            deploy.deploy(domain='share_libs', tarName='v0104')
+                            deploy.deploy('share_libs', 'v0104')
 //                            deploy.deploy(domain, targetIp, jenkins2serverCredentialsId, phpSrc, runComposer, www, tarName)
                             tool.printMsg("结束:拉取业务镜像&部署", 'green')
                         }
