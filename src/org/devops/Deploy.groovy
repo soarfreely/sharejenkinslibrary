@@ -65,7 +65,7 @@ def deploy(newImageName, tagName) {
             docker login -u admin -p ali229-Harbor  39.100.108.229
             docker pull 39.100.108.229/library/${newImageName}:${tagName}
             sleep 1
-            docker run --name ${newImageName}_${tagName} -p 10080:80 -d ${newImageName}_${tagName}
+            docker run --name ${newImageName}:${tagName} -p 10080:80 -d ${newImageName}_${tagName}
         """
 //    }
 }
