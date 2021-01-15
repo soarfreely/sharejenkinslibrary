@@ -1,12 +1,9 @@
 package org.devops
 
-def build() {
+def build(newImageName, tagName) {
 //    env.serviceName = "${JOB_NAME}".split("_")[0]
 //    env.dockerUrl = '39.100.108.229'
 //    env.newImageName = "nginx16phpfpm73/ali";
-
-    def newImageName = "share_libs"
-    def tagName = "v0104"
 
     sh """
            echo '当前目录:'
