@@ -70,4 +70,13 @@ encodeBase64File(path) {
 		}
 
 		return Base64.getEncoder().encodeToString(buffer);
-	}
+}
+
+/**
+ * 获取随机的tag
+ *
+ * @return String
+ */
+static def randomTag() {
+    return ((new Date()).getTime() + Math.random()).toString().md5()
+}

@@ -132,6 +132,8 @@ def call(Closure body) {
                     currentBuild.description = "\n ${status}!"
 //                    email.email(status, toEmail)
                 }
+
+                tool.printMsg("Version No:${tool.randomTag()}", 'red')
             }
 
             failure {
