@@ -28,6 +28,7 @@ def call(Closure body) {
     def domain = body.domain
     def tarName = "${domain}_${BUILD_ID}.tar.gz"
     def submitter = "gavin, admin"
+    def tag = tool.tag(domain)
 
 
     tool.printMsg("Gavin' jenkinsfile share library", 'green')
@@ -132,7 +133,7 @@ def call(Closure body) {
                     currentBuild.description = "\n ${status}!"
 //                    email.email(status, toEmail)
 
-                    tool.printMsg("Version No:${tool.randomTag()}", 'red')
+                    tool.printMsg("Version No:${tool.tag()}", 'red')
                 }
             }
 

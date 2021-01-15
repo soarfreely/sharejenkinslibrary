@@ -75,8 +75,8 @@ encodeBase64File(path) {
 /**
  * 获取随机的tag
  *
- * @return String
+ * @return
  */
-static def randomTag() {
-    return ((new Date()).getTime() + Math.random()).toString().md5()
+static def tag(domain = 'localhost') {
+    return "${domain}_" + (new Date().format('YYYYMMDDHHmmss')) + ((Math.random() * 10000) .toInteger()).toString()
 }
