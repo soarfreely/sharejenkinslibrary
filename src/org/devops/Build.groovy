@@ -18,9 +18,16 @@ def build(newImageName, tagName) {
            docker tag ${newImageName}:${tagName} 39.100.108.229/library/${newImageName}:${tagName}
            sleep 1
            docker push 39.100.108.229/library/${newImageName}:${tagName}
-           sleep 1
-        　 docker rmi -f 39.100.108.229/library/${newImageName}:${tagName}
      """
+    
+    tool.printMsg("删除业务镜像")
+
+    sh """
+        sleep 1
+        docker logout
+        docker rmi -f 39.100.108.229/library/${newImageName}:${tagName}
+        """
+
 //    withCredentials([usernamePassword(credentialsId: 'aliyun-registry-admin', passwordVariable: 'password', usernameVariable: 'username')]) {
 //
 //        // .env 的处理待完善
