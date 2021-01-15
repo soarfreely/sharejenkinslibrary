@@ -28,7 +28,10 @@ def call(Closure body) {
     def domain = body.domain
     def tarName = "${domain}_${BUILD_ID}.tar.gz"
     def submitter = "gavin, admin"
-    def tag = tool.tag(domain)
+
+
+    tool.println("domain:${domain}")
+    def generateTag = tool.generateTag(domain)
 
 
     tool.printMsg("Gavin' jenkinsfile share library", 'green')
@@ -63,7 +66,7 @@ def call(Closure body) {
 
         // 参数
         parameters {
-            string(name: 'branchOrTag', defaultValue: 'develop', description: 'Please enter the code branch or tag to be built')
+            string(name: 'inputTag', defaultValue: 'develop', description: 'Please enter the code tag to be built')
             choice(name: 'mode', choices: ['deploy', 'rollback'], description: '选择方向！')
         }
 
@@ -73,9 +76,9 @@ def call(Closure body) {
                 steps {
                     timeout(time:5, unit:"MINUTES") {
                         script {
-                            tool.printMsg("开始:拉取代码,branchOrTag:${branchOrTag}", 'green')
-                            checkout.checkoutCode(repository, jenkins2repositoryCredentialsId, "${branchOrTag}")
-                            tool.printMsg("结束:拉取代码,branchOrTag:${branchOrTag}", 'green')
+                            tool.printMsg("开始:拉取代码,Tag:${inputTag}", 'green')
+                            checkout.checkoutCode(repository, jenkins2repositoryCredentialsId, "${inputTag}")
+                            tool.printMsg("结束:拉取代码,Tag:${inputTag}", 'green')
                         }
                     }
                 }
@@ -133,7 +136,7 @@ def call(Closure body) {
                     currentBuild.description = "\n ${status}!"
 //                    email.email(status, toEmail)
 
-                    tool.printMsg("Version No:${tool.tag()}", 'red')
+                    tool.printMsg("Version No:${generateTag}", 'vert')
                 }
             }
 

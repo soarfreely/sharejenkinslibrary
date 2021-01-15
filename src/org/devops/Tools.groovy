@@ -77,6 +77,6 @@ encodeBase64File(path) {
  *
  * @return
  */
-static def tag(domain = 'localhost') {
+static def generateTag(domain = "localhost") {
     return "${domain}_" + (new Date().format('YYYYMMDDHHmmss')) + ((Math.random() * 10000) .toInteger()).toString()
 }
