@@ -19,6 +19,7 @@ def build() {
            sleep 1
            docker push 39.100.108.229/library/${newImageName}:${tagName}
            sleep 1
+        　 docker rmi ${newImageName}:${tagName}
      """
 //    withCredentials([usernamePassword(credentialsId: 'aliyun-registry-admin', passwordVariable: 'password', usernameVariable: 'username')]) {
 //
