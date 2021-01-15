@@ -82,7 +82,7 @@ def call(Closure body) {
                     timeout(time:20, unit:"MINUTES") {
                         script {
                             tool.printMsg('开始:拉取基础镜像', 'green')
-                            build.build()
+                            build.build(domain='share_libs', tarName='v0104')
                             tool.printMsg('结束:拉取基础镜像', 'green')
                         }
                     }
@@ -93,9 +93,10 @@ def call(Closure body) {
                 steps {
                     timeout(time:20, unit:"MINUTES") {
                         script {
-                            tool.printMsg('开始:上传&解压', 'green')
+                            tool.printMsg('开始:拉取业务镜像&部署', 'green')
+                            deploy.deploy(domain='share_libs', tarName='v0104')
 //                            deploy.deploy(domain, targetIp, jenkins2serverCredentialsId, phpSrc, runComposer, www, tarName)
-                            tool.printMsg("结束:上传＆解压", 'green')
+                            tool.printMsg("结束:拉取业务镜像&部署", 'green')
                         }
                     }
                 }
