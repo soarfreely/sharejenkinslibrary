@@ -1,15 +1,15 @@
 package org.devops
 
 //代码检出
-def checkoutCode(srcUrl, credentialsId, tag) {
+def checkoutCode(srcUrl, credentialsId, branchOrTag) {
     //delete 'origin/'
-    if (tag.startsWith('origin/')){
-        branchName = tag.minus("origin/")
+    if (branchOrTag.startsWith('origin/')){
+        branchOrTag = branchOrTag.minus("origin/")
     }
 
     checkout([
         $class: 'GitSCM', branches: [
-            [name: "${tag}"]
+            [name: "${branchOrTag}"]
         ],
         doGenerateSubmoduleConfigurations: false,
         extensions: [],
