@@ -28,8 +28,8 @@ def imageDetail (api, basicAuth) {
         print("imageDetail异常信息:${e}")
     }
 
-    print(response.getProperties().get('digest'))
-    print(response.getProperties())
+    print(result.getProperties().get('digest'))
+    print(result.getProperties())
 
     return result
 }
