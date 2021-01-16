@@ -90,11 +90,11 @@ def call(Closure body) {
                     timeout(time:20, unit:"MINUTES") {
                         script {
                             //TODO 判断
-//                            if (1 == 1) {
-//                                tool.printMsg('开始:拉取基础镜像', 'green')
+                            if (1 == 1) {
+                                tool.printMsg('开始:拉取基础镜像', 'green')
 //                                build.build(domain, branchOrTag)
-//                                tool.printMsg('结束:拉取基础镜像', 'green')
-//                            }
+                                tool.printMsg('结束:拉取基础镜像', 'green')
+                            }
                         }
                     }
                 }
@@ -104,10 +104,10 @@ def call(Closure body) {
                 steps {
                     timeout(time:20, unit:"MINUTES") {
 //                        script {
-//                            tool.printMsg('开始:拉取业务镜像&部署', 'green')
+                            tool.printMsg('开始:拉取业务镜像&部署', 'green')
 //                            deploy.deploy(domain, branchOrTag)
 ////                            deploy.deploy(domain, targetIp, jenkins2serverCredentialsId, phpSrc, runComposer, www, tarName)
-//                            tool.printMsg("结束:拉取业务镜像&部署", 'green')
+                            tool.printMsg("结束:拉取业务镜像&部署", 'green')
 //                        }
                     }
                 }
@@ -139,7 +139,7 @@ def call(Closure body) {
                 script {
                     String status = '构建成功'
                     currentBuild.description = "\n ${status}!"
-//                    email.email(status, toEmail)
+                    email.email(status, toEmail)
 
                     tool.printMsg("Version No:${generateTag}")
                 }
