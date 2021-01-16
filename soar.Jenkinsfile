@@ -7,7 +7,7 @@ docker {
 
    www = '/home/soar/CICD/www'
 
-   domain = 'local.7fw'
+   domain = '7fw'
 
    // 源码目录
    phpSrc = 'src'
