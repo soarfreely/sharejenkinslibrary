@@ -14,14 +14,21 @@ def imageDetail (api, basicAuth) {
 //    tag=v0104
     // curl -X GET "http://39.100.108.229/api/repositories/library%2Fshare_libs/tags/v0104" -H "accept: application/json" -H "X-Xsrftoken: ae8DKqh1I88mE6T50ajKbrFGZkrCzS8Z"
     // http://39.100.108.229/api/repositories/library%2Fshare_libs/tags/v0104
-    def response = httpRequest contentType: 'APPLICATION_JSON',
-            httpMode: "GET",
-            customHeaders: [
-                    [name: "Authorization", value: basicAuth]
-            ],
-            url: api
+    Object result = null
+    try {
+        def response = httpRequest contentType: 'APPLICATION_JSON',
+                httpMode: "GET",
+                customHeaders: [
+                        [name: "Authorization", value: basicAuth]
+                ],
+                url: api
 
-    return (new JsonSlurper()).parseText(response.content)
+        result = (new JsonSlurper()).parseText(response.content)
+    } catch(Exception e) {
+        print("imageDetail异常信息:${e}")
+    }
+
+    return result
 }
 
 def httpGet() {

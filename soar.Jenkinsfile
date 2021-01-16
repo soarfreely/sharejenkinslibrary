@@ -28,7 +28,7 @@ docker {
 //   targetIp = '172.17.0.5'
 
    // toEmail
-   toEmail = 'soarfreely.z@qq.com'
+   toEmail = 'soarfreely.z@gmail.com'
 
    // 工程名称
    projectName = 'Gavin-project'
