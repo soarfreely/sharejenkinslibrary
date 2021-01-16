@@ -28,11 +28,11 @@ def imageDetail (api, basicAuth) {
         print("imageDetail异常信息:${e}")
     }
 
-    print(result.getProperties().get('digest', 'debug-image-digest'))
-    print(result.getProperties())
+    print(((Map)result).get('digest', 'debug-image-digest'))
+    print((Map)result)
     print(result)
 
-    return result
+    return (Map)result
 }
 
 def httpGet() {

@@ -27,6 +27,7 @@ def call(Closure body) {
     def jenkins2repositoryCredentialsId = body.jenkins2repositoryCredentialsId
     def jenkins2serverCredentialsId = body.jenkins2serverCredentialsId
     def www = body.www
+    def repo = body.repo
     def domain = body.domain
     def tarName = "${domain}_${BUILD_ID}.tar.gz"
     def submitter = "gavin, admin"
@@ -50,14 +51,14 @@ def call(Closure body) {
     // Harbor仓库镜像详情接口
     String basicAuth = "Basic " + ("admin:ali229-Harbor".bytes.encodeBase64().toString())
     def imageResponse = harbor.imageDetail("http://39.100.108.229/api/repositories/library/${domain}/tags/${branchOrTag}", basicAuth)
-    String imageDigest = imageResponse.getProperties().get('digest', null)
+    String imageDigest = imageResponse.get('digest', null)
     tool.printMsg("imageResponse,1:${imageDigest}", 'green')
 
     // Github分支详情接口
     String branchName = null
     if (!imageDigest) {
         // 当前branchOrTag不是镜像tag
-        def branchResponse = github.branchDetail("7fw", branchOrTag)
+        def branchResponse = github.branchDetail(repo, branchOrTag)
         tool.printMsg("开始:拉取代码,2:${branchResponse.get('name', null)}", 'green')
         branchName = branchResponse.get('name', null)
         tool.printMsg("开始:拉取代码,3:${branchName}", 'green')
