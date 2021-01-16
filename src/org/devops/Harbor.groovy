@@ -11,10 +11,18 @@ def tagDetail () {
 }
 
 def httpGet() {
+//    httpMode: "POST",
+//    customHeaders: [
+//            [name: "Authorization", value: "Basic xskjasdjkf="]
+//    ],
+//    requestBody: "key=key1&value=value1&key2=value",
+//    url: ''
     String encodedAuthString = "Basic " + ("admin:ali229-Harbor".bytes.encodeBase64().toString())
     def response = httpRequest contentType: 'APPLICATION_JSON',
             httpMode: "GET",
-            Authorization: "Basic ${encodedAuthString}"
+            customHeaders: [
+                [name: "Authorization", value: encodedAuthString]
+            ],
             url: "http://39.100.108.229/api/repositories/library/share_libs/tags/v0104"
     println response.status
     println response.content
