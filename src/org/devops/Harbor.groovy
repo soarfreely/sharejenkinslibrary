@@ -14,7 +14,7 @@ def imageDetail (api, basicAuth) {
 //    tag=v0104
     // curl -X GET "http://39.100.108.229/api/repositories/library%2Fshare_libs/tags/v0104" -H "accept: application/json" -H "X-Xsrftoken: ae8DKqh1I88mE6T50ajKbrFGZkrCzS8Z"
     // http://39.100.108.229/api/repositories/library%2Fshare_libs/tags/v0104
-    Object result = null
+    Object result = {status:0}
     try {
         def response = httpRequest contentType: 'APPLICATION_JSON',
                 httpMode: "GET",
