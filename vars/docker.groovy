@@ -50,13 +50,14 @@ def call(Closure body) {
     // Harbor仓库镜像详情接口
     String basicAuth = "Basic " + ("admin:ali229-Harbor".bytes.encodeBase64().toString())
     def imageResponse = harbor.imageDetail("http://39.100.108.229/api/repositories/library/${domain}/tags/${branchOrTag}", basicAuth)
-    String imageDigest = imageResponse.getProperties().get('digest', null)
+    String imageDigest = imageResponse.get('digest', null)
     tool.printMsg("imageResponse,1:${imageDigest}", 'green')
 
     // Github分支详情接口
     String branchName = null
     if (!imageDigest) {
         // 当前branchOrTag不是镜像tag
+        tool.printMsg("开始:拉取代码,1:${branchResponse.get('name', null)}", 'green')
         def branchResponse = github.branchDetail("7fw", branchOrTag)
         tool.printMsg("开始:拉取代码,2:${branchResponse.get('name', null)}", 'green')
         branchName = branchResponse.get('name', null)
