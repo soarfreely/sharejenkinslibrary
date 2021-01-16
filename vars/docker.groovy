@@ -115,8 +115,8 @@ def call(Closure body) {
                                     throw new Exception("输入的branchOrTag:${branchOrTag}错误")
                                 } else {
                                     tool.printMsg('开始:拉取基础镜像', 'green')
-                                    build.build(domain, branchOrTag)
                                     branchOrTag = generateTag
+                                    build.build(domain, branchOrTag)
                                     tool.printMsg("debug:${branchOrTag}", 'green')
                                     tool.printMsg('结束:拉取基础镜像', 'green')
                                 }
