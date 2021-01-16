@@ -3,7 +3,7 @@ import org.devops.Checkout
 import org.devops.Deploy
 import org.devops.Email
 import org.devops.Tools
-import org.devops.harbor
+import org.devops.Harbor
 
 // 容器部署
 
@@ -15,7 +15,7 @@ def call(Closure body) {
     def checkout = new Checkout()
     def build = new Build()
     def deploy = new Deploy()
-    def harbor = new harbor()
+    def harbor = new Harbor()
 
     def targetIp = body.targetIp
     def toEmail = body.toEmail
@@ -66,7 +66,7 @@ def call(Closure body) {
 
         // 参数
         parameters {
-            string(name: 'inputTag', defaultValue: 'develop', description: 'Please enter the code tag to be built')
+            string(name: 'branchOrTag', defaultValue: 'develop', description: 'Please enter the code branch or tag to be built')
             choice(name: 'mode', choices: ['deploy', 'rollback'], description: '选择方向！')
         }
 
@@ -76,9 +76,9 @@ def call(Closure body) {
                 steps {
                     timeout(time:5, unit:"MINUTES") {
                         script {
-                            tool.printMsg("开始:拉取代码,Tag:${inputTag}", 'green')
-                            checkout.checkoutCode(repository, jenkins2repositoryCredentialsId, "${inputTag}")
-                            tool.printMsg("结束:拉取代码,Tag:${inputTag}", 'green')
+                            tool.printMsg("开始:拉取代码,Tag:${branchOrTag}", 'green')
+                            checkout.checkoutCode(repository, jenkins2repositoryCredentialsId, branchOrTag)
+                            tool.printMsg("结束:拉取代码,Tag:${branchOrTag}", 'green')
                         }
                     }
                 }
@@ -89,9 +89,12 @@ def call(Closure body) {
                 steps {
                     timeout(time:20, unit:"MINUTES") {
                         script {
-                            tool.printMsg('开始:拉取基础镜像', 'green')
-                            build.build('share_libs', 'v0104')
-                            tool.printMsg('结束:拉取基础镜像', 'green')
+                            //TODO 判断
+//                            if (1 == 1) {
+//                                tool.printMsg('开始:拉取基础镜像', 'green')
+//                                build.build(domain, branchOrTag)
+//                                tool.printMsg('结束:拉取基础镜像', 'green')
+//                            }
                         }
                     }
                 }
@@ -100,12 +103,12 @@ def call(Closure body) {
             stage ("Deploy") {
                 steps {
                     timeout(time:20, unit:"MINUTES") {
-                        script {
-                            tool.printMsg('开始:拉取业务镜像&部署', 'green')
-                            deploy.deploy('share_libs', 'v0104')
-//                            deploy.deploy(domain, targetIp, jenkins2serverCredentialsId, phpSrc, runComposer, www, tarName)
-                            tool.printMsg("结束:拉取业务镜像&部署", 'green')
-                        }
+//                        script {
+//                            tool.printMsg('开始:拉取业务镜像&部署', 'green')
+//                            deploy.deploy(domain, branchOrTag)
+////                            deploy.deploy(domain, targetIp, jenkins2serverCredentialsId, phpSrc, runComposer, www, tarName)
+//                            tool.printMsg("结束:拉取业务镜像&部署", 'green')
+//                        }
                     }
                 }
             }
@@ -123,16 +126,18 @@ def call(Closure body) {
         }
 
         post { // 构建后的操作
-//     		always {
-//     			script {
-//     				println("always")
-//     			}
-//     		}
+     		always {
+     			script {
+     				println("always")
+                    harbor.httpGet()
+                    println("always")
+                }
+     		}
 
             // currentBuild 全局变量，description 构建描述
             success {
                 script {
-                    string status = '构建成功'
+                    String status = '构建成功'
                     currentBuild.description = "\n ${status}!"
 //                    email.email(status, toEmail)
 
@@ -142,18 +147,18 @@ def call(Closure body) {
 
             failure {
                 script {
-                    def  status = '构建失败'
+                    String status = '构建失败'
                     currentBuild.description = "\n ${status}!"
                     tool.printMsg("构建失败", 'red')
-//                    email.email(status, toEmail)
+                    email.email(status, toEmail)
                 }
             }
 
             aborted {
                 script {
-                    def  status = '构建取消'
+                    String status = '构建取消'
                     currentBuild.description = "\n ${status}!"
-//                    email.email(status, toEmail)
+                    email.email(status, toEmail)
                 }
             }
         }
@@ -197,3 +202,18 @@ def call(Closure body) {
 //}
 //prarallel branches
 //于是，打印结果时从0-9，符合期望。
+
+
+retry(3) {
+    for (int i = 0; i < 10; i++) {
+        branches["branch${i}"] = {
+            node {
+                retry(3) {
+                    checkout scm
+                }
+                sh 'make world'
+            }
+        }
+    }
+    parallel branches
+}
