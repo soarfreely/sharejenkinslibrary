@@ -28,7 +28,7 @@ def imageDetail (api, basicAuth) {
         print("imageDetail异常信息:${e}")
     }
 
-    print(result.getProperties().get('digest'))
+    print(result.getProperties().get('digest', 'debug-image-digest'))
     print(result.getProperties())
 
     return result
