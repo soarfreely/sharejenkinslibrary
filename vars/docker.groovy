@@ -49,8 +49,9 @@ def call(Closure body) {
 
     // Harbor仓库镜像详情接口
     String basicAuth = "Basic " + ("admin:ali229-Harbor".bytes.encodeBase64().toString())
-    def imageResponse = harbor.imageDetail("http://39.100.108.229/api/repositories/library/share_libs/tags/${branchOrTag}", basicAuth)
+    def imageResponse = harbor.imageDetail("http://39.100.108.229/api/repositories/library/${domain}/tags/${branchOrTag}", basicAuth)
     String imageDigest = imageResponse.getProperties().get('digest', null)
+    tool.printMsg("imageResponse,1:${imageDigest}", 'green')
 
     // Github分支详情接口
     String branchName = null
