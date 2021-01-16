@@ -103,12 +103,12 @@ def call(Closure body) {
             stage ("Deploy") {
                 steps {
                     timeout(time:20, unit:"MINUTES") {
-//                        script {
+                        script {
                             tool.printMsg('开始:拉取业务镜像&部署', 'green')
 //                            deploy.deploy(domain, branchOrTag)
 ////                            deploy.deploy(domain, targetIp, jenkins2serverCredentialsId, phpSrc, runComposer, www, tarName)
                             tool.printMsg("结束:拉取业务镜像&部署", 'green')
-//                        }
+                        }
                     }
                 }
             }
@@ -204,16 +204,16 @@ def call(Closure body) {
 //于是，打印结果时从0-9，符合期望。
 
 
-retry(3) {
-    for (int i = 0; i < 10; i++) {
-        branches["branch${i}"] = {
-            node {
-                retry(3) {
-                    checkout scm
-                }
-                sh 'make world'
-            }
-        }
-    }
-    parallel branches
-}
+//retry(3) {
+//    for (int i = 0; i < 10; i++) {
+//        branches["branch${i}"] = {
+//            node {
+//                retry(3) {
+//                    checkout scm
+//                }
+//                sh 'make world'
+//            }
+//        }
+//    }
+//    parallel branches
+//}
