@@ -1,6 +1,7 @@
 package org.devops
 
 import groovy.json.JsonSlurper
+import groovy.json.JsonSlurperClassic
 
 
 def branchDetail(repo, branch) {
@@ -17,7 +18,7 @@ def branchDetail(repo, branch) {
                 httpMode: "GET",
                 url: url
 
-        result = (new JsonSlurper()).parseText(response.content)
+        result = (new JsonSlurperClassic()).parseText(response.content)
     } catch(Exception e) {
         print("branchDetail异常信息:${e}")
     }
@@ -25,6 +26,7 @@ def branchDetail(repo, branch) {
     print(result.getProperties().get('name', 'defaultBranch'))
     print(result.getProperties())
     print(result)
+    print((new JsonSlurper()).parseText(response.content).name)
 
     return result
 }

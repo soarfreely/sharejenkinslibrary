@@ -57,10 +57,10 @@ def call(Closure body) {
     if (!imageDigest) {
         // 当前branchOrTag不是镜像tag
         def branchResponse = github.branchDetail("7fw", branchOrTag)
-        tool.printMsg("开始:拉取代码,Tag:${branchResponse.getProperties()}", 'green')
-        tool.printMsg("开始:拉取代码,Tag:${branchResponse.getProperties().get('name', null)}", 'green')
+        tool.printMsg("开始:拉取代码,1:${branchResponse.get}", 'green')
+        tool.printMsg("开始:拉取代码,2:${branchResponse.getProperties().get('name', null)}", 'green')
         branchName = branchResponse.getProperties().get('name', null)
-        tool.printMsg("开始:拉取代码,Tag:${branchName}", 'green')
+        tool.printMsg("开始:拉取代码,3:${branchName}", 'green')
     }
 
     // jenkins 工作目录
