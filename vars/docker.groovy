@@ -55,7 +55,7 @@ def call(Closure body) {
     tool.printMsg("imageResponse,1:${imageDigest}", 'green')
 
     // Github分支详情接口
-    String branchName = null
+    boolean branchName = false
     if (!imageDigest) {
         // 当前branchOrTag不是镜像tag
         tool.printMsg("开始:拉取代码,1:${branchOrTag}", 'green')
@@ -63,6 +63,8 @@ def call(Closure body) {
         tool.printMsg("开始:拉取代码,2:${branchResponse.get('name', null)}", 'green')
         branchName = (boolean)branchResponse.get('name', null)
         tool.printMsg("开始:拉取代码,3:${branchName}", 'green')
+    } else {
+        tool.printMsg("debug:Harbor仓库镜像存在", 'green')
     }
 
     // jenkins 工作目录
