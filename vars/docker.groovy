@@ -45,7 +45,8 @@ def call(Closure body) {
     tool.printMsg("目标服务器:${targetIp}", 'green')
     tool.printMsg("负责人邮箱:${toEmail}", 'green')
 
-//    def tagExists = harbor.tagDetail()
+    String basicAuth = "Basic " + ("admin:ali229-Harbor".bytes.encodeBase64().toString())
+    def response = harbor.imageDetail("http://39.100.108.229/api/repositories/library/share_libs/tags/${branchOrTag}", basicAuth)
 
     // jenkins 工作目录
     pipeline {
@@ -76,9 +77,11 @@ def call(Closure body) {
                 steps {
                     timeout(time:5, unit:"MINUTES") {
                         script {
-                            tool.printMsg("开始:拉取代码,Tag:${branchOrTag}", 'green')
-                            checkout.checkoutCode(repository, jenkins2repositoryCredentialsId, branchOrTag)
-                            tool.printMsg("结束:拉取代码,Tag:${branchOrTag}", 'green')
+                            if (response.status != 200) {
+                                tool.printMsg("开始:拉取代码,Tag:${branchOrTag}", 'green')
+                                checkout.checkoutCode(repository, jenkins2repositoryCredentialsId, branchOrTag)
+                                tool.printMsg("结束:拉取代码,Tag:${branchOrTag}", 'green')
+                            }
                         }
                     }
                 }
@@ -89,10 +92,9 @@ def call(Closure body) {
                 steps {
                     timeout(time:20, unit:"MINUTES") {
                         script {
-                            //TODO 判断
-                            if (1 == 1) {
+                            if (response.status != 200) {
                                 tool.printMsg('开始:拉取基础镜像', 'green')
-//                                build.build(domain, branchOrTag)
+                                build.build(domain, branchOrTag)
                                 tool.printMsg('结束:拉取基础镜像', 'green')
                             }
                         }
@@ -105,7 +107,7 @@ def call(Closure body) {
                     timeout(time:20, unit:"MINUTES") {
                         script {
                             tool.printMsg('开始:拉取业务镜像&部署', 'green')
-//                            deploy.deploy(domain, branchOrTag)
+                            deploy.deploy(domain, branchOrTag)
 ////                            deploy.deploy(domain, targetIp, jenkins2serverCredentialsId, phpSrc, runComposer, www, tarName)
                             tool.printMsg("结束:拉取业务镜像&部署", 'green')
                         }
@@ -129,7 +131,7 @@ def call(Closure body) {
      		always {
      			script {
      				println("always")
-                    harbor.httpGet()
+//                    harbor.httpGet()
                     println("always")
                 }
      		}

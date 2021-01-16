@@ -2,14 +2,26 @@ package org.devops
 
 import groovy.json.JsonSlurper
 
-def tagDetail () {
+/**
+ * Harbor api: /repositories/{repo_name}/tags/{tag}
+ * 镜像详情
+ *
+ * @return
+ */
+def imageDetail (api, basicAuth) {
     // api: /repositories/{repo_name}/tags/{tag}
 //    repo_name=library/share_libs
 //    tag=v0104
-
     // curl -X GET "http://39.100.108.229/api/repositories/library%2Fshare_libs/tags/v0104" -H "accept: application/json" -H "X-Xsrftoken: ae8DKqh1I88mE6T50ajKbrFGZkrCzS8Z"
-
     // http://39.100.108.229/api/repositories/library%2Fshare_libs/tags/v0104
+    def response = httpRequest contentType: 'APPLICATION_JSON',
+            httpMode: "GET",
+            customHeaders: [
+                    [name: "Authorization", value: basicAuth]
+            ],
+            url: api
+
+    return (new JsonSlurper()).parseText(response.content)
 }
 
 def httpGet() {
