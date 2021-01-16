@@ -1,5 +1,7 @@
 package org.devops
 
+import groovy.json.JsonSlurper
+
 def tagDetail () {
     // api: /repositories/{repo_name}/tags/{tag}
 //    repo_name=library/share_libs
@@ -27,6 +29,7 @@ def httpGet() {
     println response.status
     println response.content
 
-    def states = jsonParse(response.content)
+    def states = (new JsonSlurper()).parseText(response.content)
+//    def states = jsonParse(response.content)
     println states
 }
