@@ -77,7 +77,7 @@ def call(Closure body) {
                 steps {
                     timeout(time:5, unit:"MINUTES") {
                         script {
-                            if (response.status != 200) {
+                            if (!response.getProperties().get('digest', null)) {
                                 tool.printMsg("开始:拉取代码,Tag:${branchOrTag}", 'green')
                                 checkout.checkoutCode(repository, jenkins2repositoryCredentialsId, branchOrTag)
                                 tool.printMsg("结束:拉取代码,Tag:${branchOrTag}", 'green')
@@ -92,7 +92,7 @@ def call(Closure body) {
                 steps {
                     timeout(time:20, unit:"MINUTES") {
                         script {
-                            if (response.status != 200) {
+                            if (!response.getProperties().get('digest', null)) {
                                 tool.printMsg('开始:拉取基础镜像', 'green')
                                 build.build(domain, branchOrTag)
                                 tool.printMsg('结束:拉取基础镜像', 'green')
