@@ -19,11 +19,12 @@ def branchDetail(repo, branch) {
 
         result = (new JsonSlurper()).parseText(response.content)
     } catch(Exception e) {
-        print("imageDetail异常信息:${e}")
+        print("branchDetail异常信息:${e}")
     }
 
-    print(result.getProperties().get('digest'))
+    print(result.getProperties().get('name', 'defaultBranch'))
     print(result.getProperties())
+    print(result)
 
     return result
 }
