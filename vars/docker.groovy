@@ -58,6 +58,7 @@ def call(Closure body) {
     String branchName = null
     if (!imageDigest) {
         // 当前branchOrTag不是镜像tag
+        tool.printMsg("开始:拉取代码,1:${branchOrTag}", 'green')
         def branchResponse = github.branchDetail(repo, branchOrTag)
         tool.printMsg("开始:拉取代码,2:${branchResponse.get('name', null)}", 'green')
         branchName = branchResponse.get('name', null)
