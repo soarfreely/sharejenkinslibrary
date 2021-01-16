@@ -25,5 +25,5 @@ def branchDetail(repo, branch) {
     print((Map)result)
     print(((Map)result).get('name', 'defaultName'))
 
-    return result
+    return (Map)result
 }
