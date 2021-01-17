@@ -13,7 +13,7 @@ def build(imageRepoUri,newImageName, tagName) {
            pwd
            docker login -u admin -p ali229-Harbor  39.100.108.229
            echo '私有镜像仓库登录成功'
-           docker build --no-cache -f docker/Dockerfile -t ${newImageName}:${tagName} .
+           docker build --no-cache -f docker/Dockerfile -t ${imageRepoUri}/${newImageName}:${tagName} .
            sleep 1
            docker tag ${newImageName}:${tagName}  ${imageRepoUri}/${newImageName}:${tagName}
            sleep 1
