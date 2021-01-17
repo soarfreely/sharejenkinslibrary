@@ -23,11 +23,11 @@ def call(Closure body) {
      def toEmail = body.toEmail
      def runComposer = body.runComposer
      def phpSrc = body.phpSrc
-     def repository = body.repository
+     def repositoryPath = body.repositoryPath
      def jenkins2repositoryCredentialsId = body.jenkins2repositoryCredentialsId
      def jenkins2serverCredentialsId = body.jenkins2serverCredentialsId
      def www = body.www
-     def repo = body.repo
+     def repositoryName = body.repositoryName
      def domain = body.domain
      def tarName = "${domain}_${BUILD_ID}.tar.gz"
      def submitter = "gavin, admin"
@@ -41,7 +41,7 @@ def call(Closure body) {
      tool.printMsg("是否执行composer:${runComposer}", 'green')
      tool.printMsg("代码所在目录:${phpSrc}", 'green')
      tool.printMsg("params:${params}", 'green')
-     tool.printMsg("代码仓库:${repository}", 'green')
+     tool.printMsg("代码仓库:${repositoryPath}", 'green')
      tool.printMsg("jenkins2repository凭据:${jenkins2repositoryCredentialsId}", 'green')
      tool.printMsg("jenkins2server凭据:${jenkins2serverCredentialsId}", 'green')
      tool.printMsg("目标服务器:${targetIp}", 'green')
@@ -70,12 +70,12 @@ def call(Closure body) {
                     steps {
                          timeout(time:5, unit:"MINUTES") {
                               script {
-                                   def branchResponse = github.branchDetail(repo, branch)
+                                   def branchResponse = github.branchDetail(repositoryName, branch)
                                    if (!(boolean)branchResponse.get('name', false)) {
                                         throw new Exception("输入的branch:${branch}错误")
                                    } else {
                                         tool.printMsg("开始:拉取代码,Tag:${branch}", 'green')
-                                        checkout.checkoutCode(repository, jenkins2repositoryCredentialsId, branch)
+                                        checkout.checkoutCode(repositoryPath, jenkins2repositoryCredentialsId, branch)
                                         tool.printMsg("结束:拉取代码,Tag:${branch}", 'green')
                                    }
                               }
@@ -90,7 +90,7 @@ def call(Closure body) {
                               script {
                                    tool.printMsg('开始:拉取基础镜像', 'green')
                                    build.build(domain, generateTag)
-                                   tool.printMsg("Build debug:${tool.generateTag(domain)}", 'green')
+                                   tool.printMsg("Build debug:${generateTag}", 'green')
                                    tool.printMsg('结束:拉取基础镜像', 'green')
                               }
                          }
@@ -116,11 +116,10 @@ def call(Closure body) {
 
                          tool.printMsg("删除业务镜像")
                          sh """
-                            docker rmi -f 39.100.108.229/library/${domain}:${generateTag}
+                            docker rmi -f ${domain}:${generateTag}
                             """
 
-                         tool.printMsg("Version No:")
-                         print generateTag
+                         tool.printMsg("Version No:${generateTag}")
                     }
                }
 

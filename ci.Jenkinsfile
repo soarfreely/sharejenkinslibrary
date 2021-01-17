@@ -7,16 +7,16 @@ ci {
 
    www = '/home/soar/CICD/www'
 
-   domain = '7fw'
+   domain = 'local.7fw'
 
    // 源码目录
    phpSrc = 'src'
 
    // 仓库名称
-   repo = '7fw'
+   repositoryName = '7fw'
 
    // 业务代码仓库地址
-   repository = 'git@github.com:soarfreely/72fw.git'
+   repositoryPath = 'git@github.com:soarfreely/72fw.git'
    // repository = 'https://github.com/soarfreely/lib-1.git'
    // repository = 'http://172.17.0.3/group-a/lib-1.git'
 
