@@ -116,7 +116,7 @@ def call(Closure body) {
 
                          tool.printMsg("删除业务镜像")
                          sh """
-                            docker rmi -f ${imageRepoUri}/${domain}:${generateTag}
+                            docker rmi -f ${imageRepoUri}/${domain}:${tag}
                             """
 
                          tool.printMsg("Version No:${generateTag}")
