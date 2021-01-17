@@ -1,6 +1,7 @@
 package org.devops
 
 import groovy.json.JsonSlurper
+import groovy.json.JsonSlurperClassic
 
 /**
  * Harbor api: /repositories/{repo_name}/tags/{tag}
@@ -23,12 +24,12 @@ def imageDetail (api, basicAuth) {
                 ],
                 url: api
 
-        result = (new JsonSlurper()).parseText(response.content)
+        result = (new JsonSlurperClassic()).parseText(response.content)
     } catch(Exception e) {
         print("imageDetail异常信息,tag可能不存在.详细信息:${e}")
     }
 
-    print((HashMap)result)
+    print(result)
     print(((HashMap)result).get('name', 'defaultName'))
 
     return (HashMap)result
