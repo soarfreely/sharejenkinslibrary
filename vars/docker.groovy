@@ -69,11 +69,7 @@ def call(Closure body) {
 
     // jenkins 工作目录
     pipeline {
-        agent {
-            node {
-                label "master" // 指定运行节点的标签或者名称
-            }
-        }
+        agent any
         // 指定运行选项（可选）
         options {
             timestamps() // 日志会有日志
