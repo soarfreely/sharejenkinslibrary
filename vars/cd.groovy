@@ -52,11 +52,7 @@ def call(Closure body) {
 
      // jenkins 工作目录
      pipeline {
-          agent {
-               node {
-                    label "master" // 指定运行节点的标签或者名称
-               }
-          }
+          agent any
           // 指定运行选项（可选）
           options {
                timestamps() // 日志会有日志
@@ -73,21 +69,26 @@ def call(Closure body) {
           }
 
           stage ("Deploy") {
-               steps {
-                    timeout(time:20, unit:"MINUTES") {
-                         script {
-                              tool.printMsg('开始:拉取业务镜像&部署', 'green')
-                              tool.printMsg("Deploy-debug:${tag}", 'green')
-
-                              def imageResponse = harbor.imageDetail("http://39.100.108.229/api/repositories/library/${domain}/tags/${tag}", basicAuth)
-                              if (!(boolean)imageResponse.get('name', null)) {
-                                   deploy.deploy(imageRepoUri, domain, tag)
-                              }
-////                            deploy.deploy(domain, targetIp, jenkins2serverCredentialsId, phpSrc, runComposer, www, tarName)
-                              tool.printMsg("结束:拉取业务镜像&部署", 'green')
-                         }
+                    script {
+                         println("always")
+//                    harbor.httpGet()
+                         println("always")
                     }
-               }
+//               steps {
+//                    timeout(time:20, unit:"MINUTES") {
+//                         script {
+//                              tool.printMsg('开始:拉取业务镜像&部署', 'green')
+//                              tool.printMsg("Deploy-debug:${tag}", 'green')
+//
+//                              def imageResponse = harbor.imageDetail("http://39.100.108.229/api/repositories/library/${domain}/tags/${tag}", basicAuth)
+//                              if (!(boolean)imageResponse.get('name', null)) {
+//                                   deploy.deploy(imageRepoUri, domain, tag)
+//                              }
+//////                            deploy.deploy(domain, targetIp, jenkins2serverCredentialsId, phpSrc, runComposer, www, tarName)
+//                              tool.printMsg("结束:拉取业务镜像&部署", 'green')
+//                         }
+//                    }
+//               }
           }
 
           post { // 构建后的操作
