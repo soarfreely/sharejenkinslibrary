@@ -68,7 +68,8 @@ def call(Closure body) {
                string(name: 'tag', defaultValue: 'tag', description: 'Please enter the code tag to be built')
           }
 
-          stage ("Deploy") {
+          stages {
+               stage("Deploy") {
                     script {
                          println("always")
 //                    harbor.httpGet()
@@ -89,8 +90,18 @@ def call(Closure body) {
 //                         }
 //                    }
 //               }
+               }
+               // 代码扫描
+               stage("CodeScan") {
+                    steps {
+                         timeout(time:30, unit:"MINUTES") {
+                              script { // 脚本式
+                                   tool.printMsg("代码扫描", 'green')
+                              }
+                         }
+                    }
+               }
           }
-
           post { // 构建后的操作
                always {
                     script {
