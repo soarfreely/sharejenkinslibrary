@@ -71,27 +71,19 @@ def call(Closure body) {
           stages {
                stage("Deploy") {
                     steps {
-                         timeout(time:30, unit:"MINUTES") {
-                              script { // 脚本式
-                                   tool.printMsg("Deploy", 'green')
+                         timeout(time:20, unit:"MINUTES") {
+                              script {
+                                   tool.printMsg('开始:拉取业务镜像&部署', 'green')
+                                   tool.printMsg("Deploy-debug:${tag}", 'green')
+
+                                   def imageResponse = harbor.imageDetail("http://39.100.108.229/api/repositories/library/${domain}/tags/${tag}", basicAuth)
+                                   if (!(boolean)imageResponse.get('name', null)) {
+                                        deploy.deploy(imageRepoUri, domain, tag)
+                                   }
+                                   tool.printMsg("结束:拉取业务镜像&部署", 'green')
                               }
                          }
                     }
-//               steps {
-//                    timeout(time:20, unit:"MINUTES") {
-//                         script {
-//                              tool.printMsg('开始:拉取业务镜像&部署', 'green')
-//                              tool.printMsg("Deploy-debug:${tag}", 'green')
-//
-//                              def imageResponse = harbor.imageDetail("http://39.100.108.229/api/repositories/library/${domain}/tags/${tag}", basicAuth)
-//                              if (!(boolean)imageResponse.get('name', null)) {
-//                                   deploy.deploy(imageRepoUri, domain, tag)
-//                              }
-//////                            deploy.deploy(domain, targetIp, jenkins2serverCredentialsId, phpSrc, runComposer, www, tarName)
-//                              tool.printMsg("结束:拉取业务镜像&部署", 'green')
-//                         }
-//                    }
-//               }
                }
                // 代码扫描
                stage("CodeScan") {
