@@ -1,6 +1,6 @@
 package org.devops
 
-def build(newImageName, tagName) {
+def build(imageRepoUri,newImageName, tagName) {
 //    env.serviceName = "${JOB_NAME}".split("_")[0]
 //    env.dockerUrl = '39.100.108.229'
 //    env.newImageName = "nginx16phpfpm73/ali";
@@ -15,9 +15,9 @@ def build(newImageName, tagName) {
            echo '私有镜像仓库登录成功'
            docker build --no-cache -f docker/Dockerfile -t ${newImageName}:${tagName} .
            sleep 1
-           docker tag ${newImageName}:${tagName} 39.100.108.229/library/${newImageName}:${tagName}
+           docker tag ${newImageName}:${tagName}  ${imageRepoUri}/${newImageName}:${tagName}
            sleep 1
-           docker push 39.100.108.229/library/${newImageName}:${tagName}
+           docker push ${imageRepoUri}/${newImageName}:${tagName}
      """
 
 //    withCredentials([usernamePassword(credentialsId: 'aliyun-registry-admin', passwordVariable: 'password', usernameVariable: 'username')]) {

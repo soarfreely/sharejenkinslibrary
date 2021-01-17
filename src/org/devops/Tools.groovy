@@ -77,6 +77,9 @@ encodeBase64File(path) {
  *
  * @return
  */
-static def generateTag(domain = "localhost") {
-    return "${domain}_" + (new Date().format('YYYYMMDDHHmmss')) + ((Math.random() * 10000) .toInteger()).toString()
+static def generateTag(domain = "localhost", step = 'ci') {
+    if (step != 'ci' && step != 'cd') {
+        throw new Exception('step输入错误')
+    }
+    return "${domain}_${step}_" + (new Date().format('YYYYMMDDHHmmss')) + ((Math.random() * 10000) .toInteger()).toString()
 }

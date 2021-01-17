@@ -35,6 +35,7 @@ def call(Closure body) {
 
      tool.println("domain:${domain}")
      def generateTag = tool.generateTag(domain)
+     String imageRepoUri = '39.100.108.229/library';
 
      tool.printMsg("Gavin' jenkinsfile share library", 'green')
 
@@ -89,7 +90,7 @@ def call(Closure body) {
                          timeout(time:20, unit:"MINUTES") {
                               script {
                                    tool.printMsg('开始:拉取基础镜像', 'green')
-                                   build.build(domain, generateTag)
+                                   build.build(imageRepoUri, domain, generateTag)
                                    tool.printMsg("Build debug:${generateTag}", 'green')
                                    tool.printMsg('结束:拉取基础镜像', 'green')
                               }
@@ -116,7 +117,7 @@ def call(Closure body) {
 
                          tool.printMsg("删除业务镜像")
                          sh """
-                            docker rmi -f ${domain}:${generateTag}
+                            docker rmi -f ${imageRepoUri}/${domain}:${generateTag}
                             """
 
                          tool.printMsg("Version No:${generateTag}")
