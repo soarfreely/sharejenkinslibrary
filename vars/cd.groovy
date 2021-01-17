@@ -77,7 +77,7 @@ def call(Closure body) {
                                    tool.printMsg("Deploy-debug:${tag}", 'green')
 
                                    def imageResponse = harbor.imageDetail("http://39.100.108.229/api/repositories/library/${domain}/tags/${tag}", basicAuth)
-                                   if (!(boolean)imageResponse..getProperty().get('name', false)) {
+                                   if (!(boolean)imageResponse.get('name', false)) {
                                         deploy.deploy(imageRepoUri, domain, tag)
                                    }
                                    tool.printMsg("结束:拉取业务镜像&部署", 'green')

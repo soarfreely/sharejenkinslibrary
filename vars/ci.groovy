@@ -72,7 +72,7 @@ def call(Closure body) {
                          timeout(time:5, unit:"MINUTES") {
                               script {
                                    def branchResponse = github.branchDetail(repositoryName, branch)
-                                   if (!(boolean)branchResponse.getProperties().get('name', false)) {
+                                   if (!(boolean)branchResponse.get('name', false)) {
                                         throw new Exception("输入的branch:${branch}错误")
                                    } else {
                                         tool.printMsg("开始:拉取代码,Tag:${branch}", 'green')

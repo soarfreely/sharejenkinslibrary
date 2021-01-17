@@ -32,9 +32,8 @@ def branchDetail(repo, branch) {
 //    在当前版本中找到的 JsonSlurper 的旧版本为 JsonSlurperClassic ，
 //    出于这些目的使用常规的，可序列化的Java HashMap ，因此不容易出现相同类型的问题 .
 
-    print(result)
-    print(result.getProperties())
-    print(result.getProperties().get('name', 'defaultName'))
+    print((HashMap)result)
+    print(((HashMap)result).get('name', 'defaultName'))
 
-    return result
+    return (HashMap)result
 }

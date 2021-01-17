@@ -28,11 +28,10 @@ def imageDetail (api, basicAuth) {
         print("imageDetail异常信息,tag可能不存在.详细信息:${e}")
     }
 
-    print(result)
-    print(result.getProperties())
-    print(result.getProperties().get('name', 'defaultName'))
+    print((HashMap)result)
+    print(((HashMap)result).get('name', 'defaultName'))
 
-    return result
+    return (HashMap)result
 }
 
 def httpGet() {
