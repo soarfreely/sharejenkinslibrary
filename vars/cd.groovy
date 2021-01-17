@@ -70,10 +70,12 @@ def call(Closure body) {
 
           stages {
                stage("Deploy") {
-                    script {
-                         println("always")
-//                    harbor.httpGet()
-                         println("always")
+                    steps {
+                         timeout(time:30, unit:"MINUTES") {
+                              script { // 脚本式
+                                   tool.printMsg("Deploy", 'green')
+                              }
+                         }
                     }
 //               steps {
 //                    timeout(time:20, unit:"MINUTES") {
