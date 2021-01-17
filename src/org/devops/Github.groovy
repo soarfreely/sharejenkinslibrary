@@ -25,7 +25,7 @@ def branchDetail(repo, branch) {
 
         result = (new JsonSlurperClassic()).parseText(response.content)
     } catch(Exception e) {
-        print("branchDetail异常信息:${e}")
+        print("branchDetail异常信息,分支${branch}可能不存在.详细信息:${e}")
     }
 
 //    由 JsonSlurper 在表面下使用的 LazyMap 类经常是这个和许多其他问题的根源 .
