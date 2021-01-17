@@ -73,14 +73,16 @@ def call(Closure body) {
                     steps {
                          timeout(time:20, unit:"MINUTES") {
                               script {
-                                   tool.printMsg('开始:拉取业务镜像&部署', 'green')
                                    tool.printMsg("Deploy-debug:${tag}", 'green')
 
                                    def imageResponse = harbor.imageDetail("http://39.100.108.229/api/repositories/library/${domain}/tags/${tag}", basicAuth)
                                    if (!(boolean)imageResponse.get('name', false)) {
+                                        throw new Exception("输入的tag:${tag}错误")
+                                   } else {
+                                        tool.printMsg('开始:拉取业务镜像&部署', 'green')
                                         deploy.deploy(imageRepoUri, domain, tag)
+                                        tool.printMsg("结束:拉取业务镜像&部署", 'green')
                                    }
-                                   tool.printMsg("结束:拉取业务镜像&部署", 'green')
                               }
                          }
                     }
