@@ -1,6 +1,6 @@
 package org.devops
 
-import groovy.json.JsonSlurper
+import groovy.json.JsonSlurperClassic
 
 /**
  * 获取分支详情
@@ -23,7 +23,7 @@ def branchDetail(repo, branch) {
                 httpMode: "GET",
                 url: url
 
-        result = (new JsonSlurper()).parseText(response.content)
+        result = (new JsonSlurperClassic()).parseText(response.content)
     } catch(Exception e) {
         print("branchDetail异常信息,分支${branch}可能不存在.详细信息:${e}")
     }
@@ -34,6 +34,7 @@ def branchDetail(repo, branch) {
 
     print((HashMap)result)
     print(((HashMap)result).get('name', 'defaultName'))
+    print((HashMap)result['name'])
 
     return (HashMap)result
 }
