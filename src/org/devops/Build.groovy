@@ -15,7 +15,7 @@ def build(imageRepoUri,newImageName, tagName) {
            echo '私有镜像仓库登录成功'
            docker build --no-cache -f docker/Dockerfile -t ${imageRepoUri}/${newImageName}:${tagName} .
            sleep 1
-//           docker tag ${newImageName}:${tagName}  ${imageRepoUri}/${newImageName}:${tagName}
+           docker tag ${imageRepoUri}/${newImageName}:${tagName}  ${imageRepoUri}/${newImageName}:${tagName}
            sleep 1
            docker push ${imageRepoUri}/${newImageName}:${tagName}
      """
