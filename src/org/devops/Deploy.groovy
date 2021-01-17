@@ -21,7 +21,7 @@ def upload(domain, targetIp, credentialsId, phpSrc, runComposer, www, tarName) {
 }
 
 // 容器发布
-def deploy(newImageName, tagName) {
+def deploy(imageRepoUri, newImageName, tagName) {
 //    def parallelDeploy = [:]
 //
 //    for (int i = 0; i < hosts.size(); i++) {
@@ -63,9 +63,9 @@ def deploy(newImageName, tagName) {
 //    withCredentials([usernamePassword(credentialsId: 'aliyun-registry-admin', passwordVariable: 'password', usernameVariable: 'username')]) {
         sh """
             docker login -u admin -p ali229-Harbor  39.100.108.229
-            docker pull 39.100.108.229/library/${newImageName}:${tagName}
+            docker pull ${imageRepoUri}/${newImageName}:${tagName}
             sleep 1
-            docker run --name ${newImageName}_${tagName} -p 10080:80 -d ${newImageName}:${tagName}
+            docker run --name ${newImageName}_${tagName} -p 10080:80 -d ${imageRepoUri}/${newImageName}:${tagName}
         """
 //    }
 }
