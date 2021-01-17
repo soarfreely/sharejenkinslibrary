@@ -11,7 +11,7 @@ def branchDetail(repo, branch) {
     // curl -X GET "http://39.100.108.229/api/repositories/library%2Fshare_libs/tags/v0104" -H "accept: application/json" -H "X-Xsrftoken: ae8DKqh1I88mE6T50ajKbrFGZkrCzS8Z"
     // http://39.100.108.229/api/repositories/library%2Fshare_libs/tags/v0104
     Object result = null
-    url = "https://api.github.com/repos/soarfreely/${repo}/branches/${branch}"
+    String url = "https://api.github.com/repos/soarfreely/${repo}/branches/${branch}"
     try {
         def response = httpRequest contentType: 'APPLICATION_JSON',
                 httpMode: "GET",
