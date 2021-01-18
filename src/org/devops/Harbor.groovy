@@ -16,7 +16,7 @@ def imageDetail (api, basicAuth) {
     // curl -X GET "http://39.100.108.229/api/repositories/library%2Fshare_libs/tags/v0104" -H "accept: application/json" -H "X-Xsrftoken: ae8DKqh1I88mE6T50ajKbrFGZkrCzS8Z"
     // http://39.100.108.229/api/repositories/library%2Fshare_libs/tags/v0104
     Object result = null
-    try {
+//    try {
         def response = httpRequest contentType: 'APPLICATION_JSON',
                 httpMode: "GET",
                 customHeaders: [
@@ -25,9 +25,9 @@ def imageDetail (api, basicAuth) {
                 url: api
 
         result = (new JsonSlurperClassic()).parseText(response.content)
-    } catch(Exception e) {
-        print("imageDetail异常信息,tag可能不存在.详细信息:${e}")
-    }
+//    } catch(Exception e) {
+//        print("imageDetail异常信息,tag可能不存在.详细信息:${e}")
+//    }
 
     print(result)
     print(((HashMap)result).get('name', 'defaultName'))
