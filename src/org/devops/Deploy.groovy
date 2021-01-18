@@ -91,3 +91,7 @@ def deploy(imageRepoUri, domain, tagName, nginxProxyPort) {
 //            if (`docker inspect --format "{{.State.Running}}" ${domain}`) {
 //                docker rm -f ${domain}
 //            }
+//soar@soar:~/Desktop$ docker inspect --format '{{.State.Running}}' es123 >> /dev/null
+//Error: No such object: es123
+//soar@soar:~/Desktop$ docker inspect --format '{{.State.Running}}' es123 &> /dev/null
+//soar@soar:~/Desktop$ docker inspect --format '{{.State.Running}}' es &> /dev/null
