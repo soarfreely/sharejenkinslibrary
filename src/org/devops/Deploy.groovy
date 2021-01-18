@@ -73,7 +73,8 @@ def deploy(imageRepoUri, domain, tagName, nginxProxyPort) {
             docker login -u admin -p ali229-Harbor ${imageRepoUri}
             docker pull ${imageRepoUri}/${domain}:${tagName}
             sleep 1
-            if (`docker inspect --format '{{.State.Running}}' ${domain}`) {
+            exixts = `docker inspect --format "{{.State.Running}}" ${domain}`
+            if (exixts) {
                 docker rm -f ${domain}
             }
             docker run --name ${domain} -p ${nginxProxyPort}:80 -d ${imageRepoUri}/${domain}:${tagName}
