@@ -29,6 +29,7 @@ def call(Closure body) {
      def www = body.www
      def repositoryName = body.repositoryName
      def domain = body.domain
+     def nginxProxyPort = body.nginxProxyPort
      def tarName = "${domain}_${BUILD_ID}.tar.gz"
      def submitter = "gavin, admin"
 
@@ -80,7 +81,7 @@ def call(Closure body) {
                                         throw new Exception("输入的tag:${tag}错误")
                                    } else {
                                         tool.printMsg('开始:拉取业务镜像&部署', 'green')
-                                        deploy.deploy(imageRepoUri, domain, tag)
+                                        deploy.deploy(imageRepoUri, domain, tag, nginxProxyPort)
                                         tool.printMsg("结束:拉取业务镜像&部署", 'green')
                                    }
                               }

@@ -15,6 +15,9 @@ cd {
    // 仓库名称
    repositoryName = '7fw'
 
+   // nginx代理端口
+   nginxProxyPort = 10080
+
    // 业务代码仓库地址
    repositoryPath = 'git@github.com:soarfreely/72fw.git'
    // repository = 'https://github.com/soarfreely/lib-1.git'
