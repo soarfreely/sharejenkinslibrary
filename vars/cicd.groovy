@@ -67,7 +67,7 @@ def call(Closure body) {
         // 参数
         parameters {
             text(name: 'branch', defaultValue: 'develop\ndev\nmaster\n', description: '发布分支')
-            string(name: 'tag', defaultValue: 'develop', description: 'Please enter the code branch or tag to be built')
+            string(name: 'tag', defaultValue: 'tag', description: 'Please enter the code branch or tag to be built')
             choice(name: 'mode', choices: ['deploy', 'rollback'], description: '选择方向！')
         }
 
