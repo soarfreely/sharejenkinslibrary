@@ -73,9 +73,7 @@ def deploy(imageRepoUri, domain, tagName, nginxProxyPort) {
             docker login -u admin -p ali229-Harbor ${imageRepoUri}
             docker pull ${imageRepoUri}/${domain}:${tagName}
             sleep 1
-//            if (`docker inspect --format "{{.State.Running}}" ${domain}`) {
-//                docker rm -f ${domain}
-//            }
+
             docker run --name ${domain} -p ${nginxProxyPort}:80 -d ${imageRepoUri}/${domain}:${tagName}
         """
 //    }
@@ -90,3 +88,6 @@ def deploy(imageRepoUri, domain, tagName, nginxProxyPort) {
 //    echo "${now} 重启docker容器，容器名称：${containerName}" >> /opt/docker_log/docker_monitor.log
 //    fi
 //}
+//            if (`docker inspect --format "{{.State.Running}}" ${domain}`) {
+//                docker rm -f ${domain}
+//            }
