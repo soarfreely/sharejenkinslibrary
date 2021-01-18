@@ -1,7 +1,7 @@
 #!groovy
 @Library('jenkinslib@docker') _
 
-docker {
+cicd {
    // 是否执行composer
    runComposer = 'true'
 
@@ -11,6 +11,9 @@ docker {
 
    // 源码目录
    phpSrc = 'src'
+
+   // nginx代理端口
+   nginxProxyPort = 10080
 
    // 仓库名称
    repo = '7fw'

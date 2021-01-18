@@ -29,12 +29,15 @@ def call(Closure body) {
     def www = body.www
     def repo = body.repo
     def domain = body.domain
+    def nginxProxyPort = body.nginxProxyPort
     def tarName = "${domain}_${BUILD_ID}.tar.gz"
     def submitter = "gavin, admin"
 
 
     tool.println("domain:${domain}")
     def generateTag = tool.generateTag(domain)
+    tool.printMsg("generateTag:${generateTag}", 'green')
+    String imageRepoUri = '39.100.108.229/library';
 
 
     tool.printMsg("Gavin' jenkinsfile share library", 'green')
@@ -51,20 +54,14 @@ def call(Closure body) {
     // Harbor仓库镜像详情接口
     String basicAuth = "Basic " + ("admin:ali229-Harbor".bytes.encodeBase64().toString())
     def imageResponse = harbor.imageDetail("http://39.100.108.229/api/repositories/library/${domain}/tags/${branchOrTag}", basicAuth)
-    String imageDigest = (boolean)imageResponse.get('digest', null)
-    tool.printMsg("imageResponse,1:${imageDigest}", 'green')
+    Boolean imageExists = (boolean)imageResponse.get('name', null)
 
     // Github分支详情接口
-    boolean branchName = false
-    if (!imageDigest) {
-        // 当前branchOrTag不是镜像tag
-        tool.printMsg("开始:拉取代码,1:${branchOrTag}", 'green')
-        def branchResponse = github.branchDetail(repo, branchOrTag)
-        tool.printMsg("开始:拉取代码,2:${branchResponse.get('name', null)}", 'green')
-        branchName = (boolean)branchResponse.get('name', null)
-        tool.printMsg("开始:拉取代码,3:${branchName}", 'green')
-    } else {
-        tool.printMsg("debug:Harbor仓库镜像存在", 'green')
+    def branchResponse = github.branchDetail(repo, branch)
+    Boolean branchExists = (boolean)branchResponse.get('name', null)
+
+    if (!branchExists && ! imageExists) {
+        throw new Exception('输入分支｜tag有误，请核对后重试')
     }
 
     // jenkins 工作目录
@@ -82,7 +79,8 @@ def call(Closure body) {
 
         // 参数
         parameters {
-            string(name: 'branchOrTag', defaultValue: 'develop', description: 'Please enter the code branch or tag to be built')
+            text(name: 'branch', defaultValue: 'develop\ndev\nmaster\n', description: '发布分支')
+            string(name: 'tag', defaultValue: 'develop', description: 'Please enter the code branch or tag to be built')
             choice(name: 'mode', choices: ['deploy', 'rollback'], description: '选择方向！')
         }
 
@@ -92,14 +90,10 @@ def call(Closure body) {
                 steps {
                     timeout(time:5, unit:"MINUTES") {
                         script {
-                            if (!imageDigest) {
-                                if (!branchName) {
-                                    throw new Exception("输入的branchOrTag:${branchOrTag}错误")
-                                } else {
-                                    tool.printMsg("开始:拉取代码,Tag:${branchOrTag}", 'green')
-                                    checkout.checkoutCode(repository, jenkins2repositoryCredentialsId, branchOrTag)
-                                    tool.printMsg("结束:拉取代码,Tag:${branchOrTag}", 'green')
-                                }
+                            if (!imageExists && branchExists) {
+                                tool.printMsg("开始:拉取代码,Tag:${branch}", 'green')
+                                checkout.checkoutCode(repository, jenkins2repositoryCredentialsId, branch)
+                                tool.printMsg("结束:拉取代码,Tag:${branch}", 'green')
                             }
                         }
                     }
@@ -111,16 +105,11 @@ def call(Closure body) {
                 steps {
                     timeout(time:20, unit:"MINUTES") {
                         script {
-                            if (!imageDigest) {
-                                if (!branchName) {
-                                    throw new Exception("输入的branchOrTag:${branchOrTag}错误")
-                                } else {
-                                    tool.printMsg('开始:拉取基础镜像', 'green')
-                                    branchOrTag = generateTag
-                                    build.build(domain, branchOrTag)
-                                    tool.printMsg("debug:${branchOrTag}", 'green')
-                                    tool.printMsg('结束:拉取基础镜像', 'green')
-                                }
+                            if (imageExists) {
+                                tool.printMsg('开始:拉取基础镜像', 'green')
+                                build.build(imageRepoUri, domain, generateTag)
+                                tool.printMsg("debug:${generateTag}", 'green')
+                                tool.printMsg('结束:拉取基础镜像', 'green')
                             }
                         }
                     }
@@ -132,8 +121,7 @@ def call(Closure body) {
                     timeout(time:20, unit:"MINUTES") {
                         script {
                             tool.printMsg('开始:拉取业务镜像&部署', 'green')
-                            tool.printMsg("Deploy-debug:${branchOrTag}", 'green')
-                            deploy.deploy(domain, branchOrTag)
+                            deploy.deploy(imageRepoUri, domain, generateTag, nginxProxyPort)
 ////                            deploy.deploy(domain, targetIp, jenkins2serverCredentialsId, phpSrc, runComposer, www, tarName)
                             tool.printMsg("结束:拉取业务镜像&部署", 'green')
                         }
