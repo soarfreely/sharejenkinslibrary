@@ -79,11 +79,11 @@ def call(Closure body) {
                         script {
                             // Harbor仓库镜像详情接口
                             String basicAuth = "Basic " + ("admin:ali229-Harbor".bytes.encodeBase64().toString())
-                            def imageResponse = harbor.imageDetail("http://39.100.108.229/api/repositories/library/${domain}/tags/${tag}", basicAuth)
+                            HashMap imageResponse = harbor.imageDetail("http://39.100.108.229/api/repositories/library/${domain}/tags/${tag}", basicAuth)
                             Boolean imageExists = (boolean)imageResponse.get('name', false)
 
                             // Github分支详情接口
-                            def branchResponse = github.branchDetail(repo, branch)
+                            HashMap branchResponse = github.branchDetail(repo, branch)
                             Boolean branchExists = (boolean)branchResponse.get('name', false)
 
                             if (!branchExists && ! imageExists) {
