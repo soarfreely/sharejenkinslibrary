@@ -80,11 +80,11 @@ def call(Closure body) {
                             // Harbor仓库镜像详情接口
                             String basicAuth = "Basic " + ("admin:ali229-Harbor".bytes.encodeBase64().toString())
                             def imageResponse = harbor.imageDetail("http://39.100.108.229/api/repositories/library/${domain}/tags/${tag}", basicAuth)
-                            Boolean imageExists = (boolean)imageResponse.get('name', null)
+                            Boolean imageExists = (boolean)imageResponse.get('name', false)
 
                             // Github分支详情接口
                             def branchResponse = github.branchDetail(repo, branch)
-                            Boolean branchExists = (boolean)branchResponse.get('name', null)
+                            Boolean branchExists = (boolean)branchResponse.get('name', false)
 
                             if (!branchExists && ! imageExists) {
                                 throw new Exception('输入分支｜tag有误，请核对后重试')

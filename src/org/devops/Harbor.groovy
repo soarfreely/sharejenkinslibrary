@@ -30,7 +30,7 @@ def imageDetail (api, basicAuth) {
     }
 
     print(result)
-    print(((HashMap)result).get('name', 'defaultName'))
+    print(((HashMap)result).get('name', false))
 
     return (HashMap)result
 }
