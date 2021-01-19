@@ -78,13 +78,19 @@ def call(Closure body) {
                     timeout(time:5, unit:"MINUTES") {
                         script {
                             // Harbor仓库镜像详情接口
-                            String basicAuth = "Basic " + ("admin:ali229-Harbor".bytes.encodeBase64().toString())
-                            HashMap imageResponse = harbor.imageDetail("http://39.100.108.229/api/repositories/library/${domain}/tags/${tag}", basicAuth)
-                            Boolean imageExists = imageResponse.hasProperty('name')
+                            Boolean imageExists = false;
+                            if (tag) {
+                                String basicAuth = "Basic " + ("admin:ali229-Harbor".bytes.encodeBase64().toString())
+                                HashMap imageResponse = harbor.imageDetail("http://39.100.108.229/api/repositories/library/${domain}/tags/${tag}", basicAuth)
+                                imageExists = imageResponse.hasProperty('name')
+                            }
 
                             // Github分支详情接口
-                            HashMap branchResponse = github.branchDetail(repo, branch)
-                            Boolean branchExists = (boolean)branchResponse.get('name', false)
+                            Boolean branchExists = false
+                            if (branch) {
+                                HashMap branchResponse = github.branchDetail(repo, branch)
+                                branchExists = (boolean)branchResponse.get('name', false)
+                            }
 
                             if (!branchExists && ! imageExists) {
                                 throw new Exception('输入分支｜tag有误，请核对后重试')
