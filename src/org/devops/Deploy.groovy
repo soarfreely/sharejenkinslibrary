@@ -73,8 +73,9 @@ def deploy(imageRepoUri, domain, tagName, nginxProxyPort) {
             docker login -u admin -p ali229-Harbor ${imageRepoUri}
             docker pull ${imageRepoUri}/${domain}:${tagName}
             sleep 1
-
+            docker rm -f ${domain} &>/dev/null
             docker run --name ${domain} -p ${nginxProxyPort}:80 -d ${imageRepoUri}/${domain}:${tagName}
+            docker rmi -f ${imageRepoUri}/${domain}:${tagName}
         """
 //    }
 }
