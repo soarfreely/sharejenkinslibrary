@@ -119,7 +119,14 @@ def call(Closure body) {
                                 HashMap imageResponse = harbor.imageDetail("http://39.100.108.229/api/repositories/library/${domain}/tags/${tag}", basicAuth)
                                 imageExists = imageResponse.hasProperty('name')
                             }
-                            if (imageExists) {
+
+                            // Github分支详情接口
+                            Boolean branchExists = false
+                            if (branch) {
+                                HashMap branchResponse = github.branchDetail(repo, branch)
+                                branchExists = (boolean)branchResponse.get('name', false)
+                            }
+                            if (imageExists || branchExists) {
                                 tool.printMsg('开始:拉取基础镜像', 'green')
                                 build.build(imageRepoUri, domain, generateTag)
                                 tool.printMsg("debug:${generateTag}", 'green')
