@@ -1,4 +1,3 @@
-import org.apache.tools.ant.types.Environment
 import org.devops.Build
 import org.devops.Checkout
 import org.devops.Deploy
