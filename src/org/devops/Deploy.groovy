@@ -74,7 +74,7 @@ def deploy(imageRepoUri, domain, tagName, nginxProxyPort) {
             docker pull ${imageRepoUri}/${domain}:${tagName}
             sleep 1
 
-            docker run --name ${domain} -p ${nginxProxyPort}:80 -d ${imageRepoUri}/${domain}:${tagName}
+            docker rm -f ${domain} >> /dev/null && docker run --name ${domain} -p ${nginxProxyPort}:80 -d ${imageRepoUri}/${domain}:${tagName}
         """
 //    }
 }
