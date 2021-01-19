@@ -1,3 +1,4 @@
+import org.apache.tools.ant.types.Environment
 import org.devops.Build
 import org.devops.Checkout
 import org.devops.Deploy
@@ -71,27 +72,27 @@ def call(Closure body) {
             choice(name: 'mode', choices: ['deploy', 'rollback'], description: '选择方向！')
         }
 
-        // Harbor仓库镜像详情接口
-        Boolean imageExists = false;
-        if (tag) {
-            String basicAuth = "Basic " + ("admin:ali229-Harbor".bytes.encodeBase64().toString())
-            HashMap imageResponse = harbor.imageDetail("http://39.100.108.229/api/repositories/library/${domain}/tags/${tag}", basicAuth)
-            imageExists = imageResponse.hasProperty('name')
-        }
-
-        // Github分支详情接口
-        Boolean branchExists = false
-        if (branch) {
-            HashMap branchResponse = github.branchDetail(repo, branch)
-            branchExists = (boolean)branchResponse.get('name', false)
-        }
-
         stages {
             // 下载代码
             stage("Checkout") {
                 steps {
                     timeout(time:5, unit:"MINUTES") {
                         script {
+                            // Harbor仓库镜像详情接口
+                            Boolean imageExists = false;
+                            if (tag) {
+                                String basicAuth = "Basic " + ("admin:ali229-Harbor".bytes.encodeBase64().toString())
+                                HashMap imageResponse = harbor.imageDetail("http://39.100.108.229/api/repositories/library/${domain}/tags/${tag}", basicAuth)
+                                imageExists = imageResponse.hasProperty('name')
+                            }
+
+                            // Github分支详情接口
+                            Boolean branchExists = false
+                            if (branch) {
+                                HashMap branchResponse = github.branchDetail(repo, branch)
+                                branchExists = (boolean)branchResponse.get('name', false)
+                            }
+
                             if (!branchExists && ! imageExists) {
                                 throw new Exception('输入分支｜tag有误，请核对后重试')
                             }
@@ -111,6 +112,13 @@ def call(Closure body) {
                 steps {
                     timeout(time:20, unit:"MINUTES") {
                         script {
+                            // Harbor仓库镜像详情接口
+                            Boolean imageExists = false;
+                            if (tag) {
+                                String basicAuth = "Basic " + ("admin:ali229-Harbor".bytes.encodeBase64().toString())
+                                HashMap imageResponse = harbor.imageDetail("http://39.100.108.229/api/repositories/library/${domain}/tags/${tag}", basicAuth)
+                                imageExists = imageResponse.hasProperty('name')
+                            }
                             if (imageExists) {
                                 tool.printMsg('开始:拉取基础镜像', 'green')
                                 build.build(imageRepoUri, domain, generateTag)
