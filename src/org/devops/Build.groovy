@@ -8,7 +8,8 @@ def build(imageRepoUri,newImageName, tagName) {
     def tool = new Tools();
     tool.printMsg("newImageName:${newImageName}--tagName:${tagName}")
 
-    sh """
+    withCredentials([usernamePassword(credentialsId: 'deepin-2-39', passwordVariable: 'password', usernameVariable: 'username')]) {
+        sh """
            echo '当前目录:'
            pwd
            docker login -u admin -p ali229-Harbor ${imageRepoUri}
@@ -18,8 +19,8 @@ def build(imageRepoUri,newImageName, tagName) {
            docker tag ${imageRepoUri}/${newImageName}:${tagName}  ${imageRepoUri}/${newImageName}:${tagName}
            sleep 1
            docker push ${imageRepoUri}/${newImageName}:${tagName}
-     """
-
+        """
+    }
 //    withCredentials([usernamePassword(credentialsId: 'aliyun-registry-admin', passwordVariable: 'password', usernameVariable: 'username')]) {
 //
 //        // .env 的处理待完善

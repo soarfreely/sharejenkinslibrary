@@ -24,10 +24,10 @@ ci {
    jenkins2repositoryCredentialsId = 'local-jenkins-github'
 
    // jenkins2server凭据 (生产服务器)
-   jenkins2serverCredentialsId = 'local-php'
+   jenkins2serverCredentialsId = 'deepin-2-39'
 
    // 生产服务器ip
-   targetIp = '172.17.0.1'
+   targetIp = '39.100.108.229'
 //   targetIp = '172.17.0.5'
 
    // toEmail
