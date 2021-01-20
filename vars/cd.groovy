@@ -39,6 +39,7 @@ def call(Closure body) {
      String imageRepoUri = '39.100.108.229/library';
      // Harbor仓库镜像详情接口
      String basicAuth = "Basic " + ("admin:ali229-Harbor".bytes.encodeBase64().toString())
+     tool.printMsg("Gavin' ${basicAuth}", 'green')
 
      tool.printMsg("Gavin' jenkinsfile share library", 'green')
 
