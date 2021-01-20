@@ -28,6 +28,7 @@ def call(Closure body) {
      def jenkins2serverCredentialsId = body.jenkins2serverCredentialsId
      def www = body.www
      def repositoryName = body.repositoryName
+     def imageRepositoryAuth = body.imageRepositoryAuth
      def domain = body.domain
      def nginxProxyPort = body.nginxProxyPort
      def tarName = "${domain}_${BUILD_ID}.tar.gz"
@@ -40,6 +41,7 @@ def call(Closure body) {
      // Harbor仓库镜像详情接口
      String basicAuth = "Basic " + ("admin:ali229-Harbor".bytes.encodeBase64().toString())
      tool.printMsg("Gavin' ${basicAuth}", 'green')
+     tool.printMsg("Gavin' ${imageRepositoryAuth}", 'green')
 
      tool.printMsg("Gavin' jenkinsfile share library", 'green')
 
@@ -77,7 +79,7 @@ def call(Closure body) {
                               script {
                                    tool.printMsg("Deploy-debug:${tag}", 'green')
 
-                                   def imageResponse = harbor.imageDetail("http://39.100.108.229/api/repositories/library/${domain}/tags/${tag}", basicAuth)
+                                   def imageResponse = harbor.imageDetail("http://39.100.108.229/api/repositories/library/${domain}/tags/${tag}", imageRepositoryAuth)
                                    if (!(boolean)imageResponse.get('name', false)) {
                                         throw new Exception("输入的tag:${tag}错误")
                                    } else {

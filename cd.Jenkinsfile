@@ -23,6 +23,9 @@ cd {
    // repository = 'https://github.com/soarfreely/lib-1.git'
    // repository = 'http://172.17.0.3/group-a/lib-1.git'
 
+   // Harbor api　auth
+   imageRepositoryAuth = 'Basic YWRtaW46YWxpMjI5LUhhcmJvcg=='
+
    // jenkins2repository 凭据 (业务代码仓库)
    jenkins2repositoryCredentialsId = 'local-jenkins-github'
 

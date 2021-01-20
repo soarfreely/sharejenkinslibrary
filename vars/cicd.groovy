@@ -26,6 +26,7 @@ def call(Closure body) {
     def repository = body.repository
     def jenkins2repositoryCredentialsId = body.jenkins2repositoryCredentialsId
     def jenkins2serverCredentialsId = body.jenkins2serverCredentialsId
+    def imageRepositoryAuth = body.imageRepositoryAuth
     def www = body.www
     def repo = body.repo
     def domain = body.domain
@@ -115,7 +116,7 @@ def call(Closure body) {
                             Boolean imageExists = false;
                             if (tag) {
                                 String basicAuth = "Basic " + ("admin:ali229-Harbor".bytes.encodeBase64().toString())
-                                HashMap imageResponse = harbor.imageDetail("http://39.100.108.229/api/repositories/library/${domain}/tags/${tag}", basicAuth)
+                                HashMap imageResponse = harbor.imageDetail("http://39.100.108.229/api/repositories/library/${domain}/tags/${tag}", imageRepositoryAuth)
                                 imageExists = imageResponse.hasProperty('name')
                             }
 
