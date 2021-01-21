@@ -114,12 +114,6 @@ def call(Closure body) {
                          String status = '构建成功'
                          currentBuild.description = "\n ${status}!"
                          email.email(status, toEmail)
-
-                         tool.printMsg("删除业务镜像")
-                         sh """
-                            docker rmi -f ${imageRepoUri}/${domain}:${generateTag}
-                            """
-
                          tool.printMsg("Version No:${generateTag}")
                     }
                }
