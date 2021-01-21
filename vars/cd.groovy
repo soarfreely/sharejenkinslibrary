@@ -119,9 +119,9 @@ def call(Closure body) {
                          email.email(status, toEmail)
 
                          tool.printMsg("删除业务镜像")
-                         sh """
-                            docker rmi -f ${imageRepoUri}/${domain}:${tag}
-                            """
+//                         sh """
+//                            docker rmi -f ${imageRepoUri}/${domain}:${tag}
+//                            """
 
                          tool.printMsg("Version No:${generateTag}")
                     }

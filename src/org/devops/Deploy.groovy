@@ -77,10 +77,31 @@ def deploy(jenkins2serverCredentialsId, imageRepoUri, domain, tagName, nginxProx
             
             ssh root@${targetIp} -tt "docker login -u admin -p ali229-Harbor ${imageRepoUri}"
             ssh root@${targetIp} -tt "docker pull ${imageRepoUri}/${domain}:${tagName}"
-            ssh root@${targetIp} -tt "docker rm -f ${domain}"
+            """
+    }
+
+    killContainers(targetIp, domain)
+
+    sshagent([jenkins2serverCredentialsId]) {
+        sh """
             ssh root@${targetIp} -tt "docker run --name ${domain} -p ${nginxProxyPort}:80 -d ${imageRepoUri}/${domain}:${tagName}"
             ssh root@${targetIp} -tt "docker rmi -f ${imageRepoUri}/${domain}:${tagName}"
         """
+    }
+}
+
+def killContainers(targetIp, domain) {
+    print("debug :killContainers::killContainers")
+
+    try {
+        sshagent([jenkins2serverCredentialsId]) {
+            sh """
+                ssh root@${targetIp} -tt "docker rm -f ${domain}"
+            """
+        }
+    } catch (Exception e) {
+        print("killContainers:")
+        print(e)
     }
 }
 
