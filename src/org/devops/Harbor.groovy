@@ -20,7 +20,7 @@ def imageDetail (api, basicAuth) {
         def response = httpRequest contentType: 'APPLICATION_JSON',
                 httpMode: "GET",
                 customHeaders: [
-                        [name: "Authorization", value: basicAuth]
+                        [name: "Authorization", value: "Basic ${basicAuth}"]
                 ],
                 url: api
 
