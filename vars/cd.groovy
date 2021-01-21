@@ -36,7 +36,6 @@ def call(Closure body) {
 
 
      tool.println("domain:${domain}")
-     def generateTag = tool.generateTag(domain)
      String imageRepoUri = '127.0.0.1/library';
      // Harbor仓库镜像详情接口
      String basicAuth = "Basic " + ("admin:ali229-Harbor".bytes.encodeBase64().toString())
@@ -122,8 +121,6 @@ def call(Closure body) {
 //                         sh """
 //                            docker rmi -f ${imageRepoUri}/${domain}:${tag}
 //                            """
-
-                         tool.printMsg("Version No:${generateTag}")
                     }
                }
 
