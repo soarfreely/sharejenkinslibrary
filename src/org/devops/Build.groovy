@@ -8,7 +8,7 @@ def build(imageRepoUri,newImageName, tagName) {
     def tool = new Tools();
     tool.printMsg("newImageName:${newImageName}--tagName:${tagName}")
 
-    withCredentials([usernamePassword(credentialsId: 'deepin-2-39', passwordVariable: 'password', usernameVariable: 'username')]) {
+    sshagent(['deepin-2-39']) {
         sh """
            echo '当前目录:'
            pwd
