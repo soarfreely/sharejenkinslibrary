@@ -69,14 +69,17 @@ def deploy(jenkins2serverCredentialsId, imageRepoUri, domain, tagName, nginxProx
 //
 //    parallel parallelDeploy
 
+    String targetIp = '39.100.108.229'
     sshagent([jenkins2serverCredentialsId]) {
         sh """
-            docker login -u admin -p ali229-Harbor ${imageRepoUri}
-            docker pull ${imageRepoUri}/${domain}:${tagName}
-            sleep 1
-            docker rm -f ${domain}
-            docker run --name ${domain} -p ${nginxProxyPort}:80 -d ${imageRepoUri}/${domain}:${tagName}
-            docker rmi -f ${imageRepoUri}/${domain}:${tagName}
+            ssh -o StrictHostKeyChecking=no -l root ${targetIp} uname -a && pwd
+            ls -al
+            
+            ssh root@${targetIp} -tt "docker login -u admin -p ali229-Harbor ${imageRepoUri}"
+            ssh root@${targetIp} -tt "docker pull ${imageRepoUri}/${domain}:${tagName}"
+            ssh root@${targetIp} -tt "docker rm -f ${domain}"
+            ssh root@${targetIp} -tt "docker run --name ${domain} -p ${nginxProxyPort}:80 -d ${imageRepoUri}/${domain}:${tagName}"
+            ssh root@${targetIp} -tt "docker rmi -f ${imageRepoUri}/${domain}:${tagName}"
         """
     }
 }
