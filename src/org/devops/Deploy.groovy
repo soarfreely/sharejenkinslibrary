@@ -23,12 +23,13 @@ def upload(domain, targetIp, credentialsId, phpSrc, runComposer, www, tarName) {
 /**
  * 容器部署
  *
+ * @param jenkins2serverCredentialsId
  * @param imageRepoUri
  * @param domain 域名作为容器名称
  * @param tagName tag
  * @return
  */
-def deploy(imageRepoUri, domain, tagName, nginxProxyPort) {
+def deploy(jenkins2serverCredentialsId, imageRepoUri, domain, tagName, nginxProxyPort) {
 
 //    def parallelDeploy = [:]
 //
@@ -68,7 +69,7 @@ def deploy(imageRepoUri, domain, tagName, nginxProxyPort) {
 //
 //    parallel parallelDeploy
 
-//    withCredentials([usernamePassword(credentialsId: 'aliyun-registry-admin', passwordVariable: 'password', usernameVariable: 'username')]) {
+    sshagent([jenkins2serverCredentialsId]) {
         sh """
             docker login -u admin -p ali229-Harbor ${imageRepoUri}
             docker pull ${imageRepoUri}/${domain}:${tagName}
@@ -77,7 +78,7 @@ def deploy(imageRepoUri, domain, tagName, nginxProxyPort) {
             docker run --name ${domain} -p ${nginxProxyPort}:80 -d ${imageRepoUri}/${domain}:${tagName}
             docker rmi -f ${imageRepoUri}/${domain}:${tagName}
         """
-//    }
+    }
 }
 
 //def judge() {

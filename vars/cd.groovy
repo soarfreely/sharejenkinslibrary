@@ -84,7 +84,7 @@ def call(Closure body) {
                                         throw new Exception("输入的tag:${tag}错误")
                                    } else {
                                         tool.printMsg('开始:拉取业务镜像&部署', 'green')
-                                        deploy.deploy(imageRepoUri, domain, tag, nginxProxyPort)
+                                        deploy.deploy(jenkins2serverCredentialsId, imageRepoUri, domain, tag, nginxProxyPort)
                                         tool.printMsg("结束:拉取业务镜像&部署", 'green')
                                    }
                               }

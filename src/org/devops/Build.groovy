@@ -1,6 +1,14 @@
 package org.devops
 
-def build(imageRepoUri,newImageName, tagName) {
+/**
+ *  构建
+ * @param jenkins2serverCredentialsId
+ * @param imageRepoUri
+ * @param newImageName
+ * @param tagName
+ * @return
+ */
+def build(jenkins2serverCredentialsId, imageRepoUri, newImageName, tagName) {
 //    env.serviceName = "${JOB_NAME}".split("_")[0]
 //    env.dockerUrl = '39.100.108.229'
 //    env.newImageName = "nginx16phpfpm73/ali";
@@ -8,7 +16,7 @@ def build(imageRepoUri,newImageName, tagName) {
     def tool = new Tools();
     tool.printMsg("newImageName:${newImageName}--tagName:${tagName}")
 
-    sshagent(['deepin-2-39']) {
+    sshagent([jenkins2serverCredentialsId]) {
         sh """
            echo '当前目录:'
            pwd
