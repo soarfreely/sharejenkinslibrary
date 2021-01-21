@@ -37,7 +37,7 @@ def call(Closure body) {
 
      tool.println("domain:${domain}")
      def generateTag = tool.generateTag(domain)
-     String imageRepoUri = '39.100.108.229/library';
+     String imageRepoUri = '127.0.0.1/library';
      // Harbor仓库镜像详情接口
      String basicAuth = "Basic " + ("admin:ali229-Harbor".bytes.encodeBase64().toString())
      tool.printMsg("Gavin' ${basicAuth}", 'green')
