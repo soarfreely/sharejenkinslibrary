@@ -80,7 +80,7 @@ def deploy(jenkins2serverCredentialsId, imageRepoUri, domain, tagName, nginxProx
             """
     }
 
-    killContainers(targetIp, domain)
+    killContainers(jenkins2serverCredentialsId, targetIp, domain)
 
     sshagent([jenkins2serverCredentialsId]) {
         sh """
@@ -90,7 +90,7 @@ def deploy(jenkins2serverCredentialsId, imageRepoUri, domain, tagName, nginxProx
     }
 }
 
-def killContainers(targetIp, domain) {
+def killContainers(jenkins2serverCredentialsId, targetIp, domain) {
     print("debug :killContainers::killContainers")
 
     try {
