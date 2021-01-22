@@ -36,6 +36,7 @@ def call(Closure body) {
 
 
      tool.println("domain:${domain}")
+     // TODO 临时修改（因为镜像服务器和业务服务器是同一个）
      String imageRepoUri = '127.0.0.1/library';
      // Harbor仓库镜像详情接口
      String basicAuth = "Basic " + ("admin:ali229-Harbor".bytes.encodeBase64().toString())
@@ -83,7 +84,7 @@ def call(Closure body) {
                                         throw new Exception("输入的tag:${tag}错误")
                                    } else {
                                         tool.printMsg('开始:拉取业务镜像&部署', 'green')
-                                        deploy.deploy(jenkins2serverCredentialsId, imageRepoUri, domain, tag, nginxProxyPort)
+                                        deploy.deploy(jenkins2serverCredentialsId, imageRepoUri, domain, tag, targetIp, nginxProxyPort)
                                         tool.printMsg("结束:拉取业务镜像&部署", 'green')
                                    }
                               }

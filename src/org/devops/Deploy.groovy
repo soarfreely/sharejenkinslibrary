@@ -29,7 +29,7 @@ def upload(domain, targetIp, credentialsId, phpSrc, runComposer, www, tarName) {
  * @param tagName tag
  * @return
  */
-def deploy(jenkins2serverCredentialsId, imageRepoUri, domain, tagName, nginxProxyPort) {
+def deploy(jenkins2serverCredentialsId, imageRepoUri, domain, tagName, targetIp, nginxProxyPort) {
 
 //    def parallelDeploy = [:]
 //
@@ -69,7 +69,6 @@ def deploy(jenkins2serverCredentialsId, imageRepoUri, domain, tagName, nginxProx
 //
 //    parallel parallelDeploy
 
-    String targetIp = '39.100.108.229'
     sshagent([jenkins2serverCredentialsId]) {
         sh """
             ssh -o StrictHostKeyChecking=no -l root ${targetIp} uname -a && pwd
@@ -90,6 +89,13 @@ def deploy(jenkins2serverCredentialsId, imageRepoUri, domain, tagName, nginxProx
     }
 }
 
+/**
+ * kill 掉容器
+ * @param jenkins2serverCredentialsId
+ * @param targetIp
+ * @param domain
+ * @return
+ */
 def killContainers(jenkins2serverCredentialsId, targetIp, domain) {
     print("debug :killContainers::killContainers")
 
@@ -104,20 +110,3 @@ def killContainers(jenkins2serverCredentialsId, targetIp, domain) {
         print(e)
     }
 }
-
-//def judge() {
-//    # 查看进程是否存在
-//    exist=`docker inspect --format '{{.State.Running}}' ${containerName}`
-//    if [ "${exist}" != "true" ]; then
-//    docker start ${containerName}
-//    #记录日志
-//    echo "${now} 重启docker容器，容器名称：${containerName}" >> /opt/docker_log/docker_monitor.log
-//    fi
-//}
-//            if (`docker inspect --format "{{.State.Running}}" ${domain}`) {
-//                docker rm -f ${domain}
-//            }
-//soar@soar:~/Desktop$ docker inspect --format '{{.State.Running}}' es123 >> /dev/null
-//Error: No such object: es123
-//soar@soar:~/Desktop$ docker inspect --format '{{.State.Running}}' es123 &> /dev/null
-//soar@soar:~/Desktop$ docker inspect --format '{{.State.Running}}' es &> /dev/null
