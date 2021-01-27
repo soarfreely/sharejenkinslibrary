@@ -32,7 +32,7 @@ cicd {
    jenkins2serverCredentialsId = 'local-php'
 
    // 生产服务器ip
-   targetIp = '172.17.0.1'
+   targetIp = '39.100.108.229'
 //   targetIp = '172.17.0.5'
 
    // toEmail
