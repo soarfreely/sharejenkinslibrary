@@ -38,7 +38,7 @@ def call(Closure body) {
     tool.println("domain:${domain}")
     def generateTag = tool.generateTag(domain)
     tool.printMsg("generateTag:${generateTag}", 'green')
-    String imageRepoUri = '39.100.108.229/library';
+    String imageRepoUri = '127.0.0.1/library';
 
 
     tool.printMsg("Gavin' jenkinsfile share library", 'green')
