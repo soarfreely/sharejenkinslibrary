@@ -142,7 +142,7 @@ def call(Closure body) {
                     timeout(time:20, unit:"MINUTES") {
                         script {
                             tool.printMsg('开始:拉取业务镜像&部署', 'green')
-                            deploy.deploy(imageRepoUri, domain, generateTag, nginxProxyPort)
+                            deploy.deploy(jenkins2serverCredentialsId, imageRepoUri, domain, generateTag, targetIp, nginxProxyPort)
 ////                            deploy.deploy(domain, targetIp, jenkins2serverCredentialsId, phpSrc, runComposer, www, tarName)
                             tool.printMsg("结束:拉取业务镜像&部署", 'green')
                         }
