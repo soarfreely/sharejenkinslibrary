@@ -90,7 +90,7 @@ def call(Closure body) {
                          timeout(time:20, unit:"MINUTES") {
                               script {
                                    tool.printMsg('开始:拉取基础镜像', 'green')
-                                   build.build(jenkins2serverCredentialsId, imageRepoUri, domain, generateTag)
+                                   build.build(imageRepoUri, domain, generateTag)
                                    tool.printMsg("Build debug:${generateTag}", 'green')
                                    tool.printMsg('结束:拉取基础镜像', 'green')
                               }

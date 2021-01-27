@@ -2,13 +2,12 @@ package org.devops
 
 /**
  *  构建
- * @param jenkins2serverCredentialsId
  * @param imageRepoUri
  * @param newImageName
  * @param tagName
  * @return
  */
-def build(jenkins2serverCredentialsId, imageRepoUri, newImageName, tagName) {
+def build(imageRepoUri, newImageName, tagName) {
 //    env.serviceName = "${JOB_NAME}".split("_")[0]
 //    env.dockerUrl = '39.100.108.229'
 //    env.newImageName = "nginx16phpfpm73/ali";
