@@ -40,7 +40,7 @@ cd {
 //   targetIp = '172.17.0.5'
 
    // toEmail
-   toEmail = 'soarfreely.z@gmail.com'
+   toEmail = '346777749@qq.com'
 
    // 工程名称
    projectName = 'Gavin-project'
