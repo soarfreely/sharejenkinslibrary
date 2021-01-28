@@ -31,6 +31,9 @@ def upload(domain, targetIp, credentialsId, phpSrc, runComposer, www, tarName) {
  */
 def deploy(jenkins2serverCredentialsId, imageRepoUri, domain, tagName, targetIp, nginxProxyPort) {
 
+    // TODO 临时修改（因为镜像服务器和业务服务器是同一个）
+    String imageRepoUriTmp = '127.0.0.1/library'
+    imageRepoUri = imageRepoUriTmp
 //    def parallelDeploy = [:]
 //
 //    for (int i = 0; i < hosts.size(); i++) {
