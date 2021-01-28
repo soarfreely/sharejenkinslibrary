@@ -29,10 +29,10 @@ cicd {
    jenkins2repositoryCredentialsId = 'local-jenkins-github'
 
    // jenkins2server凭据 (生产服务器)
-   jenkins2serverCredentialsId = 'deepin-2-39'
+   jenkins2serverCredentialsId = 'local-php'
 
    // 生产服务器ip
-   targetIp = '39.100.108.229'
+   targetIp = '172.17.0.1'
 //   targetIp = '172.17.0.5'
 
    // toEmail
