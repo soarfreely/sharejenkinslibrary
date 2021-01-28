@@ -26,6 +26,9 @@ cd {
    // Harbor api　auth
    imageRepositoryAuth = 'YWRtaW46YWxpMjI5LUhhcmJvcg=='
 
+   // 镜像仓库
+   imageRepoUri = '39.100.108.229/library'
+
    // jenkins2repository 凭据 (业务代码仓库)
    jenkins2repositoryCredentialsId = 'local-jenkins-github'
 

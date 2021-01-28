@@ -27,6 +27,7 @@ def call(Closure body) {
     def jenkins2repositoryCredentialsId = body.jenkins2repositoryCredentialsId
     def jenkins2serverCredentialsId = body.jenkins2serverCredentialsId
     def imageRepositoryAuth = body.imageRepositoryAuth
+    def imageRepoUri = body.imageRepoUri
     def www = body.www
     def repo = body.repo
     def domain = body.domain
@@ -38,8 +39,6 @@ def call(Closure body) {
     tool.println("domain:${domain}")
     def generateTag = tool.generateTag(domain)
     tool.printMsg("generateTag:${generateTag}", 'green')
-    String imageRepoUri = '39.100.108.229/library'
-
 
     tool.printMsg("Gavin' jenkinsfile share library", 'green')
 

@@ -26,6 +26,9 @@ ci {
    // jenkins2server凭据 (生产服务器)
    jenkins2serverCredentialsId = 'deepin-2-39'
 
+   // 镜像仓库
+   imageRepoUri = '39.100.108.229/library'
+
    // 生产服务器ip
    targetIp = '39.100.108.229'
 //   targetIp = '172.17.0.5'

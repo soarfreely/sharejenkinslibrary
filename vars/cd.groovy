@@ -26,6 +26,7 @@ def call(Closure body) {
      def repositoryPath = body.repositoryPath
      def jenkins2repositoryCredentialsId = body.jenkins2repositoryCredentialsId
      def jenkins2serverCredentialsId = body.jenkins2serverCredentialsId
+     def imageRepoUri = body.imageRepoUri
      def www = body.www
      def repositoryName = body.repositoryName
      def imageRepositoryAuth = body.imageRepositoryAuth
@@ -36,8 +37,6 @@ def call(Closure body) {
 
 
      tool.println("domain:${domain}")
-//     // TODO 临时修改（因为镜像服务器和业务服务器是同一个）
-//     String imageRepoUri = '127.0.0.1/library'
      // Harbor仓库镜像详情接口
      String basicAuth = "Basic " + ("admin:ali229-Harbor".bytes.encodeBase64().toString())
      tool.printMsg("Gavin' ${basicAuth}", 'green')
