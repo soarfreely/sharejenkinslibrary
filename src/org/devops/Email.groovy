@@ -76,9 +76,9 @@ def getChangeString() {
         def MAX_MSG_LEN = 20
         def changeLogSets = currentBuild.changeSets
         for (int i = 0; i < changeLogSets.size(); i++) {
-            def entries = changeLogSets[i as String].items
+            def entries = changeLogSets[i].items
             for (int j = 0; j < entries.length; j++) {
-                def entry = entries[j as String]
+                def entry = entries[j]
                 truncatedMsg = entry.msg.take(MAX_MSG_LEN)
                 commitTime = new Date(entry.timestamp).format("yyyy-MM-dd HH:mm:ss")
                 changeString += " <li> - ${truncatedMsg} [${entry.author} ${commitTime}]</li>"
