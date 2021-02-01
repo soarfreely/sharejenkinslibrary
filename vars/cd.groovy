@@ -90,22 +90,10 @@ def call(Closure body) {
                          }
                     }
                }
-               // 代码扫描
-               stage("CodeScan") {
-                    steps {
-                         timeout(time:30, unit:"MINUTES") {
-                              script { // 脚本式
-                                   tool.printMsg("代码扫描", 'green')
-                              }
-                         }
-                    }
-               }
           }
           post { // 构建后的操作
                always {
                     script {
-                         println("always")
-//                    harbor.httpGet()
                          println("always")
                     }
                }
@@ -116,11 +104,6 @@ def call(Closure body) {
                          String status = '构建成功'
                          currentBuild.description = "\n ${status}!"
                          email.email(status, toEmail)
-
-                         tool.printMsg("删除业务镜像")
-//                         sh """
-//                            docker rmi -f ${imageRepoUri}/${domain}:${tag}
-//                            """
                     }
                }
 

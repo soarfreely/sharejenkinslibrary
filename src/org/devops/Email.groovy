@@ -48,28 +48,7 @@ def email(status, toEmail){
             to: toEmail
         
 }
-/**
-* currentBuild.changeSets{
-      items[{
-          msg //提交注释
-          commitId //提交hash值
-          author{ //提交用户相关信息
-              id
-              fullName
-          }
-          timestamp
-          affectedFiles[{ //受影响的文件列表
-              editType{
-                  name
-              }
-              path: "path"
-          }]
-          affectedPaths[// 受影响的目录，是个Collection<String>
-              "path-a","path-b"
-          ]
-      }]
-  }
-*/
+
 // 提交注释
 def getChangeString() {
         def changeString = ""

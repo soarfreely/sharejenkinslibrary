@@ -34,43 +34,6 @@ def deploy(jenkins2serverCredentialsId, imageRepoUri, domain, tagName, targetIp,
     // TODO 临时修改（因为镜像服务器和业务服务器是同一个）
     String imageRepoUriTmp = '127.0.0.1/library'
     imageRepoUri = imageRepoUriTmp
-//    def parallelDeploy = [:]
-//
-//    for (int i = 0; i < hosts.size(); i++) {
-//        def ip = hosts[i];
-//        parallelDeploy["deploy-task-${ip}"] = {
-//            sh """
-//                ssh -p 22 root@${ip} "rm -rf /dockerfiles-${project}-${run_env}-${image_hash}"
-
-//                echo "PHP_FPM_IMAGE=${env.DOCKER_REPO}/${docker_namespace}/crs-php-${project}-${run_env}-${image_hash}:${tag}" > dockerfiles/.env
-//
-//                echo "ENTERPRISE_HASH=${enterprise_hash}" >> dockerfiles/.env
-//                echo "PROJECT=${project}" >> dockerfiles/.env
-//                echo "RUN_ENV=${run_env}" >> dockerfiles/.env
-//                echo "DOMAIN=${domain}" >> dockerfiles/.env
-//                echo "SERVICE_NAME=${service_name}" >> dockerfiles/.env
-//                echo "IMAGE_HASH=${image_hash}" >> dockerfiles/.env
-
-//                ssh -v -p 22 root@${ip} "rm -rf /dockerfiles-${project}-${run_env}-${image_hash}"
-//
-//                scp -r dockerfiles root@${ip}:/dockerfiles-${project}-${run_env}-${image_hash}
-//
-//                ssh -p 22 root@${ip} "cd /dockerfiles-${project}-${run_env}-${image_hash} && sed -i '3s/php-fpm/php-fpm-${project}-${image_hash}/g' docker-compose.yml && sed -i '18s/default/default-${run_env}/g' docker-compose.yml"
-//
-//                ssh -p 22 root@${ip} "mkdir -p /data/www/${domain}/${image_hash}"
-//
-//                ssh -p 22 root@${ip} "chown -R 1000:1000 /data/www/${domain}/${image_hash}"
-//
-//                ssh -p 22 root@${ip} "cd /dockerfiles-${project}-${run_env}-${image_hash} && docker-compose up -d"
-//
-//                ssh -p 22 root@${ip} "chmod +x /dockerfiles-${project}-${run_env}-${image_hash}/kill-container.sh && /dockerfiles-${project}-${run_env}-${image_hash}/kill-container.sh ${env.DOCKER_REPO}/${docker_namespace}/crs-php-${project}-${run_env}-${image_hash} ${tag}"
-//
-//                ssh -v -p 22 root@${ip} "rm -rf /dockerfiles-${project}-${run_env}-${image_hash}"
-//            """
-//        }
-//    }
-//
-//    parallel parallelDeploy
 
     sshagent([jenkins2serverCredentialsId]) {
         sh """

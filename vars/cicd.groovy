@@ -142,7 +142,6 @@ def call(Closure body) {
                         script {
                             tool.printMsg('开始:拉取业务镜像&部署', 'green')
                             deploy.deploy(jenkins2serverCredentialsId, imageRepoUri, domain, generateTag, targetIp, nginxProxyPort)
-////                            deploy.deploy(domain, targetIp, jenkins2serverCredentialsId, phpSrc, runComposer, www, tarName)
                             tool.printMsg("结束:拉取业务镜像&部署", 'green')
                         }
                     }
@@ -165,8 +164,6 @@ def call(Closure body) {
      		always {
      			script {
      				println("always")
-//                    harbor.httpGet()
-                    println("always")
                 }
      		}
 
@@ -200,56 +197,3 @@ def call(Closure body) {
         }
     }
 }
-
-// jenkins-拉取代码
-// jenkins-dockerfile 拷贝代码到镜像
-// jenkins-push镜像到仓库
-// jenkins-删除镜像
-
-//部署服务器-拉取镜像&构建容器
-
-// docker run -v 代码所在目录:容器html目录
-
-
-
-
-
-
-//
-//在做Jenkins pipeline groovy脚本时，遇到如下脚本
-//
-//def branches=[:]
-//for(int i=0;i<10;++i){
-//    branches[i]={
-//        println i
-//    }
-//}
-//prarallel branches
-//
-//结果发现打印出来所有branch里的i都是10。代表循环变量不是运行时传入branches块。做如下修改
-//
-//def branches=[:]
-//for(int i=0;i<10;++i){
-//    def value=i
-//    def branch={
-//        println value
-//    }
-//    branches.add(i,branch)
-//}
-//prarallel branches
-//于是，打印结果时从0-9，符合期望。
-
-
-//retry(3) {
-//    for (int i = 0; i < 10; i++) {
-//        branches["branch${i}"] = {
-//            node {
-//                retry(3) {
-//                    checkout scm
-//                }
-//                sh 'make world'
-//            }
-//        }
-//    }
-//    parallel branches
-//}

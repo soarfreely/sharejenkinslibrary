@@ -103,8 +103,6 @@ def call(Closure body) {
                always {
                     script {
                          println("always")
-//                    harbor.httpGet()
-                         println("always")
                     }
                }
 
