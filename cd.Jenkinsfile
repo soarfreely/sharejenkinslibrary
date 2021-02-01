@@ -20,8 +20,6 @@ cd {
 
    // 业务代码仓库地址
    repositoryPath = 'git@github.com:soarfreely/72fw.git'
-   // repository = 'https://github.com/soarfreely/lib-1.git'
-   // repository = 'http://172.17.0.3/group-a/lib-1.git'
 
    // Harbor api　auth
    imageRepositoryAuth = 'YWRtaW46YWxpMjI5LUhhcmJvcg=='
@@ -37,7 +35,6 @@ cd {
 
    // 生产服务器ip
    targetIp = '39.100.108.229'
-//   targetIp = '172.17.0.5'
 
    // toEmail
    toEmail = '346777749@qq.com'
