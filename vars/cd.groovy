@@ -38,7 +38,7 @@ def call(Closure body) {
 
      tool.println("domain:${domain}")
      // Harbor仓库镜像详情接口
-     String basicAuth = "Basic " + ("admin:ali229-Harbor".bytes.encodeBase64().toString())
+     String basicAuth = "Basic " + ("admin:yoursoulismine".bytes.encodeBase64().toString())
      tool.printMsg("Gavin' ${basicAuth}", 'green')
      tool.printMsg("Gavin' ${imageRepositoryAuth}", 'green')
 
