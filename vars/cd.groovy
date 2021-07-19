@@ -78,14 +78,18 @@ def call(Closure body) {
                               script {
                                    tool.printMsg("Deploy-debug:${tag}", 'green')
 
-                                   def imageResponse = harbor.imageDetail("http://39.100.108.229/api/repositories/library/${domain}/tags/${tag}", imageRepositoryAuth)
-                                   if (!(boolean)imageResponse.get('name', false)) {
-                                        throw new Exception("输入的tag:${tag}错误")
-                                   } else {
-                                        tool.printMsg('开始:拉取业务镜像&部署', 'green')
-                                        deploy.deploy(jenkins2serverCredentialsId, imageRepoUri, domain, tag, targetIp, nginxProxyPort)
-                                        tool.printMsg("结束:拉取业务镜像&部署", 'green')
-                                   }
+                                    tool.printMsg('开始:拉取业务镜像&部署', 'green')
+                                    deploy.deploy(jenkins2serverCredentialsId, imageRepoUri, domain, tag, targetIp, nginxProxyPort)
+                                    tool.printMsg("结束:拉取业务镜像&部署", 'green')
+
+                                   // def imageResponse = harbor.imageDetail("http://39.100.108.229/api/repositories/library/${domain}/tags/${tag}", imageRepositoryAuth)
+                                   //if (!(boolean)imageResponse.get('name', false)) {
+                                   //     throw new Exception("输入的tag:${tag}错误")
+                                   //} else {
+                                   //     tool.printMsg('开始:拉取业务镜像&部署', 'green')
+                                   //     deploy.deploy(jenkins2serverCredentialsId, imageRepoUri, domain, tag, targetIp, nginxProxyPort)
+                                   //     tool.printMsg("结束:拉取业务镜像&部署", 'green')
+                                   // }
                               }
                          }
                     }

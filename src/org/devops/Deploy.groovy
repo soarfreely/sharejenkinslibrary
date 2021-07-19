@@ -32,7 +32,7 @@ def upload(domain, targetIp, credentialsId, phpSrc, runComposer, www, tarName) {
 def deploy(jenkins2serverCredentialsId, imageRepoUri, domain, tagName, targetIp, nginxProxyPort) {
 
     // TODO 临时修改（因为镜像服务器和业务服务器是同一个）
-    String imageRepoUriTmp = '127.0.0.1/library'
+    String imageRepoUriTmp = '127.0.0.1:5000/library'
     imageRepoUri = imageRepoUriTmp
 
     sshagent([jenkins2serverCredentialsId]) {
@@ -40,7 +40,7 @@ def deploy(jenkins2serverCredentialsId, imageRepoUri, domain, tagName, targetIp,
             ssh -o StrictHostKeyChecking=no -l root ${targetIp} uname -a && pwd
             ls -al
             
-            ssh root@${targetIp} -tt "docker login -u admin -p ali229-Harbor ${imageRepoUri}"
+            ssh root@${targetIp} -tt "docker login -u admin -p yoursoulismine ${imageRepoUri}"
             ssh root@${targetIp} -tt "docker pull ${imageRepoUri}/${domain}:${tagName}"
             """
     }
